@@ -1,4 +1,4 @@
-package mosakowski.jakub.itemistevolved
+package com.jakmos.itemistevolved
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
