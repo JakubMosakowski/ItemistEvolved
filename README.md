@@ -18,8 +18,8 @@ For instance, a list of items to take to:
 * Lifecycle-Aware Components
 * Kotlin coroutines
 * Navigation component
-* Paging library
 * Room
+* Koin
 
 ## Requirements:
 * Android 6.0
