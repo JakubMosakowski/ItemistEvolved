@@ -6,7 +6,7 @@ import com.jakmos.itemistevolved.presentation.main.MainActivityViewModel
 import org.koin.dsl.module
 
 val viewModelModule = module {
-    single { MainActivityViewModel() }
+    single { MainActivityViewModel(get()) }
     single { ChecklistsViewModel() }
     single { AddViewModel() }
 }
