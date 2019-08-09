@@ -12,15 +12,5 @@
             android:layout_height="match_parent"
             tools:context=".presentation.checklists.ChecklistsFragment">
 
-        <Button android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="ClickMe"
-                android:onClick="@{() -> viewModel.onClicked()}"/>
-        <TextView
-                android:id="@+id/textView"
-                android:text='@{Integer.toString(viewModel.clickedCounter)}'
-                android:textColor="@color/colorAccent"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"/>
     </LinearLayout>
 </layout>

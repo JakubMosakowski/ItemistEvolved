@@ -26,9 +26,6 @@ class MainActivity : AppCompatActivity() {
 
         setupBinding()
         setupToolbar()
-        viewModel.getChecklists().observe(this, Observer {
-            Timber.tag("KUBA").v("onCreate $it")
-        })
     }
 
     private fun setupToolbar() {

@@ -1,27 +1,26 @@
 package com.jakmos.itemistevolved.domain.useCase
 
-import androidx.lifecycle.MutableLiveData
-import com.jakmos.itemistevolved.domain.model.ItemistResult
-import kotlinx.coroutines.runBlocking
+import com.jakmos.itemistevolved.domain.model.Either
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
 abstract class LiveDataUseCase<Param, Data> {
     protected abstract suspend fun doWork(param: Param): Data
 
     fun execute(
-        param: Param
-    ): ItemistResult<Data> {
+        scope: CoroutineScope,
+        param: Param,
+        onResult: (Either<Exception, Data>) -> Unit = {}
 
-        return runBlocking {
-            try {
-                val liveData = MutableLiveData(doWork(param))
+    ) = scope.launch {
+        try {
+            onResult(Either.Right(doWork(param)))
+        } catch (e: Exception) {
+            Timber.tag("KUBA").e("Error occurred: $e")
 
-                ItemistResult.Success<Data>(liveData)
-            } catch (e: Exception) {
-                Timber.tag("KUBA").e("Error occurred: $e")
-
-                ItemistResult.Error<Data>(e)
-            }
+            onResult(Either.Left(e))
         }
+
     }
 }

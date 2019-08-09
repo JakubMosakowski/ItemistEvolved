@@ -1,15 +1,41 @@
 package com.jakmos.itemistevolved.presentation.checklists
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.jakmos.itemistevolved.domain.model.Checklist
+import com.jakmos.itemistevolved.domain.model.None
+import com.jakmos.itemistevolved.domain.useCase.GetChecklistsUseCase
 
-class ChecklistsViewModel : ViewModel() {
+class ChecklistsViewModel(
+    private val getChecklistsUseCase: GetChecklistsUseCase
+) : ViewModel() {
 
-    val _clickedCounter = MutableLiveData(0)
-    val clickedCounter: LiveData<Int> = _clickedCounter
+    sealed class ChecklistsState {
+        object Loading : ChecklistsState()
+        object Empty : ChecklistsState()
+        data class Success(val checklists: List<Checklist>) : ChecklistsState()
+        data class Error(val error: Exception) : ChecklistsState()
+    }
 
-    fun onClicked() {
-        _clickedCounter.value = (_clickedCounter.value ?: 0) + 1
+    val state = MutableLiveData<ChecklistsState>().apply {
+        this.value = ChecklistsState.Loading
+    }
+
+    fun loadData() {
+        getChecklistsUseCase.execute(viewModelScope, None()) {
+            it.either(::handleFailure, ::handleSuccess)
+        }
+    }
+
+    private fun handleSuccess(list: List<Checklist>) {
+        when {
+            list.isEmpty() -> state.value = ChecklistsState.Empty
+            list.isNotEmpty() -> state.value = ChecklistsState.Success(list)
+        }
+    }
+
+    private fun handleFailure(error: Exception) {
+        state.value = ChecklistsState.Error(error)
     }
 }
