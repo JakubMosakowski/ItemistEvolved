@@ -7,11 +7,10 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.jakmos.itemistevolved.data.converter.DateConverter
 import com.jakmos.itemistevolved.data.converter.ItemListConverter
-import com.jakmos.itemistevolved.domain.model.Checklist
-import com.jakmos.itemistevolved.domain.model.Item
+import com.jakmos.itemistevolved.domain.model.entity.ChecklistEntity
 
 @Database(
-    entities = [Checklist::class, Item::class],
+    entities = [ChecklistEntity::class],
     version = 1
 )
 @TypeConverters(ItemListConverter::class, DateConverter::class)

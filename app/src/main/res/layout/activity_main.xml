@@ -12,6 +12,8 @@
         <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
+                app:titleTextColor="@color/textColorSecondary"
+                tools:title="ItemistEvolved"
                 android:layout_height="?attr/actionBarSize"
                 android:background="?attr/colorPrimary"
                 android:elevation="4dp"/>
