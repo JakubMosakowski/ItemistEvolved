@@ -7,6 +7,6 @@
     <item
             android:id="@+id/addFragment"
             android:title="@string/add"
-            android:icon="@drawable/ic_add_24dp"
+            android:icon="@drawable/ic_add_32dp"
             app:showAsAction="ifRoom"/>
 </menu>

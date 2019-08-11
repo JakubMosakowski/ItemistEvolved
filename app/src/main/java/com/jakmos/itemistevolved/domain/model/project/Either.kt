@@ -1,4 +1,4 @@
-package com.jakmos.itemistevolved.domain.model
+package com.jakmos.itemistevolved.domain.model.project
 
 /**
  * Thanks to Fernando Cejas

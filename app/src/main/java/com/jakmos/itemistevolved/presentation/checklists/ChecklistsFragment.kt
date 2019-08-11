@@ -1,23 +1,29 @@
 package com.jakmos.itemistevolved.presentation.checklists
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.jakmos.itemistevolved.R
 import com.jakmos.itemistevolved.databinding.ChecklistsFragmentBinding
-import com.jakmos.itemistevolved.domain.model.Checklist
-import com.jakmos.itemistevolved.presentation.checklists.ChecklistsViewModel.ChecklistsState
+import com.jakmos.itemistevolved.domain.model.project.State
+import com.jakmos.itemistevolved.presentation.checklists.adapter.ChecklistAdapter
 import com.jakmos.itemistevolved.presentation.commons.observe
+import kotlinx.android.synthetic.main.checklists_fragment.*
 import timber.log.Timber
+import androidx.core.content.ContextCompat
+import com.jakmos.itemistevolved.domain.model.Checklist
+import com.jakmos.itemistevolved.presentation.base.BaseFragment
+import com.jakmos.itemistevolved.presentation.commons.adapter.BottomItemDecoration
 
 
-class ChecklistsFragment : Fragment() {
+class ChecklistsFragment : ChecklistAdapter.ChecklistAdapterListener, BaseFragment() {
 
     private val viewModel: ChecklistsViewModel by viewModel()
+    private val adapter = ChecklistAdapter(this)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,34 +41,38 @@ class ChecklistsFragment : Fragment() {
         return binding.root
     }
 
-    private fun onChecklistsStateChange(state: ChecklistsState?) {
-        when (state) {
-            is ChecklistsState.Loading -> showLoading()
-            is ChecklistsState.Empty -> showEmptyState()
-            is ChecklistsState.Success -> renderList(state.checklists)
-            is ChecklistsState.Error -> showError(state.error)
-        }
-    }
-
-    private fun showError(error: Exception) {
-        Timber.tag("KUBA").v("showError $error")
-    }
-
-    private fun renderList(checklists: List<Checklist>) {
-        Timber.tag("KUBA").v("renderList $checklists")
-    }
-
-    private fun showEmptyState() {
-        Timber.tag("KUBA").v("showEmptyState ")
-    }
-
-    private fun showLoading() {
-        Timber.tag("KUBA").v("showLoading ")
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.loadData()
+        setupRecyclerView()
+    }
+
+    private fun setupRecyclerView() {
+        ContextCompat.getDrawable(requireContext(), R.drawable.divider)?.let {
+            val dividerItemDecoration = BottomItemDecoration(it)
+            checklistsRv.addItemDecoration(dividerItemDecoration)
+        }
+
+        checklistsRv.layoutManager = LinearLayoutManager(requireContext())
+        checklistsRv.adapter = adapter
+    }
+
+    private fun onChecklistsStateChange(state: State<List<Checklist>>?) {
+        when (state) {
+            is State.Success -> renderList(state.data)
+            is State.Error -> showError(state.cause)
+        }
+    }
+
+    private fun renderList(checklists: List<Checklist>) {
+        adapter.setData(checklists)
+    }
+
+    override fun onItemClick(model: Checklist) {
+        Timber.tag("KUBA").v("onItemClick $model")
+    }
+
+    override fun onEditClicked(model: Checklist) {
+        Timber.tag("KUBA").v("onEditClicked $model")
     }
 }

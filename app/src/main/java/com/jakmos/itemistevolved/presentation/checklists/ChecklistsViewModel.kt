@@ -4,38 +4,37 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jakmos.itemistevolved.domain.model.Checklist
-import com.jakmos.itemistevolved.domain.model.None
+import com.jakmos.itemistevolved.domain.model.project.None
+import com.jakmos.itemistevolved.domain.model.project.State
 import com.jakmos.itemistevolved.domain.useCase.GetChecklistsUseCase
 
 class ChecklistsViewModel(
     private val getChecklistsUseCase: GetChecklistsUseCase
 ) : ViewModel() {
 
-    sealed class ChecklistsState {
-        object Loading : ChecklistsState()
-        object Empty : ChecklistsState()
-        data class Success(val checklists: List<Checklist>) : ChecklistsState()
-        data class Error(val error: Exception) : ChecklistsState()
+    val state = MutableLiveData<State<List<Checklist>>>().apply {
+        this.value = State.Loading()
     }
 
-    val state = MutableLiveData<ChecklistsState>().apply {
-        this.value = ChecklistsState.Loading
+    init {
+        loadData()
     }
 
-    fun loadData() {
+    private fun loadData() {
+        state.value = State.Loading()
         getChecklistsUseCase.execute(viewModelScope, None()) {
-            it.either(::handleFailure, ::handleSuccess)
+            it.either(::handleFailure, ::handleSuccessLoad)
         }
     }
 
-    private fun handleSuccess(list: List<Checklist>) {
+    private fun handleSuccessLoad(list: List<Checklist>) {
         when {
-            list.isEmpty() -> state.value = ChecklistsState.Empty
-            list.isNotEmpty() -> state.value = ChecklistsState.Success(list)
+            list.isEmpty() -> state.value = State.Empty()
+            else -> state.value = State.Success(list)
         }
     }
 
     private fun handleFailure(error: Exception) {
-        state.value = ChecklistsState.Error(error)
+        state.value = State.Error(error) { loadData() }
     }
 }

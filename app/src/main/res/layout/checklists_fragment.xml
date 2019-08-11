@@ -1,16 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
+
     <data>
+
+        <import type="android.view.View"/>
+
         <variable
                 name="viewModel"
                 type="com.jakmos.itemistevolved.presentation.checklists.ChecklistsViewModel"/>
     </data>
 
-    <LinearLayout
+    <FrameLayout
             xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:context=".presentation.checklists.ChecklistsFragment">
 
-    </LinearLayout>
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/checklistsRv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:textAlignment="center"
+                android:visibility="@{ viewModel.state.isEmpty() ? View.VISIBLE : View.GONE}"
+                android:text="@string/empty_checklists"/>
+
+        <androidx.core.widget.ContentLoadingProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="@{ viewModel.state.isLoading() ? View.VISIBLE : View.GONE}"
+                android:layout_gravity="center"/>
+    </FrameLayout>
 </layout>
