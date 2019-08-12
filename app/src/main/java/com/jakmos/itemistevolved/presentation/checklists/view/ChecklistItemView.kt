@@ -7,9 +7,9 @@ import android.widget.RelativeLayout
 import com.jakmos.itemistevolved.R
 import com.jakmos.itemistevolved.domain.model.Checklist
 import com.jakmos.itemistevolved.presentation.checklists.adapter.ChecklistAdapter
-import com.jakmos.itemistevolved.presentation.commons.dp2px
-import com.jakmos.itemistevolved.presentation.commons.inflate
-import com.jakmos.itemistevolved.presentation.commons.loadForegroundDrawable
+import com.mosjak.extensionslibrary.dp2px
+import com.mosjak.extensionslibrary.loadForegroundDrawable
+import com.mosjak.extensionslibrary.inflate
 import kotlinx.android.synthetic.main.checklist_item.view.*
 
 

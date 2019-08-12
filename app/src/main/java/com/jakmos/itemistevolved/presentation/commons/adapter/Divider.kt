@@ -3,7 +3,7 @@ package com.jakmos.itemistevolved.presentation.commons.adapter
 import android.graphics.Canvas
 import android.graphics.drawable.Drawable
 import androidx.recyclerview.widget.RecyclerView
-import com.jakmos.itemistevolved.presentation.commons.dp2px
+import com.mosjak.extensionslibrary.dp2px
 
 class BottomItemDecoration(
     private val divider: Drawable,
