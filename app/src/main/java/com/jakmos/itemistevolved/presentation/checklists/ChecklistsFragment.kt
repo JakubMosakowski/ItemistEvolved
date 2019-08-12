@@ -68,8 +68,8 @@ class ChecklistsFragment : ChecklistAdapter.ChecklistAdapterListener, BaseFragme
         adapter.setData(checklists)
     }
 
-    override fun onItemClick(model: Checklist) {
-        Timber.tag("KUBA").v("onItemClick $model")
+    override fun onItemClicked(model: Checklist) {
+        Timber.tag("KUBA").v("onItemClicked $model")
     }
 
     override fun onEditClicked(model: Checklist) {

@@ -1,35 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge xmlns:android="http://schemas.android.com/apk/res/android"
-       xmlns:tools="http://schemas.android.com/tools"
-       android:foreground="?android:attr/selectableItemBackground"
-       android:layout_width="match_parent"
-       tools:parentTag="android.widget.RelativeLayout"
-       android:layout_height="wrap_content">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
-            android:id="@+id/title"
-            tools:text="Gym list"
-            android:textSize="24sp"
-            android:layout_width="wrap_content"
-            android:maxLines="2"
-            android:ellipsize="end"
-            android:textColor="@color/textColorPrimary"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:layout_toStartOf="@id/editBtn"
-            android:layout_marginEnd="16dp"
-            android:layout_height="wrap_content"/>
+    <data>
 
-    <ImageView
-            android:id="@+id/editBtn"
-            android:layout_centerVertical="true"
-            android:layout_width="wrap_content"
-            android:src="@drawable/ic_edit_32dp"
-            android:padding="8dp"
-            android:layout_alignParentEnd="true"
-            android:layout_height="wrap_content"
+        <variable
+                name="listener"
+                type="com.jakmos.itemistevolved.presentation.checklists.adapter.ChecklistAdapter.ChecklistAdapterListener"/>
+
+        <variable
+                name="model"
+                type="com.jakmos.itemistevolved.domain.model.Checklist"/>
+    </data>
+
+    <RelativeLayout
+            android:onClick="@{() -> listener.onItemClicked(model)}"
+            android:layout_width="match_parent"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
             android:foreground="?android:attr/selectableItemBackground"
-            android:clickable="true"
-            android:focusable="true"
-            android:contentDescription="@string/edit_button"/>
-</merge>
+            android:layout_height="wrap_content">
+
+        <TextView
+                android:id="@+id/title"
+                tools:text="Gym list"
+                android:text="@{model.name}"
+                android:textSize="24sp"
+                android:layout_width="wrap_content"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:textColor="@color/textColorPrimary"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_toStartOf="@id/editBtn"
+                android:layout_marginEnd="16dp"
+                android:layout_height="wrap_content"/>
+
+        <ImageView
+                android:id="@+id/editBtn"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:src="@drawable/ic_edit_32dp"
+                android:padding="8dp"
+                android:layout_alignParentEnd="true"
+                android:layout_height="wrap_content"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:onClick="@{() -> listener.onEditClicked(model)}"
+                android:contentDescription="@string/edit_button"/>
+    </RelativeLayout>
+
+</layout>
