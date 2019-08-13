@@ -1,15 +1,39 @@
 package com.jakmos.itemistevolved.presentation.base
 
 import android.content.Context
+import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.jakmos.itemistevolved.R
+import com.jakmos.itemistevolved.domain.model.project.EventObserver
 import timber.log.Timber
 import java.lang.Exception
 
-open class BaseFragment : Fragment() {
+abstract class BaseFragment : Fragment() {
+
+    protected abstract val viewModel: BaseViewModel
 
     private var alertDialog: AlertDialog? = null
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        viewModel.navigationCommands.observe(this, EventObserver {
+            navigate(it)
+        })
+    }
+
+    private fun navigate(command: BaseViewModel.NavigationCommand) {
+        when (command) {
+            is BaseViewModel.NavigationCommand.To ->
+                findNavController().navigate(command.directions)
+            is BaseViewModel.NavigationCommand.Back ->
+                findNavController().popBackStack()
+            is BaseViewModel.NavigationCommand.BackTo ->
+                findNavController().popBackStack()
+        }
+    }
 
     fun showError(
         positiveAction: () -> Unit

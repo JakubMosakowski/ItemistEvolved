@@ -9,11 +9,13 @@ import com.jakmos.itemistevolved.domain.model.project.None
 import com.jakmos.itemistevolved.domain.model.project.State
 import com.jakmos.itemistevolved.domain.model.Item
 import com.jakmos.itemistevolved.domain.useCase.InsertChecklistUseCase
+import com.jakmos.itemistevolved.presentation.base.BaseViewModel
 import timber.log.Timber
 
 class AddViewModel(
+    private val checklist: Checklist?,
     private val insertChecklistUseCase: InsertChecklistUseCase
-) : ViewModel() {
+) : BaseViewModel() {
 
     private val _state = MutableLiveData<State<None>>().apply {
         this.value = State.Loading()
@@ -23,6 +25,7 @@ class AddViewModel(
 
     init {
         //TODO temporary add
+        Timber.tag("KUBA").v("INIT $checklist ")
         val items = listOf(
             Item("item1", false),
             Item("item2", false),

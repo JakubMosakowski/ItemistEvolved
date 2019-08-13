@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.fragment.navArgs
 
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.jakmos.itemistevolved.R
@@ -13,19 +14,21 @@ import com.jakmos.itemistevolved.domain.model.project.None
 import com.jakmos.itemistevolved.domain.model.project.State
 import com.jakmos.itemistevolved.presentation.base.BaseFragment
 import com.jakmos.itemistevolved.presentation.commons.observe
+import org.koin.core.parameter.parametersOf
 import timber.log.Timber
 
 
 class AddFragment : BaseFragment() {
 
-    private val viewModel: AddViewModel by viewModel()
+    private val args: AddFragmentArgs by navArgs()
+    override val viewModel: AddViewModel by viewModel { parametersOf(args.checklist) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
+//todo remove icon from toolbar on AddFragment
         val binding = DataBindingUtil.inflate<AddFragmentBinding>(
             inflater, R.layout.add_fragment, container, false
         )

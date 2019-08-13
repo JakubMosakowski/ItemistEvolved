@@ -2,11 +2,12 @@ package com.jakmos.itemistevolved.data.converter
 
 import androidx.room.TypeConverter
 import com.jakmos.itemistevolved.domain.model.Item
+import com.jakmos.itemistevolved.domain.model.project.Parsable
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Types.newParameterizedType
 import java.lang.reflect.ParameterizedType
 
-class ItemListConverter : ListConverter<Item>() {
+class ItemListConverter : Parsable<List<Item>>() {
 
     override val type: ParameterizedType = newParameterizedType(List::class.java, Item::class.java)
     override val adapter: JsonAdapter<List<Item>> = moshi.adapter(type)
@@ -17,7 +18,7 @@ class ItemListConverter : ListConverter<Item>() {
     }
 
     @TypeConverter
-    override fun jsonToString(list: List<Item>): String {
-        return adapter.toJson(list)
+    override fun jsonToString(json: List<Item>): String {
+        return adapter.toJson(json)
     }
 }

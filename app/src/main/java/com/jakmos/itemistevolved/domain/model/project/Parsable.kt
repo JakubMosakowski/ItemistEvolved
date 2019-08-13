@@ -1,4 +1,4 @@
-package com.jakmos.itemistevolved.data.converter
+package com.jakmos.itemistevolved.domain.model.project
 
 import androidx.room.TypeConverter
 import com.squareup.moshi.JsonAdapter
@@ -7,14 +7,15 @@ import org.koin.core.KoinComponent
 import org.koin.core.inject
 import java.lang.reflect.ParameterizedType
 
-abstract class ListConverter<T> : KoinComponent {
+abstract class Parsable<T> : KoinComponent {
+
     protected val moshi: Moshi by inject()
 
     protected abstract val type: ParameterizedType
-    protected abstract val adapter: JsonAdapter<List<T>>
+    protected abstract val adapter: JsonAdapter<T>
 
     @TypeConverter
-    abstract fun stringToJson(data: String): List<T>
+    abstract fun stringToJson(data: String): T
     @TypeConverter
-    abstract fun jsonToString(list: List<T>): String
+    abstract fun jsonToString(json: T): String
 }

@@ -2,17 +2,16 @@ package com.jakmos.itemistevolved.presentation.checklists
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jakmos.itemistevolved.domain.model.Checklist
 import com.jakmos.itemistevolved.domain.model.project.None
 import com.jakmos.itemistevolved.domain.model.project.State
 import com.jakmos.itemistevolved.domain.useCase.GetChecklistsUseCase
-import timber.log.Timber
+import com.jakmos.itemistevolved.presentation.base.BaseViewModel
 
 class ChecklistsViewModel(
     private val getChecklistsUseCase: GetChecklistsUseCase
-) : ViewModel() {
+) : BaseViewModel() {
 
     private val _state = MutableLiveData<State<List<Checklist>>>().apply {
         this.value = State.Loading()
@@ -43,10 +42,12 @@ class ChecklistsViewModel(
     }
 
     fun onEditClicked(model: Checklist) {
-        Timber.tag("KUBA").v("onEditClicked ")
+        val directions = ChecklistsFragmentDirections.actionChecklistsFragmentToAddFragment(model)
+        navigate(directions)
     }
 
     fun onItemClicked(model: Checklist) {
-        Timber.tag("KUBA").v("onItemClicked ")
+        val directions = ChecklistsFragmentDirections.actionChecklistsFragmentToChecklistDetailFragment(model)
+        navigate(directions)
     }
 }

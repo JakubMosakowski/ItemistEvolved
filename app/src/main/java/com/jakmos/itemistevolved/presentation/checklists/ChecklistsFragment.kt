@@ -21,7 +21,7 @@ import com.jakmos.itemistevolved.presentation.commons.adapter.BottomItemDecorati
 
 class ChecklistsFragment : ChecklistAdapter.ChecklistAdapterListener, BaseFragment() {
 
-    private val viewModel: ChecklistsViewModel by viewModel()
+    override val viewModel: ChecklistsViewModel by viewModel()
     private val adapter = ChecklistAdapter(this)
 
     override fun onCreateView(

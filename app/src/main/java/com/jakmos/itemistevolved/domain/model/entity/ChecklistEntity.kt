@@ -4,7 +4,6 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import com.jakmos.itemistevolved.data.converter.DateConverter
-import com.jakmos.itemistevolved.data.converter.ItemListConverter
 import com.jakmos.itemistevolved.domain.model.Checklist
 import com.jakmos.itemistevolved.domain.model.Item
 import java.util.*
@@ -23,7 +22,6 @@ data class ChecklistEntity(
     @TypeConverters(DateConverter::class)
     val updatedAt: Date = Date(),
 
-    @TypeConverters(ItemListConverter::class)
     val lines: List<Item>
 ) {
     companion object {
