@@ -19,6 +19,7 @@ ext{
     koin_version = '2.0.1'
     nav_component_version = "2.1.0-beta02"
     room_version = "2.1.0"
+    mockk_version = "1.9.3"
 }
 allprojects {
     repositories {

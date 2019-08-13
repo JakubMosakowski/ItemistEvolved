@@ -1,7 +1,6 @@
 package com.jakmos.itemistevolved.presentation.add
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -39,7 +38,6 @@ class AddFragment : BaseFragment() {
 
     private fun onChecklistsStateChange(state: State<None>?) {
         when (state) {
-            is State.Loading -> showLoading()
             is State.Success -> changeScreen()
             is State.Error -> showError(state.cause)
         }
@@ -47,9 +45,5 @@ class AddFragment : BaseFragment() {
 
     private fun changeScreen() {
         Timber.tag("KUBA").v("changeScreen ")
-    }
-
-    private fun showLoading() {
-        Timber.tag("KUBA").v("showLoading ")
     }
 }

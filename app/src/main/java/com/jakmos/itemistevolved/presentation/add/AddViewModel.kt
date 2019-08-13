@@ -1,5 +1,6 @@
 package com.jakmos.itemistevolved.presentation.add
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -14,9 +15,11 @@ class AddViewModel(
     private val insertChecklistUseCase: InsertChecklistUseCase
 ) : ViewModel() {
 
-    val state = MutableLiveData<State<None>>().apply {
+    private val _state = MutableLiveData<State<None>>().apply {
         this.value = State.Loading()
     }
+
+    val state: LiveData<State<None>> = _state
 
     init {
         //TODO temporary add
@@ -46,6 +49,6 @@ class AddViewModel(
     }
 
     private fun handleFailure(error: Exception) {
-        state.value = State.Error(error)
+        _state.value = State.Error(error)
     }
 }

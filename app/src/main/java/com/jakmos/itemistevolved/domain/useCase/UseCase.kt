@@ -5,8 +5,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
-abstract class LiveDataUseCase<Param, Data> {
-    protected abstract suspend fun doWork(param: Param): Data
+abstract class UseCase<Param, Data> {
+    abstract suspend fun doWork(param: Param): Data
 
     fun execute(
         scope: CoroutineScope,

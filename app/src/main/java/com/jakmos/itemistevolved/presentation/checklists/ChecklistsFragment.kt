@@ -13,7 +13,6 @@ import com.jakmos.itemistevolved.domain.model.project.State
 import com.jakmos.itemistevolved.presentation.checklists.adapter.ChecklistAdapter
 import com.jakmos.itemistevolved.presentation.commons.observe
 import kotlinx.android.synthetic.main.checklists_fragment.*
-import timber.log.Timber
 import androidx.core.content.ContextCompat
 import com.jakmos.itemistevolved.domain.model.Checklist
 import com.jakmos.itemistevolved.presentation.base.BaseFragment
@@ -69,10 +68,10 @@ class ChecklistsFragment : ChecklistAdapter.ChecklistAdapterListener, BaseFragme
     }
 
     override fun onItemClicked(model: Checklist) {
-        Timber.tag("KUBA").v("onItemClicked $model")
+        viewModel.onItemClicked(model)
     }
 
     override fun onEditClicked(model: Checklist) {
-        Timber.tag("KUBA").v("onEditClicked $model")
+        viewModel.onEditClicked(model)
     }
 }
