@@ -3,6 +3,7 @@ package com.jakmos.itemistevolved.viewModel
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.jakmos.itemistevolved.CHECKLIST_1
 import com.jakmos.itemistevolved.CHECKLIST_2
+import com.jakmos.itemistevolved.CoroutinesTestRule
 import com.jakmos.itemistevolved.data.db.ChecklistDao
 import com.jakmos.itemistevolved.domain.model.project.State
 import com.jakmos.itemistevolved.domain.useCase.GetChecklistsUseCase
@@ -12,11 +13,7 @@ import com.jakmos.itemistevolved.presentation.checklists.ChecklistsViewModel
 import io.mockk.coEvery
 import io.mockk.mockk
 import io.mockk.spyk
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.TestCoroutineDispatcher
-import kotlinx.coroutines.test.resetMain
-import kotlinx.coroutines.test.setMain
 import org.junit.*
 import java.io.IOException
 
@@ -25,22 +22,12 @@ class ChecklistsViewModelTest {
 
     @get:Rule
     val rule = InstantTaskExecutorRule()
-    private val testDispatcher: TestCoroutineDispatcher = TestCoroutineDispatcher()
+    @get:Rule
+    val coroutinesTestRule = CoroutinesTestRule()
 
     private val dao = mockk<ChecklistDao>()
     private val useCase = spyk(GetChecklistsUseCase(dao))
     private val viewModel by lazy { ChecklistsViewModel(useCase) }
-
-    @Before
-    fun before() {
-        Dispatchers.setMain(testDispatcher)
-    }
-
-    @After
-    fun after() {
-        Dispatchers.resetMain()
-        testDispatcher.cleanupTestCoroutines()
-    }
 
     @Test
     fun loadDataSuccess() {
