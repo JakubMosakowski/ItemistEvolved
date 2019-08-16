@@ -16,13 +16,11 @@ class BaseViewModelTest {
 
     @Test
     fun getNavigationCommands() {
-        //TODO implement
-        assert(false)
+        TODO("not implemented")
     }
 
     @Test
     fun navigate() {
-        //TODO implement
-        assert(false)
+        TODO("not implemented")
     }
 }

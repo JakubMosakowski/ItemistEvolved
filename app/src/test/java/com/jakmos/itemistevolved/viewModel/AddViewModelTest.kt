@@ -16,7 +16,6 @@ class AddViewModelTest {
 
     @Test
     fun getState() {
-        //TODO implement
-        assert(false)
+        TODO("not implemented")
     }
 }
