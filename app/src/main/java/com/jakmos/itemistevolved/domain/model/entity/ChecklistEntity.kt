@@ -10,9 +10,6 @@ import java.util.*
 
 @Entity(tableName = "checklist")
 data class ChecklistEntity(
-    @PrimaryKey(autoGenerate = true)
-    val id: Long,
-
     val name: String,
     val image: String,
 
@@ -22,10 +19,13 @@ data class ChecklistEntity(
     @TypeConverters(DateConverter::class)
     val updatedAt: Date = Date(),
 
-    val lines: List<Item>
+    val lines: List<Item>,
+
+    @PrimaryKey(autoGenerate = true)
+    val id: Long = 0
 ) {
     companion object {
         fun entityToModel(entity: ChecklistEntity) =
-            Checklist(entity.id, entity.name, entity.image, entity.lines)
+            Checklist(entity.id, entity.name, entity.image, entity.lines, entity.createdAt)
     }
 }

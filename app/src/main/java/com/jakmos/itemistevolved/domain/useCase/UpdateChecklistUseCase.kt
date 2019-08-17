@@ -5,11 +5,20 @@ import com.jakmos.itemistevolved.domain.model.Checklist
 import com.jakmos.itemistevolved.domain.model.entity.ChecklistEntity
 import com.jakmos.itemistevolved.domain.model.project.DateTimeInterface
 
-class InsertChecklistUseCase(
+class UpdateChecklistUseCase(
     private val dateTime: DateTimeInterface,
     private val dao: ChecklistDao
-) : UseCase<Checklist, Long>() {
+) : UseCase<Checklist, Int>() {
 
     override suspend fun doWork(param: Checklist) =
-        dao.insert(ChecklistEntity(param.name, param.image, dateTime.date, dateTime.date, param.lines))
+        dao.updateChecklist(
+            ChecklistEntity(
+                param.name,
+                param.image,
+                param.createdAt ?: dateTime.date,
+                dateTime.date,
+                param.lines,
+                param.id
+            )
+        )
 }
