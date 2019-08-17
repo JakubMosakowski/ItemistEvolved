@@ -23,18 +23,24 @@ class AddViewModel(
 
     val state: LiveData<State<None>> = _state
 
-    init {
-
-    }
-
     private fun addChecklist(checklist: Checklist) {
         insertChecklistUseCase.execute(viewModelScope, checklist) {
-            it.either(::handleFailure, ::handleSuccessLoad)
+            it.either(::handleFailure, ::handleSuccess)
         }
     }
 
-    private fun handleSuccessLoad(rowsAffectedCount: Long) {
-        Timber.tag("KUBA").v("handleSuccessLoad $rowsAffectedCount")
+    private fun updateChecklist(checklist: Checklist) {
+        updateChecklistUseCase.execute(viewModelScope, checklist) {
+            it.either(::handleFailure, ::handleSuccess)
+        }
+    }
+
+    private fun handleSuccess(rowsAffectedCount: Int) {
+        Timber.tag("KUBA").v("handleSuccessUpdate $rowsAffectedCount")
+    }
+
+    private fun handleSuccess(rowsAffectedCount: Long) {
+        Timber.tag("KUBA").v("handleSuccessInsert $rowsAffectedCount")
     }
 
     private fun handleFailure(error: Exception) {

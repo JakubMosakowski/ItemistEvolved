@@ -20,7 +20,7 @@ package com.jakmos.itemistevolved.domain.model.project
  * Used as a wrapper for data that is exposed via a LiveData that represents an event.
  * from https://github.com/googlesamples/android-architecture
  */
-open class Event<out T>(private val content: T) {
+data class Event<out T>(private val content: T) {
 
     @Suppress("MemberVisibilityCanBePrivate")
     var hasBeenHandled = false

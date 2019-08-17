@@ -44,6 +44,7 @@ class ChecklistsFragment : ChecklistAdapter.ChecklistAdapterListener, BaseFragme
         super.onViewCreated(view, savedInstanceState)
 
         setupRecyclerView()
+        viewModel.loadData()
     }
 
     private fun setupRecyclerView() {

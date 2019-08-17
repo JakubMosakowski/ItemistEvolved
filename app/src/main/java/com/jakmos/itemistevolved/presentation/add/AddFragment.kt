@@ -1,12 +1,9 @@
 package com.jakmos.itemistevolved.presentation.add
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.navArgs
-
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.jakmos.itemistevolved.R
 import com.jakmos.itemistevolved.databinding.AddFragmentBinding
@@ -28,7 +25,6 @@ class AddFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-//todo remove icon from toolbar on AddFragment
         val binding = DataBindingUtil.inflate<AddFragmentBinding>(
             inflater, R.layout.add_fragment, container, false
         )
@@ -48,5 +44,10 @@ class AddFragment : BaseFragment() {
 
     private fun changeScreen() {
         Timber.tag("KUBA").v("changeScreen ")
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.toolbar_menu, menu)
+        super.onCreateOptionsMenu(menu, inflater)
     }
 }

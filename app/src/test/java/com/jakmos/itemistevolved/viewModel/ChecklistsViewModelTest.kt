@@ -35,11 +35,11 @@ class ChecklistsViewModelTest {
         coEvery { useCase.doWork(any()) } returns listOf(CHECKLIST_1, CHECKLIST_2)
 
         //When
-        val newViewModel = ChecklistsViewModel(useCase)
+        viewModel.loadData()
 
         //Then
-        assert(newViewModel.state.value?.isSuccess() ?: false)
-        assert((newViewModel.state.value as? State.Success)?.data == listOf(CHECKLIST_1, CHECKLIST_2))
+        assert(viewModel.state.value?.isSuccess() ?: false)
+        assert((viewModel.state.value as? State.Success)?.data == listOf(CHECKLIST_1, CHECKLIST_2))
     }
 
     @Test
@@ -48,10 +48,10 @@ class ChecklistsViewModelTest {
         coEvery { useCase.doWork(any()) } throws (IOException())
 
         //When
-        val newViewModel = ChecklistsViewModel(useCase)
+        viewModel.loadData()
 
         //Then
-        assert((newViewModel.state.value as? State.Error)?.error is IOException)
+        assert((viewModel.state.value as? State.Error)?.error is IOException)
     }
 
     @Test
@@ -60,10 +60,10 @@ class ChecklistsViewModelTest {
         coEvery { useCase.doWork(any()) } returns emptyList()
 
         //When
-        val newViewModel = ChecklistsViewModel(useCase)
+        viewModel.loadData()
 
         //Then
-        assert(newViewModel.state.value?.isEmpty() ?: false)
+        assert(viewModel.state.value?.isEmpty() ?: false)
     }
 
     @Test
@@ -89,5 +89,4 @@ class ChecklistsViewModelTest {
         //Then
         assert((viewModel.navigationCommands.value?.peekContent() as? BaseViewModel.NavigationCommand.To)?.directions == directions)
     }
-
 }

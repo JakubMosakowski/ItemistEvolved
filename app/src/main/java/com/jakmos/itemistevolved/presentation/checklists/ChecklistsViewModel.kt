@@ -19,11 +19,7 @@ class ChecklistsViewModel(
 
     val state: LiveData<State<List<Checklist>>> = _state
 
-    init {
-        loadData()
-    }
-
-    private fun loadData() {
+     fun loadData() {
         _state.value = State.Loading()
         getChecklistsUseCase.execute(viewModelScope, None()) {
             it.either(::handleFailure, ::handleSuccessLoad)
