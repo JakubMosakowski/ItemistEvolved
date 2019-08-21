@@ -5,19 +5,16 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.databinding.DataBindingUtil
-import androidx.navigation.NavController
-import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.onNavDestinationSelected
 import androidx.navigation.ui.setupWithNavController
 import com.jakmos.itemistevolved.R
 import com.jakmos.itemistevolved.databinding.ActivityMainBinding
-import com.jakmos.itemistevolved.presentation.commons.setMenuVisibility
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedListener {
+class MainActivity : AppCompatActivity(){
 
     val viewModel: MainActivityViewModel by viewModel()
     private lateinit var appBarConfiguration: AppBarConfiguration
@@ -33,7 +30,6 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
         setSupportActionBar(toolbar)
 
         val navController = findNavController(R.id.navHostFragment)
-        navController.addOnDestinationChangedListener(this)
         appBarConfiguration = AppBarConfiguration(navController.graph)
         toolbar.setupWithNavController(navController, appBarConfiguration)
     }
@@ -57,13 +53,5 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
         menuInflater.inflate(R.menu.toolbar_menu, menu)
 
         return true
-    }
-
-    override fun onDestinationChanged(controller: NavController, destination: NavDestination, arguments: Bundle?) {
-        if(destination.id == R.id.addFragment) {
-            toolbar.menu.setMenuVisibility(false)
-        } else {
-            toolbar.menu.setMenuVisibility(true)
-        }
     }
 }

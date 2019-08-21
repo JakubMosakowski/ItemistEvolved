@@ -15,7 +15,14 @@ class AddViewModelTest {
     val coroutinesTestRule = CoroutinesTestRule()
 
     @Test
-    fun getState() {
+    fun addChecklist() {
         TODO("not implemented")
     }
+
+    @Test
+    fun updatedChecklist() {
+        TODO("not implemented")
+    }
+
+
 }

@@ -32,6 +32,7 @@ class AddFragment : BaseFragment() {
         binding.viewModel = viewModel
         observe(viewModel.state, ::onChecklistsStateChange)
 
+        setHasOptionsMenu(false)
         return binding.root
     }
 
