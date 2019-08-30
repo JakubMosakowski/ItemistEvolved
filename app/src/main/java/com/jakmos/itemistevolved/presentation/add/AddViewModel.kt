@@ -17,10 +17,7 @@ class AddViewModel(
     private val updateChecklistUseCase: UpdateChecklistUseCase
 ) : BaseViewModel() {
 
-    private val _state = MutableLiveData<State<None>>().apply {
-        this.value = State.Loading()
-    }
-
+    private val _state = MutableLiveData<State<None>>()
     val state: LiveData<State<None>> = _state
 
     private fun addChecklist(checklist: Checklist) {

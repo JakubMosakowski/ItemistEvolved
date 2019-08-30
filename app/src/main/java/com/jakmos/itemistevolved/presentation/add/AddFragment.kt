@@ -31,8 +31,8 @@ class AddFragment : BaseFragment() {
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
         observe(viewModel.state, ::onChecklistsStateChange)
+        setHasOptionsMenu(true)
 
-        setHasOptionsMenu(false)
         return binding.root
     }
 
@@ -48,7 +48,6 @@ class AddFragment : BaseFragment() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.toolbar_menu, menu)
-        super.onCreateOptionsMenu(menu, inflater)
+        menu.clear()
     }
 }
