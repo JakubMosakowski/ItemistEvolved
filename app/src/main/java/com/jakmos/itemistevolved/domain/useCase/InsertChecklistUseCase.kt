@@ -11,5 +11,15 @@ class InsertChecklistUseCase(
 ) : UseCase<Checklist, Long>() {
 
     override suspend fun doWork(param: Checklist) =
-        dao.insert(ChecklistEntity(param.name, param.image, dateTime.date, dateTime.date, param.lines))
+        dao.insert(createEntity(param))
+
+    private fun createEntity(param: Checklist): ChecklistEntity =
+        ChecklistEntity(
+            param.name,
+            param.image,
+            param.createdAt ?: dateTime.date,
+            dateTime.date,
+            param.lines,
+            param.id
+        )
 }

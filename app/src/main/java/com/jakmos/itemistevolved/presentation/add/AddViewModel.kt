@@ -8,16 +8,12 @@ import com.jakmos.itemistevolved.domain.model.Item
 import com.jakmos.itemistevolved.domain.model.project.None
 import com.jakmos.itemistevolved.domain.model.project.State
 import com.jakmos.itemistevolved.domain.useCase.InsertChecklistUseCase
-import com.jakmos.itemistevolved.domain.useCase.UpdateChecklistUseCase
-import com.jakmos.itemistevolved.presentation.add.adapter.ItemAdapter
 import com.jakmos.itemistevolved.presentation.base.BaseViewModel
 import com.jakmos.itemistevolved.presentation.commons.callback.DragAndDropListener
-import timber.log.Timber
 
 class AddViewModel(
-    checklist: Checklist,
-    private val insertChecklistUseCase: InsertChecklistUseCase,
-    private val updateChecklistUseCase: UpdateChecklistUseCase
+    private val checklist: Checklist,
+    private val insertChecklistUseCase: InsertChecklistUseCase
 ) : BaseViewModel(), DragAndDropListener {
 
     private val _state = MutableLiveData<State<None>>()
@@ -26,6 +22,7 @@ class AddViewModel(
     val state: LiveData<State<None>> = _state
     val items: LiveData<List<Item>> = _items
     val lineItemText = MutableLiveData("")
+    val titleText = MutableLiveData(checklist.name)
     var draggedFromTo = Pair(-1, -1)
 
     fun addItemClicked() {
@@ -38,27 +35,27 @@ class AddViewModel(
     }
 
     fun submitClicked() {
-        Timber.tag("KUBA").v("submitCLicked")
+        val updatedChecklist = updateInitialChecklist()
+
+        addChecklist(updatedChecklist)
     }
+
+    private fun updateInitialChecklist() =
+        checklist.copy(
+            name = titleText.value ?: checklist.name,
+            lines = _items.value ?: emptyList()
+        )
+
 
     private fun addChecklist(checklist: Checklist) {
+        _state.postValue(State.Loading())
         insertChecklistUseCase.execute(viewModelScope, checklist) {
-            it.either(::handleFailure, ::handleSuccess)
+            it.either(::handleFailure) { handleSuccess() }
         }
     }
 
-    private fun updateChecklist(checklist: Checklist) {
-        updateChecklistUseCase.execute(viewModelScope, checklist) {
-            it.either(::handleFailure, ::handleSuccess)
-        }
-    }
-
-    private fun handleSuccess(rowsAffectedCount: Int) {
-        Timber.tag("KUBA").v("handleSuccessUpdate $rowsAffectedCount")
-    }
-
-    private fun handleSuccess(rowsAffectedCount: Long) {
-        Timber.tag("KUBA").v("handleSuccessInsert $rowsAffectedCount")
+    private fun handleSuccess() {
+        _state.value = State.Success(None)
     }
 
     private fun handleFailure(error: Exception) {

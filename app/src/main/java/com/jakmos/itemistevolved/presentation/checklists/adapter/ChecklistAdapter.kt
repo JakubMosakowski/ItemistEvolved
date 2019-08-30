@@ -14,7 +14,7 @@ class ChecklistAdapter(private val listener: ChecklistAdapterListener? = null) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChecklistAdapterViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = ChecklistItemBinding.inflate(inflater)
+        val binding = ChecklistItemBinding.inflate(inflater, parent, false)
 
         return ChecklistAdapterViewHolder(binding)
     }

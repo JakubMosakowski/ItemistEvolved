@@ -21,7 +21,7 @@ class ChecklistsViewModel(
 
      fun loadData() {
         _state.value = State.Loading()
-        getChecklistsUseCase.execute(viewModelScope, None()) {
+        getChecklistsUseCase.execute(viewModelScope, None) {
             it.either(::handleFailure, ::handleSuccessLoad)
         }
     }

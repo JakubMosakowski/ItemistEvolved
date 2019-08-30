@@ -34,7 +34,7 @@ class GetChecklistsUseCaseTest {
         coEvery { dao.getAll() } returns daoResult
 
         //When
-        val result = useCase.doWork(None())
+        val result = useCase.doWork(None)
 
         //Then
         assertEquals(expected, result)

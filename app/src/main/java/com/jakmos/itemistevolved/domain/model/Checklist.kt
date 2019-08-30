@@ -11,6 +11,6 @@ data class Checklist(
     val createdAt: Date? = null
 ) : Serializable {
     companion object {
-        fun create() = Checklist(-1, "", "", emptyList())
+        fun create() = Checklist(0, "", "", emptyList())
     }
 }
