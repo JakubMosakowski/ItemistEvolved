@@ -9,4 +9,8 @@ data class Checklist(
     val image: String,
     val lines: List<Item>,
     val createdAt: Date? = null
-) : Serializable
+) : Serializable {
+    companion object {
+        fun create() = Checklist(-1, "", "", emptyList())
+    }
+}

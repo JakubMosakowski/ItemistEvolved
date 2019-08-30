@@ -27,6 +27,7 @@ class ChecklistAdapter(private val listener: ChecklistAdapterListener? = null) :
 
     fun setData(items: List<Checklist>) {
         this.items = items
+        notifyDataSetChanged()
     }
 
     interface ChecklistAdapterListener {

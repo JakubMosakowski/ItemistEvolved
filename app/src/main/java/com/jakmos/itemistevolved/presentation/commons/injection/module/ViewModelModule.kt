@@ -10,6 +10,12 @@ import org.koin.dsl.module
 val viewModelModule = module {
     single { MainActivityViewModel() }
     single { ChecklistsViewModel(get()) }
-    single { (checklist: Checklist?) -> AddViewModel(checklist, get(), get()) }
+    single { (checklist: Checklist?) ->
+        AddViewModel(
+            checklist ?: Checklist.create(),
+            get(),
+            get()
+        )
+    }
     single { (checklist: Checklist) -> ChecklistDetailViewModel(checklist, get()) }
 }

@@ -1,57 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
                 name="listener"
-                type="com.jakmos.itemistevolved.presentation.checklists.adapter.ChecklistAdapter.ChecklistAdapterListener"/>
+                type="com.jakmos.itemistevolved.presentation.checklists.adapter.ChecklistAdapter.ChecklistAdapterListener" />
 
         <variable
                 name="model"
-                type="com.jakmos.itemistevolved.domain.model.Checklist"/>
+                type="com.jakmos.itemistevolved.domain.model.Checklist" />
     </data>
 
-    <RelativeLayout
-            android:onClick="@{() -> listener.onItemClicked(model)}"
+    <androidx.constraintlayout.widget.ConstraintLayout
+            style="@style/clickableStyle"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="@{() -> listener.onItemClicked(model)}"
             android:paddingLeft="16dp"
-            android:paddingRight="16dp"
             android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:layout_height="wrap_content">
+            android:paddingRight="16dp"
+            android:paddingBottom="8dp">
         <!--TODO make sure it still looks good with more than 1 line-->
         <TextView
                 android:id="@+id/title"
-                tools:text="Gym list"
-                android:text="@{model.name}"
-                android:textSize="24sp"
-
-                android:layout_width="wrap_content"
+                style="@style/listTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:maxLines="2"
-                android:ellipsize="end"
-                android:textColor="@color/textColorPrimary"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
-                android:layout_toStartOf="@id/editBtn"
-                android:layout_marginEnd="16dp"
-                android:layout_height="wrap_content"/>
+                android:text="@{model.name}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/editBtn"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Gym list" />
 
         <ImageView
                 android:id="@+id/editBtn"
-                android:layout_centerVertical="true"
+                style="@style/clickableStyle"
                 android:layout_width="wrap_content"
-                android:src="@drawable/ic_edit_32dp"
-                android:padding="8dp"
-                android:layout_alignParentEnd="true"
                 android:layout_height="wrap_content"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:clickable="true"
-                android:focusable="true"
+                android:contentDescription="@string/edit_button"
                 android:onClick="@{() -> listener.onEditClicked(model)}"
-                android:contentDescription="@string/edit_button"/>
-    </RelativeLayout>
+                android:padding="8dp"
+                android:src="@drawable/ic_edit_32dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
