@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.jakmos.itemistevolved.R
 import com.jakmos.itemistevolved.databinding.AddFragmentBinding
@@ -13,20 +15,22 @@ import com.jakmos.itemistevolved.domain.model.project.None
 import com.jakmos.itemistevolved.domain.model.project.State
 import com.jakmos.itemistevolved.presentation.add.adapter.ItemAdapter
 import com.jakmos.itemistevolved.presentation.base.BaseFragment
+import com.jakmos.itemistevolved.presentation.commons.callback.DragAndDropCallback
 import com.jakmos.itemistevolved.presentation.commons.observe
 import kotlinx.android.synthetic.main.add_fragment.*
 import org.koin.core.parameter.parametersOf
 import timber.log.Timber
 
 
-class AddFragment : BaseFragment() {
-
+class AddFragment : BaseFragment(), ItemAdapter.ItemAdapterListener {
     private val args: AddFragmentArgs by navArgs()
     override val viewModel: AddViewModel by viewModel { parametersOf(args.checklist) }
     private val adapter by lazy {
-        ItemAdapter(viewModel)
+        ItemAdapter(this)
     }
-    //TODO reorder items in list
+    private val itemTouchHelper by lazy {
+        ItemTouchHelper(DragAndDropCallback(viewModel))
+    }
     //TODO write tests for items in list
 
     override fun onCreateView(
@@ -56,10 +60,18 @@ class AddFragment : BaseFragment() {
     private fun setupRecyclerView() {
         itemsRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         itemsRecyclerView.adapter = adapter
+        itemTouchHelper.attachToRecyclerView(itemsRecyclerView)
     }
 
     private fun onChecklistsChange(items: List<Item>?) {
-        adapter.setData(items ?: emptyList())
+        val fromTo = viewModel.draggedFromTo
+        if (fromTo == AddViewModel.IS_NOT_DRAGGING) {
+            adapter.setData(items ?: emptyList())
+            return
+        }
+
+        viewModel.draggedFromTo = AddViewModel.IS_NOT_DRAGGING
+        adapter.notifyItemMoved(fromTo.first, fromTo.second)
     }
 
     private fun onStateChange(state: State<None>?) {
@@ -71,6 +83,14 @@ class AddFragment : BaseFragment() {
 
     private fun changeScreen() {
         Timber.tag("KUBA").v("changeScreen ")
+    }
+
+    override fun startDragging(viewHolder: RecyclerView.ViewHolder) {
+        itemTouchHelper.startDrag(viewHolder)
+    }
+
+    override fun onDeleteClicked(model: Item) {
+        viewModel.onDeleteClicked(model)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

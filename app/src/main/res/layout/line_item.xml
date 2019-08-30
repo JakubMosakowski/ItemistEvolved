@@ -17,18 +17,31 @@
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="16dp"
             android:paddingTop="8dp"
-            android:paddingRight="16dp"
             android:paddingBottom="16dp">
+
+        <ImageButton
+                android:id="@+id/handle"
+                style="@style/clickableStyle"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="8dp"
+                android:padding="12dp"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_reorder_grey_500_32dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:contentDescription="@string/drag_handle" />
 
         <TextView
                 style="@style/listTextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:textSize="16sp"
                 android:text="@{model.text}"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toEndOf="@id/handle"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/removeBtn"
                 tools:text="Sample item" />
