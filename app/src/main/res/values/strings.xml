@@ -9,4 +9,8 @@
     <string name="remove_button">Remove button</string>
     <string name="something_went_wrong">Something went wrong!</string>
     <string name="edit_button">Edit button</string>
+    <string name="submit">Submit</string>
+    <string name="add_item_to_list">Add item to list</string>
+    <string name="edit_item">Edit item</string>
+    <string name="checklist_title">Checklist title</string>
 </resources>
