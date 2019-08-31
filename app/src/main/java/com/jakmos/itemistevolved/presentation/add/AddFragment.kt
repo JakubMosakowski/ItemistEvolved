@@ -19,7 +19,6 @@ import com.jakmos.itemistevolved.presentation.commons.callback.DragAndDropCallba
 import com.jakmos.itemistevolved.presentation.commons.observe
 import kotlinx.android.synthetic.main.add_fragment.*
 import org.koin.core.parameter.parametersOf
-import timber.log.Timber
 
 
 class AddFragment : BaseFragment(), ItemAdapter.ItemAdapterListener {
@@ -55,6 +54,7 @@ class AddFragment : BaseFragment(), ItemAdapter.ItemAdapterListener {
         super.onViewCreated(view, savedInstanceState)
 
         setupRecyclerView()
+        titleEditText.requestFocus()
     }
 
     private fun setupRecyclerView() {
@@ -76,13 +76,8 @@ class AddFragment : BaseFragment(), ItemAdapter.ItemAdapterListener {
 
     private fun onStateChange(state: State<None>?) {
         when (state) {
-            is State.Success -> changeScreen()
             is State.Error -> showError(state.cause)
         }
-    }
-
-    private fun changeScreen() {
-        Timber.tag("KUBA").v("changeScreen ")
     }
 
     override fun startDragging(viewHolder: RecyclerView.ViewHolder) {

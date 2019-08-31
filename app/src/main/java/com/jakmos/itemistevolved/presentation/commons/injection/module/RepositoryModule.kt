@@ -10,6 +10,6 @@ import org.koin.dsl.module
 val repositoryModule = module {
     single { ItemistDatabase.getDatabase(get()).checklistDao() }
     single { GetChecklistsUseCase(get()) }
-    single { InsertChecklistUseCase(DateTime(), get()) }
-    single { RemoveChecklistUseCase(get()) }
+    single { InsertChecklistUseCase(DateTime(), get(), get()) }
+    single { RemoveChecklistUseCase(get(), get()) }
 }

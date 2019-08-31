@@ -15,6 +15,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:onClick="@{() -> viewModel.hideKeyboard()}"
             tools:context=".presentation.add.AddFragment">
 
         <com.google.android.material.button.MaterialButton
@@ -22,6 +23,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:enabled="@{viewModel.titleText.length() != 0}"
                 android:onClick="@{() -> viewModel.submitClicked()}"
                 android:text="@string/submit"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -42,10 +44,10 @@
             <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/titleEditText"
                     style="@style/editTextStyle"
-                    android:text="@={viewModel.titleText}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/checklist_title" />
+                    android:hint="@string/checklist_title"
+                    android:text="@={viewModel.titleText}" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <ImageButton
@@ -76,9 +78,9 @@
                     android:id="@+id/lineEditText"
                     style="@style/editTextStyle"
                     android:layout_width="match_parent"
-                    android:text="@={viewModel.lineItemText}"
                     android:layout_height="wrap_content"
-                    android:hint="@string/add_item_to_list" />
+                    android:hint="@string/add_item_to_list"
+                    android:text="@={viewModel.lineItemText}" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <androidx.recyclerview.widget.RecyclerView

@@ -33,6 +33,7 @@ class ChecklistAdapter(private val listener: ChecklistAdapterListener? = null) :
     interface ChecklistAdapterListener {
         fun onItemClicked(model: Checklist)
         fun onEditClicked(model: Checklist)
+        fun onDeleteClicked(model: Checklist)
     }
 
     inner class ChecklistAdapterViewHolder(

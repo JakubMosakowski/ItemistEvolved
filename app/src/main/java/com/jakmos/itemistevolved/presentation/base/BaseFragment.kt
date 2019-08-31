@@ -1,7 +1,10 @@
 package com.jakmos.itemistevolved.presentation.base
 
+import android.app.Activity
 import android.content.Context
 import android.os.Bundle
+import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -22,6 +25,16 @@ abstract class BaseFragment : Fragment() {
         viewModel.navigationCommands.observe(this, EventObserver {
             navigate(it)
         })
+        viewModel.keyboardCommands.observe(this, EventObserver {
+            handleKeyboard(it)
+        })
+    }
+
+    private fun handleKeyboard(command: BaseViewModel.KeyboardCommand) {
+        when (command) {
+            is BaseViewModel.KeyboardCommand.Show -> showKeyboard()
+            else -> hideKeyboard()
+        }
     }
 
     private fun navigate(command: BaseViewModel.NavigationCommand) {
@@ -84,5 +97,19 @@ abstract class BaseFragment : Fragment() {
                 Timber.tag("KUBA").e("setNegativeAction ")
             }
         }
+    }
+
+    private fun showKeyboard() {
+        val imm = context?.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY)
+    }
+
+    private fun hideKeyboard() {
+        val imm = context?.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view?.windowToken, 0)
+
+        this.activity?.window?.setSoftInputMode(
+            WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
+        )
     }
 }

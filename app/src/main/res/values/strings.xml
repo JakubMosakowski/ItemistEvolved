@@ -14,4 +14,5 @@
     <string name="edit_item">Edit item</string>
     <string name="checklist_title">Checklist title</string>
     <string name="drag_handle">Drag handle</string>
+    <string name="deleteButton">Delete button</string>
 </resources>

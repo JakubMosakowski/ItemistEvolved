@@ -25,6 +25,10 @@ class AddViewModel(
     val titleText = MutableLiveData(checklist.name)
     var draggedFromTo = Pair(-1, -1)
 
+    init {
+        showKeyboard()
+    }
+
     fun addItemClicked() {
         val text = lineItemText.value
         if (text.isNullOrEmpty()) return
@@ -35,6 +39,7 @@ class AddViewModel(
     }
 
     fun submitClicked() {
+        hideKeyboard()
         val updatedChecklist = updateInitialChecklist()
 
         addChecklist(updatedChecklist)
@@ -56,6 +61,9 @@ class AddViewModel(
 
     private fun handleSuccess() {
         _state.value = State.Success(None)
+
+        val directions = AddFragmentDirections.actionAddFragmentToChecklistsFragment()
+        navigate(directions)
     }
 
     private fun handleFailure(error: Exception) {

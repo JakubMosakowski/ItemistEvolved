@@ -7,10 +7,12 @@ import com.jakmos.itemistevolved.domain.model.Checklist
 import com.jakmos.itemistevolved.domain.model.project.None
 import com.jakmos.itemistevolved.domain.model.project.State
 import com.jakmos.itemistevolved.domain.useCase.GetChecklistsUseCase
+import com.jakmos.itemistevolved.domain.useCase.RemoveChecklistUseCase
 import com.jakmos.itemistevolved.presentation.base.BaseViewModel
 
 class ChecklistsViewModel(
-    private val getChecklistsUseCase: GetChecklistsUseCase
+    private val getChecklistsUseCase: GetChecklistsUseCase,
+    private val removeChecklistUseCase: RemoveChecklistUseCase
 ) : BaseViewModel() {
 
     private val _state = MutableLiveData<State<List<Checklist>>>().apply {
@@ -19,10 +21,10 @@ class ChecklistsViewModel(
 
     val state: LiveData<State<List<Checklist>>> = _state
 
-     fun loadData() {
+    fun loadData() {
         _state.value = State.Loading()
         getChecklistsUseCase.execute(viewModelScope, None) {
-            it.either(::handleFailure, ::handleSuccessLoad)
+            it.either(::handleFailureLoad, ::handleSuccessLoad)
         }
     }
 
@@ -33,7 +35,7 @@ class ChecklistsViewModel(
         }
     }
 
-    private fun handleFailure(error: Exception) {
+    private fun handleFailureLoad(error: Exception) {
         _state.value = State.Error(error) { loadData() }
     }
 
@@ -43,7 +45,15 @@ class ChecklistsViewModel(
     }
 
     fun onItemClicked(model: Checklist) {
-        val directions = ChecklistsFragmentDirections.actionChecklistsFragmentToChecklistDetailFragment(model)
+        val directions =
+            ChecklistsFragmentDirections.actionChecklistsFragmentToChecklistDetailFragment(model)
         navigate(directions)
+    }
+
+    fun onDeleteClicked(model: Checklist) {
+        _state.value = State.Loading()
+        removeChecklistUseCase.execute(viewModelScope, model) {
+            it.either(::handleFailureLoad, ::handleSuccessLoad)
+        }
     }
 }
