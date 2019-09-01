@@ -5,11 +5,17 @@ import com.jakmos.itemistevolved.presentation.add.AddViewModel
 import com.jakmos.itemistevolved.presentation.checklists.ChecklistsViewModel
 import com.jakmos.itemistevolved.presentation.detail.ChecklistDetailViewModel
 import com.jakmos.itemistevolved.presentation.main.MainActivityViewModel
+import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val viewModelModule = module {
-    single { MainActivityViewModel() }
-    single { ChecklistsViewModel(get()) }
-    single { (checklist: Checklist?) -> AddViewModel(checklist, get()) }
-    single { (checklist: Checklist) -> ChecklistDetailViewModel(checklist) }
+    viewModel { MainActivityViewModel() }
+    viewModel { ChecklistsViewModel(get(), get()) }
+    viewModel { (checklist: Checklist?) ->
+        AddViewModel(
+            checklist ?: Checklist.create(),
+            get()
+        )
+    }
+    viewModel { (checklist: Checklist) -> ChecklistDetailViewModel(checklist, get()) }
 }

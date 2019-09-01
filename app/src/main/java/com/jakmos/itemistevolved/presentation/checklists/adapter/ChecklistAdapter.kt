@@ -14,7 +14,7 @@ class ChecklistAdapter(private val listener: ChecklistAdapterListener? = null) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChecklistAdapterViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = ChecklistItemBinding.inflate(inflater)
+        val binding = ChecklistItemBinding.inflate(inflater, parent, false)
 
         return ChecklistAdapterViewHolder(binding)
     }
@@ -27,11 +27,13 @@ class ChecklistAdapter(private val listener: ChecklistAdapterListener? = null) :
 
     fun setData(items: List<Checklist>) {
         this.items = items
+        notifyDataSetChanged()
     }
 
     interface ChecklistAdapterListener {
         fun onItemClicked(model: Checklist)
         fun onEditClicked(model: Checklist)
+        fun onDeleteClicked(model: Checklist)
     }
 
     inner class ChecklistAdapterViewHolder(

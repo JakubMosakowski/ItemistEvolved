@@ -2,56 +2,94 @@ package com.jakmos.itemistevolved.presentation.add
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jakmos.itemistevolved.domain.model.Checklist
+import com.jakmos.itemistevolved.domain.model.Item
 import com.jakmos.itemistevolved.domain.model.project.None
 import com.jakmos.itemistevolved.domain.model.project.State
-import com.jakmos.itemistevolved.domain.model.Item
 import com.jakmos.itemistevolved.domain.useCase.InsertChecklistUseCase
 import com.jakmos.itemistevolved.presentation.base.BaseViewModel
-import timber.log.Timber
+import com.jakmos.itemistevolved.presentation.commons.callback.DragAndDropListener
 
 class AddViewModel(
-    private val checklist: Checklist?,
+    private val checklist: Checklist,
     private val insertChecklistUseCase: InsertChecklistUseCase
-) : BaseViewModel() {
+) : BaseViewModel(), DragAndDropListener {
 
-    private val _state = MutableLiveData<State<None>>().apply {
-        this.value = State.Loading()
-    }
+    private val _state = MutableLiveData<State<None>>()
+    private val _items = MutableLiveData(checklist.lines)
 
     val state: LiveData<State<None>> = _state
+    val items: LiveData<List<Item>> = _items
+    val lineItemText = MutableLiveData("")
+    val titleText = MutableLiveData(checklist.name)
+    var draggedFromTo = Pair(-1, -1)
 
     init {
-        //TODO temporary add
-        Timber.tag("KUBA").v("INIT $checklist ")
-        val items = listOf(
-            Item("item1", false),
-            Item("item2", false),
-            Item("item3", false)
-        )
-
-        val checklist1 = Checklist(1, "Name1", "url1", lines = items)
-        val checklist2 = Checklist(2, "Name2", "url2", lines = items)
-        val checklist3 = Checklist(3, "Name3", "url3", lines = items)
-
-        addChecklist(checklist1)
-        addChecklist(checklist2)
-        addChecklist(checklist3)
+        showKeyboard()
     }
 
+    fun addItemClicked() {
+        val text = lineItemText.value
+        if (text.isNullOrEmpty()) return
+
+        val newItems = listOf(Item.create(text)) + (_items.value ?: emptyList())
+        _items.postValue(newItems)
+        lineItemText.postValue("")
+    }
+
+    fun submitClicked() {
+        hideKeyboard()
+        val updatedChecklist = updateInitialChecklist()
+
+        addChecklist(updatedChecklist)
+    }
+
+    private fun updateInitialChecklist() =
+        checklist.copy(
+            name = titleText.value ?: checklist.name,
+            lines = _items.value ?: emptyList()
+        )
+
+
     private fun addChecklist(checklist: Checklist) {
+        _state.postValue(State.Loading())
         insertChecklistUseCase.execute(viewModelScope, checklist) {
-            it.either(::handleFailure, ::handleSuccessLoad)
+            it.either(::handleFailure) { handleSuccess() }
         }
     }
 
-    private fun handleSuccessLoad(ignore: Unit) {
-        Timber.tag("KUBA").v("handleSuccessLoad $ignore")
+    private fun handleSuccess() {
+        _state.value = State.Success(None)
+        val directions = AddFragmentDirections.actionAddFragmentToChecklistsFragment()
+        navigate(directions)
     }
 
     private fun handleFailure(error: Exception) {
         _state.value = State.Error(error)
+    }
+
+    fun onDeleteClicked(model: Item) {
+        val newItems = (_items.value ?: emptyList()) - model
+        _items.postValue(newItems)
+    }
+
+    override fun moveItem(from: Int, to: Int) {
+        val newItems = (_items.value ?: emptyList()).toMutableList()
+        val fromItem = newItems[from]
+
+        newItems.removeAt(from)
+        if (to < from) {
+            newItems.add(to, fromItem)
+        } else {
+            newItems.add(to - 1, fromItem)
+        }
+
+        draggedFromTo = Pair(from, to)
+        _items.postValue(newItems)
+    }
+
+    companion object {
+        val IS_NOT_DRAGGING = Pair(-1, -1)
     }
 }

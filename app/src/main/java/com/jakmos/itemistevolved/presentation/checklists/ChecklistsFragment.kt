@@ -44,6 +44,7 @@ class ChecklistsFragment : ChecklistAdapter.ChecklistAdapterListener, BaseFragme
         super.onViewCreated(view, savedInstanceState)
 
         setupRecyclerView()
+        viewModel.loadData()
     }
 
     private fun setupRecyclerView() {
@@ -73,5 +74,9 @@ class ChecklistsFragment : ChecklistAdapter.ChecklistAdapterListener, BaseFragme
 
     override fun onEditClicked(model: Checklist) {
         viewModel.onEditClicked(model)
+    }
+
+    override fun onDeleteClicked(model: Checklist) {
+        viewModel.onDeleteClicked(model)
     }
 }

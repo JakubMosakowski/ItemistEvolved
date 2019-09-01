@@ -18,9 +18,7 @@ abstract class UseCase<Param, Data> {
             onResult(Either.Right(doWork(param)))
         } catch (e: Exception) {
             Timber.tag("KUBA").e("Error occurred: $e")
-
             onResult(Either.Left(e))
         }
-
     }
 }

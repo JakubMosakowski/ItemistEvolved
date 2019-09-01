@@ -13,11 +13,11 @@ interface ChecklistDao {
     suspend fun findByName(name: String): List<ChecklistEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(vararg checklist: ChecklistEntity)
+    suspend fun insert(checklist: ChecklistEntity): Long
 
-    @Delete
-    suspend fun delete(checklist: ChecklistEntity)
+    @Query("DELETE FROM checklist WHERE id= :id")
+    suspend fun deleteById(id: Long): Int
 
     @Update
-    suspend fun updateChecklist(vararg checklists: ChecklistEntity)
+    suspend fun updateChecklist(checklists: ChecklistEntity): Int
 }
