@@ -30,7 +30,6 @@ class AddFragment : BaseFragment(), ItemAdapter.ItemAdapterListener {
     private val itemTouchHelper by lazy {
         ItemTouchHelper(DragAndDropCallback(viewModel))
     }
-    //TODO write tests for items in list
 
     override fun onCreateView(
         inflater: LayoutInflater,

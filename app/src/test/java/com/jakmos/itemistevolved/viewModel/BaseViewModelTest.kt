@@ -29,4 +29,28 @@ class BaseViewModelTest {
         //Then
         assertEquals(expected, viewModel.navigationCommands.value)
     }
+
+    @Test
+    fun showKeyboard(){
+        //Given
+        val expected = Event(BaseViewModel.KeyboardCommand.Show)
+
+        //When
+        viewModel.showKeyboard()
+
+        //Then
+        assertEquals(expected, viewModel.keyboardCommands.value)
+    }
+
+    @Test
+    fun hideKeyboard(){
+        //Given
+        val expected = Event(BaseViewModel.KeyboardCommand.Hide)
+
+        //When
+        viewModel.hideKeyboard()
+
+        //Then
+        assertEquals(expected, viewModel.keyboardCommands.value)
+    }
 }

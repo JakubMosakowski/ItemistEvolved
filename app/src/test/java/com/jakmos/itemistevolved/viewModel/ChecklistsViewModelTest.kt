@@ -7,6 +7,7 @@ import com.jakmos.itemistevolved.CoroutinesTestRule
 import com.jakmos.itemistevolved.data.db.ChecklistDao
 import com.jakmos.itemistevolved.domain.model.project.State
 import com.jakmos.itemistevolved.domain.useCase.GetChecklistsUseCase
+import com.jakmos.itemistevolved.domain.useCase.RemoveChecklistUseCase
 import com.jakmos.itemistevolved.presentation.base.BaseViewModel
 import com.jakmos.itemistevolved.presentation.checklists.ChecklistsFragmentDirections
 import com.jakmos.itemistevolved.presentation.checklists.ChecklistsViewModel
@@ -15,6 +16,7 @@ import io.mockk.mockk
 import io.mockk.spyk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.*
+import org.junit.Assert.assertEquals
 import java.io.IOException
 
 @ExperimentalCoroutinesApi
@@ -26,13 +28,19 @@ class ChecklistsViewModelTest {
     val coroutinesTestRule = CoroutinesTestRule()
 
     private val dao = mockk<ChecklistDao>()
-    private val useCase = spyk(GetChecklistsUseCase(dao))
-    private val viewModel by lazy { ChecklistsViewModel(useCase) }
+    private val getChecklistsUseCase = spyk(GetChecklistsUseCase(dao))
+    private val removeChecklistUseCase = spyk(RemoveChecklistUseCase(dao, getChecklistsUseCase))
+    private val viewModel by lazy {
+        ChecklistsViewModel(
+            getChecklistsUseCase,
+            removeChecklistUseCase
+        )
+    }
 
     @Test
     fun loadDataSuccess() {
         //Given
-        coEvery { useCase.doWork(any()) } returns listOf(CHECKLIST_1, CHECKLIST_2)
+        coEvery { getChecklistsUseCase.doWork(any()) } returns listOf(CHECKLIST_1, CHECKLIST_2)
 
         //When
         viewModel.loadData()
@@ -45,7 +53,7 @@ class ChecklistsViewModelTest {
     @Test
     fun loadDataFailure() {
         //Given
-        coEvery { useCase.doWork(any()) } throws (IOException())
+        coEvery { getChecklistsUseCase.doWork(any()) } throws (IOException())
 
         //When
         viewModel.loadData()
@@ -57,7 +65,7 @@ class ChecklistsViewModelTest {
     @Test
     fun loadDataEmpty() {
         //Given
-        coEvery { useCase.doWork(any()) } returns emptyList()
+        coEvery { getChecklistsUseCase.doWork(any()) } returns emptyList()
 
         //When
         viewModel.loadData()
@@ -69,7 +77,10 @@ class ChecklistsViewModelTest {
     @Test
     fun onItemClicked() {
         //Given
-        val directions = ChecklistsFragmentDirections.actionChecklistsFragmentToChecklistDetailFragment(CHECKLIST_1)
+        val directions =
+            ChecklistsFragmentDirections.actionChecklistsFragmentToChecklistDetailFragment(
+                CHECKLIST_1
+            )
 
         //When
         viewModel.onItemClicked(CHECKLIST_1)
@@ -81,12 +92,26 @@ class ChecklistsViewModelTest {
     @Test
     fun onEditClicked() {
         //Given
-        val directions = ChecklistsFragmentDirections.actionChecklistsFragmentToAddFragment(CHECKLIST_1)
+        val directions =
+            ChecklistsFragmentDirections.actionChecklistsFragmentToAddFragment(CHECKLIST_1)
 
         //When
         viewModel.onEditClicked(CHECKLIST_1)
 
         //Then
         assert((viewModel.navigationCommands.value?.peekContent() as? BaseViewModel.NavigationCommand.To)?.directions == directions)
+    }
+
+    @Test
+    fun onDeleteClicked() {
+        //Given
+        val expectedState = State.Success(listOf(CHECKLIST_2))
+        coEvery { removeChecklistUseCase.doWork(any()) } returns listOf(CHECKLIST_2)
+
+        //When
+        viewModel.onDeleteClicked(CHECKLIST_1)
+
+        //Then
+        assertEquals(expectedState, viewModel.state.value)
     }
 }

@@ -61,7 +61,6 @@ class AddViewModel(
 
     private fun handleSuccess() {
         _state.value = State.Success(None)
-
         val directions = AddFragmentDirections.actionAddFragmentToChecklistsFragment()
         navigate(directions)
     }
