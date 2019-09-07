@@ -1,10 +1,12 @@
 package com.jakmos.itemistevolved.viewModel
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.lifecycle.Observer
 import com.jakmos.itemistevolved.CHECKLIST_1
 import com.jakmos.itemistevolved.CHECKLIST_2
 import com.jakmos.itemistevolved.CoroutinesTestRule
 import com.jakmos.itemistevolved.data.db.ChecklistDao
+import com.jakmos.itemistevolved.domain.model.Checklist
 import com.jakmos.itemistevolved.domain.model.project.State
 import com.jakmos.itemistevolved.domain.useCase.GetChecklistsUseCase
 import com.jakmos.itemistevolved.domain.useCase.RemoveChecklistUseCase
@@ -12,6 +14,7 @@ import com.jakmos.itemistevolved.presentation.base.BaseViewModel
 import com.jakmos.itemistevolved.presentation.checklists.ChecklistsFragmentDirections
 import com.jakmos.itemistevolved.presentation.checklists.ChecklistsViewModel
 import io.mockk.coEvery
+import io.mockk.every
 import io.mockk.mockk
 import io.mockk.spyk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -28,6 +31,7 @@ class ChecklistsViewModelTest {
     val coroutinesTestRule = CoroutinesTestRule()
 
     private val dao = mockk<ChecklistDao>()
+    private val observer: Observer<List<Checklist>> = mockk()
     private val getChecklistsUseCase = spyk(GetChecklistsUseCase(dao))
     private val removeChecklistUseCase = spyk(RemoveChecklistUseCase(dao, getChecklistsUseCase))
     private val viewModel by lazy {
@@ -37,17 +41,23 @@ class ChecklistsViewModelTest {
         )
     }
 
+    @Before
+    fun before() {
+        viewModel.checklists.observeForever(observer)
+        every { observer.onChanged(any()) } returns Unit
+    }
+
     @Test
     fun loadDataSuccess() {
         //Given
         coEvery { getChecklistsUseCase.doWork(any()) } returns listOf(CHECKLIST_1, CHECKLIST_2)
-
+        val expected = listOf(CHECKLIST_1, CHECKLIST_2)
         //When
         viewModel.loadData()
 
         //Then
-        assert(viewModel.state.value?.isSuccess() ?: false)
-        assert((viewModel.state.value as? State.Success)?.data == listOf(CHECKLIST_1, CHECKLIST_2))
+        assertEquals(true, viewModel.state.value?.isSuccess())
+        assertEquals(expected, viewModel.checklists.value)
     }
 
     @Test
@@ -105,13 +115,49 @@ class ChecklistsViewModelTest {
     @Test
     fun onDeleteClicked() {
         //Given
-        val expectedState = State.Success(listOf(CHECKLIST_2))
-        coEvery { removeChecklistUseCase.doWork(any()) } returns listOf(CHECKLIST_2)
+        coEvery { getChecklistsUseCase.doWork(any()) } returns listOf(CHECKLIST_1, CHECKLIST_2)
+        val expected = listOf(CHECKLIST_2)
+        viewModel.loadData()
 
         //When
         viewModel.onDeleteClicked(CHECKLIST_1)
 
         //Then
-        assertEquals(expectedState, viewModel.state.value)
+        assert(viewModel.state.value is State.Removing)
+        assertEquals(expected, viewModel.checklists.value)
+    }
+
+    @Test
+    fun onUndoClicked() {
+        //Given
+        coEvery { getChecklistsUseCase.doWork(any()) } returns listOf(CHECKLIST_1, CHECKLIST_2)
+        val expected = listOf(CHECKLIST_1, CHECKLIST_2)
+        viewModel.loadData()
+        viewModel.onDeleteClicked(CHECKLIST_1)
+
+        //When
+        viewModel.onUndoClicked()
+
+        //Then
+        assert(viewModel.state.value is State.Success)
+        assertEquals(expected, viewModel.checklists.value)
+
+    }
+
+    @Test
+    fun onSnackbarDismissed() {
+        //Given
+        coEvery { getChecklistsUseCase.doWork(any()) } returns listOf(CHECKLIST_1, CHECKLIST_2)
+        coEvery { removeChecklistUseCase.doWork(any()) } returns listOf(CHECKLIST_2)
+        val expected = listOf(CHECKLIST_2)
+        viewModel.loadData()
+        viewModel.onDeleteClicked(CHECKLIST_1)
+
+        //When
+        viewModel.snackbarDismissed()
+
+        //Then
+        assert(viewModel.state.value is State.Success)
+        assertEquals(expected, viewModel.checklists.value)
     }
 }

@@ -27,7 +27,7 @@ class ChecklistsFragment : ChecklistAdapter.ChecklistAdapterListener, BaseFragme
     override val viewModel: ChecklistsViewModel by viewModel()
     private val adapter = ChecklistAdapter(this)
     private val snackbarListener = View.OnClickListener {
-        viewModel.undoClicked()
+        viewModel.onUndoClicked()
     }
 
     override fun onCreateView(

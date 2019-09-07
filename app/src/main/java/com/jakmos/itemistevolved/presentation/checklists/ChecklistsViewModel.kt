@@ -50,7 +50,7 @@ class ChecklistsViewModel(
             list.isEmpty() -> _state.value = State.Empty()
             else -> {
                 _state.value = State.Success(None)
-                _checklists.postValue(list)
+                _checklists.value = list
             }
         }
     }
@@ -71,7 +71,7 @@ class ChecklistsViewModel(
     }
 
     fun onDeleteClicked(model: Checklist) {
-        toBeRemoved.postValue((toBeRemoved.value ?: emptyList()) + model)
+        toBeRemoved.value = (toBeRemoved.value ?: emptyList()) + model
         _state.value = State.Removing()
     }
 
@@ -85,11 +85,11 @@ class ChecklistsViewModel(
     fun snackbarDismissed() {
         _state.value = State.Success(None)
         removeChecklists()
-        toBeRemoved.postValue(emptyList())
+        toBeRemoved.value = emptyList()
     }
 
-    fun undoClicked() {
+    fun onUndoClicked() {
         _state.value = State.Success(None)
-        toBeRemoved.postValue(emptyList())
+        toBeRemoved.value = emptyList()
     }
 }
