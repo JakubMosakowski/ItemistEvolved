@@ -10,7 +10,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.jakmos.itemistevolved.R
 import com.jakmos.itemistevolved.databinding.ChecklistsFragmentBinding
 import com.jakmos.itemistevolved.domain.model.project.State
-import com.jakmos.itemistevolved.presentation.checklists.adapter.ChecklistAdapter
 import com.jakmos.itemistevolved.presentation.commons.observe
 import kotlinx.android.synthetic.main.checklists_fragment.*
 import androidx.core.content.ContextCompat

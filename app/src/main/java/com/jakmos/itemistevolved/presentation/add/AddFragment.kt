@@ -13,7 +13,6 @@ import com.jakmos.itemistevolved.databinding.AddFragmentBinding
 import com.jakmos.itemistevolved.domain.model.Item
 import com.jakmos.itemistevolved.domain.model.project.None
 import com.jakmos.itemistevolved.domain.model.project.State
-import com.jakmos.itemistevolved.presentation.add.adapter.ItemAdapter
 import com.jakmos.itemistevolved.presentation.base.BaseFragment
 import com.jakmos.itemistevolved.presentation.commons.callback.DragAndDropCallback
 import com.jakmos.itemistevolved.presentation.commons.observe
