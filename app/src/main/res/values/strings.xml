@@ -15,4 +15,6 @@
     <string name="checklist_title">Checklist title</string>
     <string name="drag_handle">Drag handle</string>
     <string name="deleteButton">Delete button</string>
+    <string name="checklist_removed_undo">Do you want to bring back your checklist?</string>
+    <string name="undo">undo</string>
 </resources>

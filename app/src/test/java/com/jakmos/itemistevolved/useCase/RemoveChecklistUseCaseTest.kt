@@ -30,7 +30,7 @@ class RemoveChecklistUseCaseTest {
     @Test
     fun executeSuccess() = coroutinesTestRule.testDispatcher.runBlockingTest {
         //Given
-        val param = CHECKLIST_1
+        val param = listOf(CHECKLIST_1)
         val expected = listOf(CHECKLIST_2)
         coEvery { getChecklistsUseCase.doWork(None) } returns listOf(CHECKLIST_2)
         coEvery { dao.deleteById(CHECKLIST_1.id) } returns 1

@@ -1,6 +1,7 @@
 package com.jakmos.itemistevolved.presentation.checklists
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.jakmos.itemistevolved.domain.model.Checklist
@@ -15,11 +16,27 @@ class ChecklistsViewModel(
     private val removeChecklistUseCase: RemoveChecklistUseCase
 ) : BaseViewModel() {
 
-    private val _state = MutableLiveData<State<List<Checklist>>>().apply {
+    private val _state = MutableLiveData<State<None>>().apply {
         this.value = State.Loading()
     }
+    private val _checklists = MutableLiveData<List<Checklist>>()
+    private val toBeRemoved = MutableLiveData<List<Checklist>>()
 
-    val state: LiveData<State<List<Checklist>>> = _state
+    val state: LiveData<State<None>> = _state
+    val checklists = MediatorLiveData<List<Checklist>>()
+
+    init {
+        checklists.addSource(toBeRemoved) {
+            checklists.value = combineLiveData()
+        }
+        checklists.addSource(_checklists) {
+            checklists.value = combineLiveData()
+        }
+    }
+
+    private fun combineLiveData(): List<Checklist>? {
+        return (_checklists.value ?: emptyList()) - (toBeRemoved.value ?: emptyList())
+    }
 
     fun loadData() {
         _state.value = State.Loading()
@@ -31,7 +48,10 @@ class ChecklistsViewModel(
     private fun handleSuccessLoad(list: List<Checklist>) {
         when {
             list.isEmpty() -> _state.value = State.Empty()
-            else -> _state.value = State.Success(list)
+            else -> {
+                _state.value = State.Success(None)
+                _checklists.value = list
+            }
         }
     }
 
@@ -51,9 +71,25 @@ class ChecklistsViewModel(
     }
 
     fun onDeleteClicked(model: Checklist) {
+        toBeRemoved.value = (toBeRemoved.value ?: emptyList()) + model
+        _state.value = State.Removing()
+    }
+
+    private fun removeChecklists() {
         _state.value = State.Loading()
-        removeChecklistUseCase.execute(viewModelScope, model) {
+        removeChecklistUseCase.execute(viewModelScope, toBeRemoved.value ?: emptyList()) {
             it.either(::handleFailureLoad, ::handleSuccessLoad)
         }
+    }
+
+    fun snackbarDismissed() {
+        _state.value = State.Success(None)
+        removeChecklists()
+        toBeRemoved.value = emptyList()
+    }
+
+    fun onUndoClicked() {
+        _state.value = State.Success(None)
+        toBeRemoved.value = emptyList()
     }
 }
