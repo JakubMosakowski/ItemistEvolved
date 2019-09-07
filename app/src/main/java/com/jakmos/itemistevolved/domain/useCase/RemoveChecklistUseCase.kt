@@ -7,10 +7,12 @@ import com.jakmos.itemistevolved.domain.model.project.None
 class RemoveChecklistUseCase(
     private val dao: ChecklistDao,
     private val getChecklistsUseCase: GetChecklistsUseCase
-) : UseCase<Checklist, List<Checklist>>() {
+) : UseCase<List<Checklist>, List<Checklist>>() {
 
-    override suspend fun doWork(param: Checklist): List<Checklist> {
-        dao.deleteById(param.id)
+    override suspend fun doWork(param: List<Checklist>): List<Checklist> {
+        param.forEach {
+            dao.deleteById(it.id)
+        }
 
         return getChecklistsUseCase.doWork(None)
     }

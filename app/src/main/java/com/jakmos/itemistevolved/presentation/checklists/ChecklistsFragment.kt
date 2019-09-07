@@ -14,7 +14,10 @@ import com.jakmos.itemistevolved.presentation.checklists.adapter.ChecklistAdapte
 import com.jakmos.itemistevolved.presentation.commons.observe
 import kotlinx.android.synthetic.main.checklists_fragment.*
 import androidx.core.content.ContextCompat
+import com.google.android.material.snackbar.BaseTransientBottomBar
+import com.google.android.material.snackbar.Snackbar
 import com.jakmos.itemistevolved.domain.model.Checklist
+import com.jakmos.itemistevolved.domain.model.project.None
 import com.jakmos.itemistevolved.presentation.base.BaseFragment
 import com.jakmos.itemistevolved.presentation.commons.adapter.BottomItemDecoration
 
@@ -23,6 +26,9 @@ class ChecklistsFragment : ChecklistAdapter.ChecklistAdapterListener, BaseFragme
 
     override val viewModel: ChecklistsViewModel by viewModel()
     private val adapter = ChecklistAdapter(this)
+    private val snackbarListener = View.OnClickListener {
+        viewModel.undoClicked()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,8 +42,13 @@ class ChecklistsFragment : ChecklistAdapter.ChecklistAdapterListener, BaseFragme
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
         observe(viewModel.state, ::onChecklistsStateChange)
+        observe(viewModel.checklists, ::onChecklistsChange)
 
         return binding.root
+    }
+
+    private fun onChecklistsChange(list: List<Checklist>?) {
+        adapter.setData(list ?: emptyList())
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -57,15 +68,24 @@ class ChecklistsFragment : ChecklistAdapter.ChecklistAdapterListener, BaseFragme
         checklistsRv.adapter = adapter
     }
 
-    private fun onChecklistsStateChange(state: State<List<Checklist>>?) {
+    private fun onChecklistsStateChange(state: State<None>?) {
         when (state) {
-            is State.Success -> renderList(state.data)
             is State.Error -> showError(state.cause)
+            is State.Removing -> showSnackbar()
         }
     }
 
-    private fun renderList(checklists: List<Checklist>) {
-        adapter.setData(checklists)
+    private fun showSnackbar() {
+        Snackbar.make(view ?: return, R.string.checklist_removed_undo, Snackbar.LENGTH_LONG)
+            .setAction(R.string.undo, snackbarListener)
+            .addCallback(object : BaseTransientBottomBar.BaseCallback<Snackbar>() {
+                override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
+                    if (event == DISMISS_EVENT_TIMEOUT)
+                        viewModel.snackbarDismissed()
+                    super.onDismissed(transientBottomBar, event)
+                }
+            })
+            .show()
     }
 
     override fun onItemClicked(model: Checklist) {
@@ -80,3 +100,4 @@ class ChecklistsFragment : ChecklistAdapter.ChecklistAdapterListener, BaseFragme
         viewModel.onDeleteClicked(model)
     }
 }
+
