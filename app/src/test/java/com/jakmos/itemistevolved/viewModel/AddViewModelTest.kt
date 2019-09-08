@@ -34,10 +34,10 @@ class AddViewModelTest {
     val rule = InstantTaskExecutorRule()
     @get:Rule
     val coroutinesTestRule = CoroutinesTestRule()
+
     private val dao = mockk<ChecklistDao>()
     private val getChecklistsUseCase = spyk(GetChecklistsUseCase(dao))
     private val dateTime = mockk<DateTimeInterface>()
-
     private val insertChecklistUseCase =
         spyk(InsertChecklistUseCase(dateTime, dao, getChecklistsUseCase))
     private lateinit var viewModel: AddViewModel

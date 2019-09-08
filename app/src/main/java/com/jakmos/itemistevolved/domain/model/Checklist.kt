@@ -14,7 +14,6 @@ data class Checklist(
     private fun countChecked() = lines.count { it.isChecked }
     fun getCounterText() = "${countChecked()} / ${lines.size}"
 
-    //TODO write tests for methods
     companion object {
         fun create() = Checklist(0, "", "", emptyList())
     }

@@ -16,8 +16,6 @@ class ChecklistDetailViewModel(
     private val _checklist = MutableLiveData(checklist)
     val checklistLiveData: LiveData<Checklist> = _checklist
 
-    //TODO write tests
-
     fun clearClicked() {
         val lines = getClearedLines()
         _checklist.value = _checklist.value?.copy(lines = lines)
