@@ -1,4 +1,4 @@
-package com.jakmos.itemistevolved.presentation.checklists.adapter
+package com.jakmos.itemistevolved.presentation.checklists
 
 import androidx.recyclerview.widget.RecyclerView
 import android.view.ViewGroup

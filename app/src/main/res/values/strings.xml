@@ -17,4 +17,5 @@
     <string name="deleteButton">Delete button</string>
     <string name="checklist_removed_undo">Do you want to bring back your checklist?</string>
     <string name="undo">undo</string>
+    <string name="uncheckAll">Uncheck all</string>
 </resources>

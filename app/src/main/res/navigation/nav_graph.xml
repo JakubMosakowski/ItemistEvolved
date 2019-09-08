@@ -6,8 +6,7 @@
             app:startDestination="@id/checklistsFragment">
 
     <fragment android:id="@+id/checklistsFragment"
-              android:name="com.jakmos.itemistevolved.presentation.checklists.ChecklistsFragment"
-              android:label="ChecklistsFragment">
+              android:name="com.jakmos.itemistevolved.presentation.checklists.ChecklistsFragment">
         <action
                 android:id="@+id/action_checklistsFragment_to_checklistDetailFragment"
                 app:destination="@id/checklistDetailFragment"/>
@@ -15,8 +14,7 @@
                 android:id="@+id/action_checklistsFragment_to_addFragment"
                 app:destination="@id/addFragment"/>
     </fragment>
-    <fragment android:id="@+id/addFragment" android:name="com.jakmos.itemistevolved.presentation.add.AddFragment"
-              android:label="AddFragment">
+    <fragment android:id="@+id/addFragment" android:name="com.jakmos.itemistevolved.presentation.add.AddFragment">
         <argument
                 android:name="checklist"
                 app:argType="com.jakmos.itemistevolved.domain.model.Checklist"
@@ -29,7 +27,6 @@
     <fragment
             android:id="@+id/checklistDetailFragment"
             android:name="com.jakmos.itemistevolved.presentation.detail.ChecklistDetailFragment"
-            android:label="checklist_detail_fragment"
             tools:layout="@layout/checklist_detail_fragment">
         <argument
                 android:name="checklist"

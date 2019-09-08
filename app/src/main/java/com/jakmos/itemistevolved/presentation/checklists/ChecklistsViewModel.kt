@@ -48,11 +48,9 @@ class ChecklistsViewModel(
     private fun handleSuccessLoad(list: List<Checklist>) {
         when {
             list.isEmpty() -> _state.value = State.Empty()
-            else -> {
-                _state.value = State.Success(None)
-                _checklists.value = list
-            }
+            else -> _state.value = State.Success(None)
         }
+        _checklists.value = list
     }
 
     private fun handleFailureLoad(error: Exception) {
@@ -76,8 +74,8 @@ class ChecklistsViewModel(
     }
 
     private fun removeChecklists() {
-        _state.value = State.Loading()
         removeChecklistUseCase.execute(viewModelScope, toBeRemoved.value ?: emptyList()) {
+            toBeRemoved.value = emptyList()
             it.either(::handleFailureLoad, ::handleSuccessLoad)
         }
     }
@@ -85,7 +83,6 @@ class ChecklistsViewModel(
     fun snackbarDismissed() {
         _state.value = State.Success(None)
         removeChecklists()
-        toBeRemoved.value = emptyList()
     }
 
     fun onUndoClicked() {

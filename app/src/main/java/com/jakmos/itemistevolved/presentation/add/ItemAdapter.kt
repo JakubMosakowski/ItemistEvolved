@@ -1,4 +1,4 @@
-package com.jakmos.itemistevolved.presentation.add.adapter
+package com.jakmos.itemistevolved.presentation.add
 
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
@@ -9,7 +9,7 @@ import com.jakmos.itemistevolved.domain.model.Item
 import kotlinx.android.synthetic.main.line_item.view.*
 
 class ItemAdapter(private val listener: ItemAdapterListener? = null) :
-    RecyclerView.Adapter<ItemAdapter.ItemAdapterViewHolder>(){
+    RecyclerView.Adapter<ItemAdapter.ItemAdapterViewHolder>() {
 
     private var items: List<Item> = emptyList()
 
