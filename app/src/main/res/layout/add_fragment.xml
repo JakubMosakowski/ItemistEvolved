@@ -46,6 +46,7 @@
                     style="@style/editTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:maxLength="30"
                     android:hint="@string/checklist_title"
                     android:text="@={viewModel.titleText}" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -79,6 +80,7 @@
                     style="@style/editTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:maxLength="30"
                     android:hint="@string/add_item_to_list"
                     android:text="@={viewModel.lineItemText}" />
         </com.google.android.material.textfield.TextInputLayout>

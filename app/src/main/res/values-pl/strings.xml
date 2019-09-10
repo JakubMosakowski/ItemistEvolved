@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ItemistEvolved</string>
+    <string name="add">Dodaj</string>
+    <string name="add_fragment">Ekran dodawania</string>
+    <string name="add_item_to_list">Dodaj podpunkt do listy</string>
+    <string name="checklist_removed_undo">Czy chcesz przywrócić swoją listę?</string>
+    <string name="checklist_title">Tytuł listy</string>
+    <string name="deleteButton">Przycisk usuwania</string>
+    <string name="drag_handle">Uchwyt przeciągania</string>
+    <string name="edit_button">Przycisk edycji</string>
+    <string name="edit_item">Edytuj podpunkt</string>
+    <string name="empty_checklists">O nie! Nie masz żadnej listy. Może to dobry moment abyś dodał swą pierwszą?</string>
+    <string name="exit">Wyjdź</string>
+    <string name="oh_no">O nie!</string>
+    <string name="remove_button">Przycisk usuwania</string>
+    <string name="retry">Spróbuj ponownie</string>
+    <string name="something_went_wrong">Coś poszło nie tak</string>
+    <string name="submit">Zapisz</string>
+    <string name="uncheckAll">Odznacz wszystkie</string>
+    <string name="undo">Cofnij</string>
+</resources>
