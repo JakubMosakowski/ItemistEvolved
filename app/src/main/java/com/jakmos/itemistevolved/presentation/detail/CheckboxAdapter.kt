@@ -3,8 +3,10 @@ package com.jakmos.itemistevolved.presentation.detail
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import com.jakmos.itemistevolved.databinding.CheckboxItemBinding
 import com.jakmos.itemistevolved.domain.model.Item
+import com.jakmos.itemistevolved.presentation.detail.adapter.DiffCallback
 
 class CheckboxAdapter(private val listener: CheckboxAdapterListener? = null) :
     RecyclerView.Adapter<CheckboxAdapter.CheckboxAdapterViewHolder>() {
@@ -25,8 +27,9 @@ class CheckboxAdapter(private val listener: CheckboxAdapterListener? = null) :
     }
 
     fun setData(items: List<Item>) {
+        val diffResult = DiffUtil.calculateDiff(DiffCallback(this.items, items))
         this.items = items
-        notifyDataSetChanged()
+        diffResult.dispatchUpdatesTo(this)
     }
 
     interface CheckboxAdapterListener {
