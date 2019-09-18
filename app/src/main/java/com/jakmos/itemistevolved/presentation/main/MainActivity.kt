@@ -1,13 +1,10 @@
 package com.jakmos.itemistevolved.presentation.main
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.onNavDestinationSelected
 import androidx.navigation.ui.setupWithNavController
 import com.jakmos.itemistevolved.R
 import com.jakmos.itemistevolved.databinding.ActivityMainBinding
@@ -44,14 +41,4 @@ class MainActivity : AppCompatActivity(){
     override fun onSupportNavigateUp() =
         findNavController(R.id.nav_graph).navigateUp()
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return item.onNavDestinationSelected(findNavController(R.id.navHostFragment)) ||
-                super.onOptionsItemSelected(item)
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.toolbar_menu, menu)
-
-        return true
-    }
 }

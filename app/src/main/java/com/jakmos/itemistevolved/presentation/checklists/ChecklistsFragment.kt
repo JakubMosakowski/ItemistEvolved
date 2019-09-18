@@ -4,21 +4,22 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
-import androidx.recyclerview.widget.LinearLayoutManager
-import org.koin.androidx.viewmodel.ext.android.viewModel
-import com.jakmos.itemistevolved.R
-import com.jakmos.itemistevolved.databinding.ChecklistsFragmentBinding
-import com.jakmos.itemistevolved.domain.model.project.State
-import com.jakmos.itemistevolved.presentation.commons.observe
-import kotlinx.android.synthetic.main.checklists_fragment.*
 import androidx.core.content.ContextCompat
+import androidx.databinding.DataBindingUtil
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
+import com.jakmos.itemistevolved.R
+import com.jakmos.itemistevolved.databinding.ChecklistsFragmentBinding
 import com.jakmos.itemistevolved.domain.model.Checklist
 import com.jakmos.itemistevolved.domain.model.project.None
+import com.jakmos.itemistevolved.domain.model.project.State
 import com.jakmos.itemistevolved.presentation.base.BaseFragment
 import com.jakmos.itemistevolved.presentation.commons.adapter.BottomItemDecoration
+import com.jakmos.itemistevolved.presentation.commons.observe
+import kotlinx.android.synthetic.main.checklists_fragment.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class ChecklistsFragment : ChecklistAdapter.ChecklistAdapterListener, BaseFragment() {
@@ -42,6 +43,8 @@ class ChecklistsFragment : ChecklistAdapter.ChecklistAdapterListener, BaseFragme
         binding.viewModel = viewModel
         observe(viewModel.state, ::onChecklistsStateChange)
         observe(viewModel.checklists, ::onChecklistsChange)
+
+        binding.addItem.setOnClickListener { findNavController().navigate(R.id.addFragment) }
 
         return binding.root
     }

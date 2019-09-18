@@ -1,13 +1,14 @@
 package com.jakmos.itemistevolved.presentation.add
 
+import android.content.Context
 import android.os.Bundle
 import android.view.*
+import android.view.inputmethod.InputMethodManager
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.jakmos.itemistevolved.R
 import com.jakmos.itemistevolved.databinding.AddFragmentBinding
 import com.jakmos.itemistevolved.domain.model.Item
@@ -17,6 +18,7 @@ import com.jakmos.itemistevolved.presentation.base.BaseFragment
 import com.jakmos.itemistevolved.presentation.commons.callback.DragAndDropCallback
 import com.jakmos.itemistevolved.presentation.commons.observe
 import kotlinx.android.synthetic.main.add_fragment.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
 
@@ -88,5 +90,12 @@ class AddFragment : BaseFragment(), ItemAdapter.ItemAdapterListener {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         menu.clear()
+    }
+
+    override fun onDestroy() {
+        val view = activity?.findViewById<View>(android.R.id.content)
+        val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view?.windowToken, 0)
+        super.onDestroy()
     }
 }
