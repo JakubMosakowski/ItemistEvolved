@@ -17,17 +17,14 @@
         android:layout_height="match_parent"
         tools:context=".presentation.checklists.ChecklistsFragment">
 
-        <ImageView
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/addItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:src="@drawable/ic_add_32dp"
-            android:tint="@color/colorPrimary"
+            android:text="@string/add_item_to_list"
             app:layout_constraintBottom_toTopOf="@+id/checklistsRv"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView" />
 
