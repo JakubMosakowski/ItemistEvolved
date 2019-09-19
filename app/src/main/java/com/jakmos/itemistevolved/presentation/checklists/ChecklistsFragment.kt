@@ -58,6 +58,7 @@ class ChecklistsFragment : ChecklistAdapter.ChecklistAdapterListener, BaseFragme
 
         setupRecyclerView()
         viewModel.loadData()
+        viewModel.hideKeyboard()
     }
 
     private fun setupRecyclerView() {

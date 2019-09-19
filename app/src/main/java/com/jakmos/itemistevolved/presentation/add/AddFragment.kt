@@ -1,9 +1,7 @@
 package com.jakmos.itemistevolved.presentation.add
 
-import android.content.Context
 import android.os.Bundle
 import android.view.*
-import android.view.inputmethod.InputMethodManager
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -90,12 +88,5 @@ class AddFragment : BaseFragment(), ItemAdapter.ItemAdapterListener {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         menu.clear()
-    }
-
-    override fun onDestroy() {
-        val view = activity?.findViewById<View>(android.R.id.content)
-        val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(view?.windowToken, 0)
-        super.onDestroy()
     }
 }
