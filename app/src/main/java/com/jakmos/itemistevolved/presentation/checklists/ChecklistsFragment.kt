@@ -19,7 +19,7 @@ import com.jakmos.itemistevolved.domain.model.Checklist
 import com.jakmos.itemistevolved.domain.model.project.None
 import com.jakmos.itemistevolved.presentation.base.BaseFragment
 import com.jakmos.itemistevolved.presentation.commons.adapter.BottomItemDecoration
-
+import androidx.navigation.fragment.findNavController
 
 class ChecklistsFragment : ChecklistAdapter.ChecklistAdapterListener, BaseFragment() {
 
@@ -43,6 +43,8 @@ class ChecklistsFragment : ChecklistAdapter.ChecklistAdapterListener, BaseFragme
         observe(viewModel.state, ::onChecklistsStateChange)
         observe(viewModel.checklists, ::onChecklistsChange)
 
+        binding.addItem.setOnClickListener { findNavController().navigate(R.id.addFragment) }
+
         return binding.root
     }
 
@@ -55,6 +57,7 @@ class ChecklistsFragment : ChecklistAdapter.ChecklistAdapterListener, BaseFragme
 
         setupRecyclerView()
         viewModel.loadData()
+        viewModel.hideKeyboard()
     }
 
     private fun setupRecyclerView() {
