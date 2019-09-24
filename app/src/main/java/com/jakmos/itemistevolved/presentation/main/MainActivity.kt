@@ -1,7 +1,7 @@
 package com.jakmos.itemistevolved.presentation.main
 
-import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -11,7 +11,7 @@ import com.jakmos.itemistevolved.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MainActivity : AppCompatActivity(){
+class MainActivity : AppCompatActivity() {
 
     val viewModel: MainActivityViewModel by viewModel()
     private lateinit var appBarConfiguration: AppBarConfiguration

@@ -4,7 +4,7 @@
     <string name="add">Dodaj</string>
     <string name="add_fragment">Ekran dodawania</string>
     <string name="add_item_to_list">Dodaj podpunkt do listy</string>
-    <string name="add_list_item">...</string>
+    <string name="add_list_item">Dodaj listę</string>
     <string name="checklist_removed_undo">Czy chcesz przywrócić swoją listę?</string>
     <string name="checklist_title">Tytuł listy</string>
     <string name="deleteButton">Przycisk usuwania</string>
