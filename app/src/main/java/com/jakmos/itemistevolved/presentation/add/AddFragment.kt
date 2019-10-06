@@ -2,6 +2,7 @@ package com.jakmos.itemistevolved.presentation.add
 
 import android.os.Bundle
 import android.view.*
+import android.view.inputmethod.EditorInfo
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -17,6 +18,7 @@ import com.jakmos.itemistevolved.presentation.base.BaseFragment
 import com.jakmos.itemistevolved.presentation.commons.callback.DragAndDropCallback
 import com.jakmos.itemistevolved.presentation.commons.observe
 import kotlinx.android.synthetic.main.add_fragment.*
+import org.koin.android.ext.android.bind
 import org.koin.core.parameter.parametersOf
 
 
@@ -35,9 +37,7 @@ class AddFragment : BaseFragment(), ItemAdapter.ItemAdapterListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = DataBindingUtil.inflate<AddFragmentBinding>(
-            inflater, R.layout.add_fragment, container, false
-        )
+        val binding = AddFragmentBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
         observe(viewModel.state, ::onStateChange)
@@ -52,6 +52,7 @@ class AddFragment : BaseFragment(), ItemAdapter.ItemAdapterListener {
         super.onViewCreated(view, savedInstanceState)
 
         setupRecyclerView()
+        setupItemInputEditorActionListener()
         titleEditText.requestFocus()
     }
 
@@ -59,6 +60,16 @@ class AddFragment : BaseFragment(), ItemAdapter.ItemAdapterListener {
         itemsRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         itemsRecyclerView.adapter = adapter
         itemTouchHelper.attachToRecyclerView(itemsRecyclerView)
+    }
+
+    private fun setupItemInputEditorActionListener() {
+        lineEditText.setOnEditorActionListener { _, actionId, event ->
+            if(event?.keyCode == KeyEvent.KEYCODE_ENTER || actionId == EditorInfo.IME_ACTION_DONE) {
+                viewModel.addItemClicked()
+            }
+
+            return@setOnEditorActionListener true
+        }
     }
 
     private fun onChecklistsChange(items: List<Item>?) {
