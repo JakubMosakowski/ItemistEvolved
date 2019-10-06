@@ -6,4 +6,5 @@
     <color name="colorAccent">#fad6a5</color>
     <color name="textColorPrimary">#333333</color>
     <color name="textColorSecondary">#555555</color>
+    <color name="textColorToolbarTitle">#62507E</color>
 </resources>
