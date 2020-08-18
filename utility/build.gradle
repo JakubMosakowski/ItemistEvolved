@@ -100,11 +100,11 @@ android {
 
       buildConfigField "String", "AUTHENTICATOR",
           (project.hasProperty("AccountAuthenticator")) ? AccountAuthenticator :
-              "\"\""
+                  "\"com.jakmos.itemistevolved.dev\""
 
       resValue "string", "authenticator",
           (project.hasProperty("AccountAuthenticator")) ? AccountAuthenticator :
-              ""
+              "com.jakmos.itemistevolved.dev"
 
       //endregion
 
@@ -121,11 +121,11 @@ android {
 
       buildConfigField "String", "AUTHENTICATOR",
           (project.hasProperty("AccountAuthenticator")) ? AccountAuthenticator :
-              "\"\""
+                  "\"com.jakmos.itemistevolved\""
 
       resValue "string", "authenticator",
           (project.hasProperty("AccountAuthenticator")) ? AccountAuthenticator :
-              ""
+              "com.jakmos.itemistevolved"
 
       //endregion
 

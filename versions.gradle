@@ -42,7 +42,6 @@ versions.permissions_dispatcher = "4.7.0"
 versions.play_services = "17.0.0"
 versions.photo_view = "2.0.0"
 versions.reactive_network = "3.0.8"
-versions.retrofit = "2.9.0"
 versions.rx_android = "2.1.1"
 versions.rx_binding = "3.1.0"
 versions.rx_java = "2.2.19"
@@ -186,17 +185,6 @@ deps.network = network
 def play_services = [:]
 play_services.maps = "com.google.android.gms:play-services-maps:$versions.play_services"
 deps.play_services = play_services
-
-//endregion
-
-//region Retrofit
-
-def retrofit = [:]
-retrofit.gson = "com.squareup.retrofit2:converter-gson:$versions.retrofit"
-retrofit.logging = "com.squareup.okhttp3:logging-interceptor:$versions.okhttp_logging_interceptor"
-retrofit.runtime = "com.squareup.retrofit2:retrofit:$versions.retrofit"
-retrofit.rxjava2 = "com.squareup.retrofit2:adapter-rxjava2:$versions.retrofit"
-deps.retrofit = retrofit
 
 //endregion
 
