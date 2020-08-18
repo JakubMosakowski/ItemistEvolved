@@ -7,8 +7,8 @@ import androidx.lifecycle.viewModelScope
 import com.jakmos.itemistevolved.domain.model.Checklist
 import com.jakmos.itemistevolved.domain.model.project.None
 import com.jakmos.itemistevolved.domain.model.project.State
-import com.jakmos.itemistevolved.domain.useCase.GetChecklistsUseCase
-import com.jakmos.itemistevolved.domain.useCase.RemoveChecklistUseCase
+import com.jakmos.itemistevolved.domain.usecase.GetChecklistsUseCase
+import com.jakmos.itemistevolved.domain.usecase.RemoveChecklistUseCase
 import com.jakmos.itemistevolved.presentation.base.BaseViewModel
 
 class ChecklistsViewModel(

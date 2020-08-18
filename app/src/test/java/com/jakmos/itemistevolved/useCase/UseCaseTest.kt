@@ -1,7 +1,7 @@
 package com.jakmos.itemistevolved.useCase
 
 import com.jakmos.itemistevolved.CoroutinesTestRule
-import com.jakmos.itemistevolved.domain.useCase.UseCase
+import com.jakmos.itemistevolved.domain.model.project.UseCase
 import io.mockk.coEvery
 import io.mockk.spyk
 import org.junit.Assert.assertEquals

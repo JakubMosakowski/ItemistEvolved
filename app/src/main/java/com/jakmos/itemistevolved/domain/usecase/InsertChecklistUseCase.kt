@@ -1,10 +1,11 @@
-package com.jakmos.itemistevolved.domain.useCase
+package com.jakmos.itemistevolved.domain.usecase
 
 import com.jakmos.itemistevolved.data.db.ChecklistDao
 import com.jakmos.itemistevolved.domain.model.Checklist
-import com.jakmos.itemistevolved.domain.model.entity.ChecklistEntity
+import com.jakmos.itemistevolved.data.entity.ChecklistEntity
 import com.jakmos.itemistevolved.domain.model.project.DateTimeInterface
 import com.jakmos.itemistevolved.domain.model.project.None
+import com.jakmos.itemistevolved.domain.model.project.UseCase
 
 class InsertChecklistUseCase(
     private val dateTime: DateTimeInterface,
@@ -20,11 +21,11 @@ class InsertChecklistUseCase(
 
     private fun createEntity(param: Checklist): ChecklistEntity =
         ChecklistEntity(
+            param.id,
             param.name,
             param.image,
             param.createdAt ?: dateTime.date,
             dateTime.date,
-            param.lines,
-            param.id
+            param.lines
         )
 }

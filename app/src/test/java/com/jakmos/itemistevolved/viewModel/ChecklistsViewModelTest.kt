@@ -8,8 +8,8 @@ import com.jakmos.itemistevolved.CoroutinesTestRule
 import com.jakmos.itemistevolved.data.db.ChecklistDao
 import com.jakmos.itemistevolved.domain.model.Checklist
 import com.jakmos.itemistevolved.domain.model.project.State
-import com.jakmos.itemistevolved.domain.useCase.GetChecklistsUseCase
-import com.jakmos.itemistevolved.domain.useCase.RemoveChecklistUseCase
+import com.jakmos.itemistevolved.domain.usecase.GetChecklistsUseCase
+import com.jakmos.itemistevolved.domain.usecase.RemoveChecklistUseCase
 import com.jakmos.itemistevolved.presentation.base.BaseViewModel
 import com.jakmos.itemistevolved.presentation.checklists.ChecklistsFragmentDirections
 import com.jakmos.itemistevolved.presentation.checklists.ChecklistsViewModel

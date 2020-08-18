@@ -4,10 +4,9 @@ import com.jakmos.itemistevolved.CHECKLIST_1
 import com.jakmos.itemistevolved.CHECKLIST_2
 import com.jakmos.itemistevolved.CoroutinesTestRule
 import com.jakmos.itemistevolved.data.db.ChecklistDao
-import com.jakmos.itemistevolved.domain.model.entity.ChecklistEntity
 import com.jakmos.itemistevolved.domain.model.project.None
-import com.jakmos.itemistevolved.domain.useCase.GetChecklistsUseCase
-import com.jakmos.itemistevolved.domain.useCase.RemoveChecklistUseCase
+import com.jakmos.itemistevolved.domain.usecase.GetChecklistsUseCase
+import com.jakmos.itemistevolved.domain.usecase.RemoveChecklistUseCase
 import io.mockk.coEvery
 import io.mockk.mockk
 import io.mockk.spyk
@@ -16,7 +15,6 @@ import kotlinx.coroutines.test.*
 import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
-import java.util.*
 
 @ExperimentalCoroutinesApi
 class RemoveChecklistUseCaseTest {

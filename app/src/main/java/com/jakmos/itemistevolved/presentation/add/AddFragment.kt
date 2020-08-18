@@ -23,8 +23,11 @@ import org.koin.core.parameter.parametersOf
 
 
 class AddFragment : BaseFragment(), ItemAdapter.ItemAdapterListener {
+
     private val args: AddFragmentArgs by navArgs()
+
     override val viewModel: AddViewModel by viewModel { parametersOf(args.checklist) }
+
     private val adapter by lazy {
         ItemAdapter(this)
     }

@@ -7,7 +7,7 @@ import com.jakmos.itemistevolved.domain.model.Checklist
 import com.jakmos.itemistevolved.domain.model.Item
 import com.jakmos.itemistevolved.domain.model.project.None
 import com.jakmos.itemistevolved.domain.model.project.State
-import com.jakmos.itemistevolved.domain.useCase.InsertChecklistUseCase
+import com.jakmos.itemistevolved.domain.usecase.InsertChecklistUseCase
 import com.jakmos.itemistevolved.presentation.base.BaseViewModel
 import com.jakmos.itemistevolved.presentation.commons.callback.DragAndDropListener
 

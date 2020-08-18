@@ -2,7 +2,7 @@ package com.jakmos.itemistevolved
 
 import com.jakmos.itemistevolved.domain.model.Checklist
 import com.jakmos.itemistevolved.domain.model.Item
-import com.jakmos.itemistevolved.domain.model.entity.ChecklistEntity
+import com.jakmos.itemistevolved.data.entity.ChecklistEntity
 import java.util.*
 
 

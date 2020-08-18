@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.jakmos.itemistevolved.domain.model.Checklist
 import com.jakmos.itemistevolved.domain.model.Item
-import com.jakmos.itemistevolved.domain.useCase.InsertChecklistUseCase
+import com.jakmos.itemistevolved.domain.usecase.InsertChecklistUseCase
 import com.jakmos.itemistevolved.presentation.base.BaseViewModel
 
 class ChecklistDetailViewModel(

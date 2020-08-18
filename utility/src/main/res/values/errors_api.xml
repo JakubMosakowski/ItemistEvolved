@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+  <!-- region Business Error -->
+
+  <string name="api_error_server_error">Server is not responding. Try again later.</string>
+  <string name="api_error_unknown">Unknown error.</string>
+
+  <!-- endregion -->
+
+  <!-- region Validation Error -->
+
+  <string name="api_error_required">Required.</string>
+  <string name="api_error_invalid_value">Invalid value.</string>
+  <string name="api_error_invalid_email">Must be a well-formed email address.</string>
+  <string name="api_error_invalid_number_range">Value must be between %1$.2f and %2$.2f.</string>
+  <string name="api_error_invalid_text_length">Text length must be between %1$d and %2$d.</string>
+  <string name="api_error_invalid_min_number_value">Value must be greater then or equal to %.2f.</string>
+  <string name="api_error_invalid_max_number_value">Value must be less than or equal to %.2f</string>
+  <string name="api_error_invalid_pattern">Must match pattern \"%s\".</string>
+
+  <!-- endregion -->
+
+</resources>

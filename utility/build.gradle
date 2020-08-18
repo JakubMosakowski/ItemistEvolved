@@ -1,0 +1,245 @@
+//region Startup Plugins
+
+apply plugin: "com.android.library"
+apply plugin: "kotlin-android"
+apply plugin: "kotlin-kapt"
+
+//endregion
+
+//region Android
+
+android {
+
+  //region Compile Options
+
+  compileSdkVersion deps.build_versions.compile_sdk
+
+  compileOptions {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+  }
+
+  //endregion
+
+  //region Default Config
+
+  defaultConfig {
+    dimension "type"
+    minSdkVersion deps.build_versions.min_sdk
+    targetSdkVersion deps.build_versions.target_sdk
+    versionCode = getAutoVersionCode()
+    versionName = getAutoVersionName()
+  }
+
+  //endregion
+
+  //region Flavor Dimensions
+
+  flavorDimensions "type"
+
+  //endregion
+
+  //region Build Types
+
+  buildTypes {
+    debug {
+      minifyEnabled = false
+    }
+    release {
+      minifyEnabled = true
+      proguardFiles getDefaultProguardFile("proguard-android.txt"),
+          rootProject.file("settings/proguard/proguard-rules.pro")
+    }
+  }
+
+  //endregion
+
+  //region Gradle Properties
+
+  buildTypes.each {
+
+    //region Debug
+
+    it.buildConfigField "Boolean", "ENABLE_DEBUG_BRIDGE",
+        (project.hasProperty("EnableDebugBridge")) ? EnableDebugBridge : "false"
+
+    //endregion
+
+    //region Server
+
+    it.buildConfigField "Long", "SERVER_CONNECTION_TIMEOUT",
+        (project.hasProperty("ServerConnectionTimeout")) ? ServerConnectionTimeout : "30L"
+
+    it.buildConfigField "Long", "SERVER_READ_TIMEOUT",
+        (project.hasProperty("ServerReadTimeout")) ? ServerReadTimeout : "30L"
+
+    it.buildConfigField "Long", "SERVER_WRITE_TIMEOUT",
+        (project.hasProperty("ServerWriteTimeout")) ? ServerWriteTimeout : "30L"
+
+    //endregion
+  }
+
+  //endregion
+
+  //region Kotlin Options
+
+  kotlinOptions {
+    jvmTarget = JavaVersion.VERSION_1_8
+  }
+
+  //endregion
+
+  //region Product Flavors
+
+  productFlavors {
+
+    dev {
+      dimension "type"
+
+      //region Authenticator
+
+      buildConfigField "String", "AUTHENTICATOR",
+          (project.hasProperty("AccountAuthenticator")) ? AccountAuthenticator :
+              "\"\""
+
+      resValue "string", "authenticator",
+          (project.hasProperty("AccountAuthenticator")) ? AccountAuthenticator :
+              ""
+
+      //endregion
+
+      // Server configuration.
+
+      // In-app urls and addresses configuration.
+
+    }
+
+    prod {
+      dimension "type"
+
+      //region Authenticator
+
+      buildConfigField "String", "AUTHENTICATOR",
+          (project.hasProperty("AccountAuthenticator")) ? AccountAuthenticator :
+              "\"\""
+
+      resValue "string", "authenticator",
+          (project.hasProperty("AccountAuthenticator")) ? AccountAuthenticator :
+              ""
+
+      //endregion
+
+      // Server configuration.
+
+      // In-app urls and addresses configuration.
+
+    }
+  }
+
+  //endregion
+}
+
+//endregion
+
+//region Dependencies
+
+dependencies {
+
+  //region Account
+
+  api deps.misc.ktx_account
+  kapt deps.misc.ktx_account_compiler
+
+  //endregion
+
+  //region Androidx
+
+  api deps.androidx.material
+
+  //endregion
+
+  //region Application Files
+
+  implementation fileTree(dir: "libs", include: ["*.jar"])
+
+  //endregion
+
+  //region Debugging
+
+  implementation deps.misc.timber
+
+  //endregion
+
+  //region Dependency Injection
+
+  kapt deps.dagger.android_processor
+  compileOnly deps.dagger.annotation
+  api deps.dagger.android
+  api deps.dagger.android_support
+  kapt deps.dagger.compiler
+  api deps.dagger.runtime
+
+  //endregion
+
+  //region Images
+
+  api deps.misc.glide
+  api deps.misc.glide_integration
+  kapt deps.misc.glide_compiler
+
+  //endregion
+
+  //region Kotlin
+
+  api deps.kotlin.stdlib_jdk8
+
+  //endregion
+
+  //region Lifecycle
+
+  api deps.lifecycle.ext
+  api deps.lifecycle.livedata
+
+  //endregion
+
+  //region Limbo
+
+  api deps.limbo.mvvm
+  api deps.limbo.mvvm_dagger
+  api deps.limbo.recycler_view
+  api deps.limbo.utility
+
+  //endregion
+
+  //region Miscellaneous
+
+  api deps.misc.commons_collections
+  api deps.misc.commons_io
+  api deps.misc.commons_validator
+  api deps.misc.joda_time
+  api deps.misc.materialize
+  api deps.misc.play_services_base
+  api deps.misc.play_services_auth
+
+  //endregion
+
+  //region Reactive Extensions
+
+  api deps.rx.android
+  api deps.rx.binding
+  api deps.rx.binding_swiperefreshlayout
+  api deps.rx.java
+  api deps.rx.kotlin
+  api deps.rx.network
+
+  //endregion
+
+  //region Ui
+
+  implementation deps.ui.flexbox
+  implementation deps.ui.material_dialogs
+
+  //endregion
+}
+
+//endregion

@@ -2,7 +2,7 @@ package com.jakmos.itemistevolved.model
 
 import com.jakmos.itemistevolved.CHECKLIST_1
 import com.jakmos.itemistevolved.CHECKLIST_ENTITY_1
-import com.jakmos.itemistevolved.domain.model.entity.ChecklistEntity
+import com.jakmos.itemistevolved.data.entity.ChecklistEntity
 import org.junit.Assert.assertEquals
 import org.junit.Test
 

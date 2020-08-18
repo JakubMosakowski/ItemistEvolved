@@ -10,8 +10,8 @@ import com.jakmos.itemistevolved.domain.model.Checklist
 import com.jakmos.itemistevolved.domain.model.project.DateTimeInterface
 import com.jakmos.itemistevolved.domain.model.project.Event
 import com.jakmos.itemistevolved.domain.model.project.State
-import com.jakmos.itemistevolved.domain.useCase.GetChecklistsUseCase
-import com.jakmos.itemistevolved.domain.useCase.InsertChecklistUseCase
+import com.jakmos.itemistevolved.domain.usecase.GetChecklistsUseCase
+import com.jakmos.itemistevolved.domain.usecase.InsertChecklistUseCase
 import com.jakmos.itemistevolved.presentation.add.AddFragmentDirections
 import com.jakmos.itemistevolved.presentation.add.AddViewModel
 import com.jakmos.itemistevolved.presentation.base.BaseViewModel

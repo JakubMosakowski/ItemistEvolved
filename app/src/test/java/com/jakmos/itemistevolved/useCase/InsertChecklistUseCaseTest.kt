@@ -3,11 +3,11 @@ package com.jakmos.itemistevolved.useCase
 import com.jakmos.itemistevolved.CHECKLIST_1
 import com.jakmos.itemistevolved.CoroutinesTestRule
 import com.jakmos.itemistevolved.data.db.ChecklistDao
-import com.jakmos.itemistevolved.domain.model.entity.ChecklistEntity
+import com.jakmos.itemistevolved.data.entity.ChecklistEntity
 import com.jakmos.itemistevolved.domain.model.project.DateTimeInterface
 import com.jakmos.itemistevolved.domain.model.project.None
-import com.jakmos.itemistevolved.domain.useCase.GetChecklistsUseCase
-import com.jakmos.itemistevolved.domain.useCase.InsertChecklistUseCase
+import com.jakmos.itemistevolved.domain.usecase.GetChecklistsUseCase
+import com.jakmos.itemistevolved.domain.usecase.InsertChecklistUseCase
 import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.mockk

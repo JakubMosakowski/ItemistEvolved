@@ -1,6 +1,5 @@
-package com.jakmos.itemistevolved.domain.useCase
+package com.jakmos.itemistevolved.domain.model.project
 
-import com.jakmos.itemistevolved.domain.model.project.Either
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import timber.log.Timber

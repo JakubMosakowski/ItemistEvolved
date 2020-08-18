@@ -6,8 +6,8 @@ import com.jakmos.itemistevolved.CoroutinesTestRule
 import com.jakmos.itemistevolved.ITEM_3
 import com.jakmos.itemistevolved.data.db.ChecklistDao
 import com.jakmos.itemistevolved.domain.model.project.DateTimeInterface
-import com.jakmos.itemistevolved.domain.useCase.GetChecklistsUseCase
-import com.jakmos.itemistevolved.domain.useCase.InsertChecklistUseCase
+import com.jakmos.itemistevolved.domain.usecase.GetChecklistsUseCase
+import com.jakmos.itemistevolved.domain.usecase.InsertChecklistUseCase
 import com.jakmos.itemistevolved.presentation.detail.ChecklistDetailViewModel
 import io.mockk.mockk
 import io.mockk.spyk

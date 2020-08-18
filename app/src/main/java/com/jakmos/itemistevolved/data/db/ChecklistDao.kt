@@ -1,7 +1,7 @@
 package com.jakmos.itemistevolved.data.db
 
 import androidx.room.*
-import com.jakmos.itemistevolved.domain.model.entity.ChecklistEntity
+import com.jakmos.itemistevolved.data.entity.ChecklistEntity
 
 @Dao
 interface ChecklistDao {

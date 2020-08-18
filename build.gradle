@@ -1,39 +1,103 @@
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
+import java.text.SimpleDateFormat
 
-ext{
-    lifecycle_version = '2.2.0-rc02'
-    koin_version = '2.0.1'
-    room_version = "2.2.2"
-    mockk_version = "1.9.3"
-    moshi_version = "1.8.0"
-    coroutines_version = "1.3.0-RC2"
-}
+//region Build Script
 
 buildscript {
-    ext.kotlin_version = '1.3.60'
-    ext.nav_component_version = "2.2.0-rc02"
-
     repositories {
-        google()
-        jcenter()
+        apply from: "versions.gradle"
+        addRepos(repositories)
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.5.2'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_component_version"
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
+        classpath deps.build.android_gradle_plugin
+        classpath deps.build.firebase_appdistribution
+        classpath deps.build.firebase_crashlytics
+        classpath deps.build.google_services_plugin
+        classpath deps.build.kotlin_gradle_plugin
+        classpath deps.build.navigation_safe_args
     }
 }
+
+//endregion
+
+//region All Projects
 
 allprojects {
     repositories {
-        google()
-        jcenter()
-        maven { url 'https://jitpack.io' }
+        addRepos(repositories)
     }
 }
+
+//endregion
+
+//region Tasks
 
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+//endregion
+
+//region Naming
+
+@SuppressWarnings("GroovyUnusedDeclaration")
+static def getProjectName() {
+    return "ItemistEvolved"
+}
+
+//endregion
+
+//region Versioning
+
+@SuppressWarnings("GroovyUnusedDeclaration")
+static def getAutoVersionName() {
+    def (major, minor, patch, _, sha) = getLastMasterGitTagVersion()
+    def code = getAutoVersionCode()
+    def date = getBuildDate()
+    return (getCurrentBranch() == "master") ? "${major}.${minor}.${patch}" : "${sha}-${date} ($code)"
+}
+
+@SuppressWarnings("GroovyUnusedDeclaration")
+static def getDevelopVersionCode() {
+    def count = getGitCommitsCount()
+    return (count == null || count.empty) ? 0 : count.toInteger()
+}
+
+@SuppressWarnings("GroovyUnusedDeclaration")
+static def getProductionVersionCode() {
+    def (major, minor, patch) = getLastMasterGitTagVersion()
+    return major.toInteger() * 1_000_000 + minor.toInteger() * 1_000 + patch.toInteger()
+}
+
+@SuppressWarnings("GroovyUnusedDeclaration")
+static def getAutoVersionCode() {
+    def branch = getCurrentBranch()
+    if (branch == "master") {
+        return getProductionVersionCode()
+    }
+    return getDevelopVersionCode()
+}
+
+static def getCurrentBranch() {
+    return "git rev-parse --abbrev-ref HEAD".execute().text.trim()
+}
+
+static def getBuildDate() {
+    def df = new SimpleDateFormat("dd.MM.yyyy")
+    df.setTimeZone(TimeZone.getTimeZone("UTC"))
+    return df.format(new Date())
+}
+
+static def getGitCommitsCount() {
+    return ("git rev-list ${getCurrentBranch()} --count").execute().text.trim()
+}
+
+static def getLastMasterGitTagVersion() {
+    def name = "git describe --tags ${getCurrentBranch()} --long".execute().text.
+            replace("v", "").
+            trim()
+    def (tag, build, sha) = name.tokenize('-')
+    def (major, minor, patch) = (tag != null) ? tag.tokenize('.') : [0, 0, 0]
+    return [major, minor, patch, build, sha]
+}
+
+//endregion

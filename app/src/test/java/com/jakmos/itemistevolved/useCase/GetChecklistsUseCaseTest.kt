@@ -2,20 +2,16 @@ package com.jakmos.itemistevolved.useCase
 
 import com.jakmos.itemistevolved.*
 import com.jakmos.itemistevolved.data.db.ChecklistDao
-import com.jakmos.itemistevolved.domain.model.entity.ChecklistEntity
-import com.jakmos.itemistevolved.domain.model.project.DateTimeInterface
+import com.jakmos.itemistevolved.data.entity.ChecklistEntity
 import com.jakmos.itemistevolved.domain.model.project.None
-import com.jakmos.itemistevolved.domain.useCase.GetChecklistsUseCase
-import com.jakmos.itemistevolved.domain.useCase.InsertChecklistUseCase
+import com.jakmos.itemistevolved.domain.usecase.GetChecklistsUseCase
 import io.mockk.coEvery
-import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.*
 import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
-import java.util.*
 
 @ExperimentalCoroutinesApi
 class GetChecklistsUseCaseTest {
