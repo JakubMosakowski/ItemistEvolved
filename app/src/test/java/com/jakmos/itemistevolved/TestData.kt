@@ -2,7 +2,7 @@ package com.jakmos.itemistevolved
 
 import com.jakmos.itemistevolved.domain.model.Checklist
 import com.jakmos.itemistevolved.domain.model.Item
-import com.jakmos.itemistevolved.data.entity.ChecklistEntity
+import com.jakmos.itemistevolved.persistence.cache.database.entity.ChecklistEntity
 import java.util.*
 
 
@@ -16,7 +16,7 @@ val CHECKLIST_3 = Checklist(3, "CHECKLIST_3", "image3", listOf(ITEM_3, ITEM_2), 
 
 
 val CHECKLIST_ENTITY_1 =
-    ChecklistEntity(
+    com.jakmos.itemistevolved.persistence.cache.database.entity.ChecklistEntity(
         CHECKLIST_1.name,
         CHECKLIST_1.image,
         CHECKLIST_1.createdAt!!,
@@ -26,7 +26,7 @@ val CHECKLIST_ENTITY_1 =
     )
 
 val CHECKLIST_ENTITY_2 =
-    ChecklistEntity(
+    com.jakmos.itemistevolved.persistence.cache.database.entity.ChecklistEntity(
         CHECKLIST_2.name,
         CHECKLIST_2.image,
         CHECKLIST_2.createdAt!!,

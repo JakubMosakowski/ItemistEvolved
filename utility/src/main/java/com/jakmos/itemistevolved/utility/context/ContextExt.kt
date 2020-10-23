@@ -1,36 +1,18 @@
 package com.jakmos.itemistevolved.utility.context
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
-import android.net.NetworkInfo
 import android.net.Uri
 import android.util.Base64
 import android.util.Log
 import androidx.core.content.FileProvider
 import androidx.core.net.toUri
 import co.windly.limbo.utility.primitives.EMPTY
-import co.windly.limbo.utility.reactive.subscribeOnIo
-import com.github.pwittchen.reactivenetwork.library.rx2.ReactiveNetwork
-import io.reactivex.Observable
 import java.io.File
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
-
-//region Network State
-
-@Suppress("DEPRECATION")
-@SuppressLint("MissingPermission")
-fun Context.observeInternetReachable(): Observable<Boolean> =
-  ReactiveNetwork
-    .observeNetworkConnectivity(this)
-    .map { it.state() == NetworkInfo.State.CONNECTED }
-    .distinctUntilChanged()
-    .subscribeOnIo()
-
-//endregion
 
 //region Uri
 

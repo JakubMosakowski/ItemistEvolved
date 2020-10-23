@@ -5,7 +5,7 @@ import androidx.lifecycle.Observer
 import com.jakmos.itemistevolved.CHECKLIST_1
 import com.jakmos.itemistevolved.CHECKLIST_2
 import com.jakmos.itemistevolved.CoroutinesTestRule
-import com.jakmos.itemistevolved.data.db.ChecklistDao
+import com.jakmos.itemistevolved.persistence.cache.database.dao.ChecklistDao
 import com.jakmos.itemistevolved.domain.model.Checklist
 import com.jakmos.itemistevolved.domain.model.project.State
 import com.jakmos.itemistevolved.domain.usecase.GetChecklistsUseCase
@@ -30,7 +30,7 @@ class ChecklistsViewModelTest {
     @get:Rule
     val coroutinesTestRule = CoroutinesTestRule()
 
-    private val dao = mockk<ChecklistDao>()
+    private val dao = mockk<com.jakmos.itemistevolved.persistence.cache.database.dao.ChecklistDao>()
     private val observer: Observer<List<Checklist>> = mockk()
     private val getChecklistsUseCase = spyk(GetChecklistsUseCase(dao))
     private val removeChecklistUseCase = spyk(RemoveChecklistUseCase(dao, getChecklistsUseCase))

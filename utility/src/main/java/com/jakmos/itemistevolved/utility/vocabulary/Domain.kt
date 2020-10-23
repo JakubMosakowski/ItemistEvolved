@@ -10,6 +10,8 @@ typealias UserId = Long
 
 //region Domain
 
+typealias Id = Long
+
 typealias Username = String
 
 typealias Email = String
@@ -26,4 +28,15 @@ fun String?.longOrNull() =
 fun String?.stringOrNull() =
   if (isNullOrEmpty()) null else this
 
+val String.Companion.NONE: String
+  get() = ""
+
 //endregion
+
+//region General - Long
+
+val Long.Companion.ZERO: Long
+  get() = 0L
+
+//endregion
+

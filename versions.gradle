@@ -33,8 +33,8 @@ versions.ktx_prefs = "1.5.0"
 versions.lifecycle = "2.2.0"
 versions.limbo_mvvm = "3.0.3"
 versions.limbo_mvvm_dagger = "3.0.3"
-versions.limbo_recyclerview = "3.0.8-SNAPSHOT"
-versions.limbo_utility = "3.0.8-SNAPSHOT"
+versions.limbo_recyclerview = "3.0.8"
+versions.limbo_utility = "3.0.8"
 versions.mapstruct = "1.3.1.Final"
 versions.material_dialogs = "3.3.0"
 versions.okhttp_logging_interceptor = "4.7.2"
@@ -42,10 +42,6 @@ versions.permissions_dispatcher = "4.7.0"
 versions.play_services = "17.0.0"
 versions.photo_view = "2.0.0"
 versions.reactive_network = "3.0.8"
-versions.rx_android = "2.1.1"
-versions.rx_binding = "3.1.0"
-versions.rx_java = "2.2.19"
-versions.rx_kotlin = "2.4.0"
 versions.timber = "4.7.1"
 deps.versions = versions
 
@@ -91,7 +87,6 @@ deps.dagger = dagger
 def database = [:]
 database.compiler = "androidx.room:room-compiler:$versions.androidx_room"
 database.runtime = "androidx.room:room-runtime:$versions.androidx_room"
-database.rxjava2 = "androidx.room:room-rxjava2:$versions.androidx_room"
 deps.database = database
 
 //endregion
@@ -185,20 +180,6 @@ deps.network = network
 def play_services = [:]
 play_services.maps = "com.google.android.gms:play-services-maps:$versions.play_services"
 deps.play_services = play_services
-
-//endregion
-
-//region Reactive Extensions
-
-def rx = [:]
-rx.android = "io.reactivex.rxjava2:rxandroid:$versions.rx_android"
-rx.binding = "com.jakewharton.rxbinding3:rxbinding:$versions.rx_binding"
-rx.binding_swiperefreshlayout =
-    "com.jakewharton.rxbinding3:rxbinding-swiperefreshlayout:$versions.rx_binding"
-rx.java = "io.reactivex.rxjava2:rxjava:$versions.rx_java"
-rx.kotlin = "io.reactivex.rxjava2:rxkotlin:$versions.rx_kotlin"
-rx.network = "com.github.pwittchen:reactivenetwork-rx2:$versions.reactive_network"
-deps.rx = rx
 
 //endregion
 

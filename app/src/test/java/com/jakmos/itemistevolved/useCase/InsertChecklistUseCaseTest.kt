@@ -2,8 +2,8 @@ package com.jakmos.itemistevolved.useCase
 
 import com.jakmos.itemistevolved.CHECKLIST_1
 import com.jakmos.itemistevolved.CoroutinesTestRule
-import com.jakmos.itemistevolved.data.db.ChecklistDao
-import com.jakmos.itemistevolved.data.entity.ChecklistEntity
+import com.jakmos.itemistevolved.persistence.cache.database.dao.ChecklistDao
+import com.jakmos.itemistevolved.persistence.cache.database.entity.ChecklistEntity
 import com.jakmos.itemistevolved.domain.model.project.DateTimeInterface
 import com.jakmos.itemistevolved.domain.model.project.None
 import com.jakmos.itemistevolved.domain.usecase.GetChecklistsUseCase
@@ -13,7 +13,6 @@ import io.mockk.every
 import io.mockk.mockk
 import io.mockk.spyk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.*
 import org.junit.Assert
 import org.junit.Rule
 import org.junit.Test
@@ -24,7 +23,7 @@ class InsertChecklistUseCaseTest {
 
     @get:Rule
     val coroutinesTestRule = CoroutinesTestRule()
-    private val dao = mockk<ChecklistDao>()
+    private val dao = mockk<com.jakmos.itemistevolved.persistence.cache.database.dao.ChecklistDao>()
     private val dateTime = mockk<DateTimeInterface>()
     private val getChecklistsUseCase = spyk(GetChecklistsUseCase(dao))
     private val insertChecklistUseCase by lazy {
@@ -44,7 +43,7 @@ class InsertChecklistUseCaseTest {
 
         val generatedId = 1L
         val param = CHECKLIST_1
-        val result = ChecklistEntity(
+        val result = com.jakmos.itemistevolved.persistence.cache.database.entity.ChecklistEntity(
             param.name,
             param.image,
             param.createdAt!!,

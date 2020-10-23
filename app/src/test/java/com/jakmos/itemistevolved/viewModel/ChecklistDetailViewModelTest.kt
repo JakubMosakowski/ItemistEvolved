@@ -4,7 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.jakmos.itemistevolved.CHECKLIST_3
 import com.jakmos.itemistevolved.CoroutinesTestRule
 import com.jakmos.itemistevolved.ITEM_3
-import com.jakmos.itemistevolved.data.db.ChecklistDao
+import com.jakmos.itemistevolved.persistence.cache.database.dao.ChecklistDao
 import com.jakmos.itemistevolved.domain.model.project.DateTimeInterface
 import com.jakmos.itemistevolved.domain.usecase.GetChecklistsUseCase
 import com.jakmos.itemistevolved.domain.usecase.InsertChecklistUseCase
@@ -24,7 +24,7 @@ class ChecklistDetailViewModelTest {
     @get:Rule
     val coroutinesTestRule = CoroutinesTestRule()
 
-    private val dao = mockk<ChecklistDao>()
+    private val dao = mockk<com.jakmos.itemistevolved.persistence.cache.database.dao.ChecklistDao>()
     private val getChecklistsUseCase = spyk(GetChecklistsUseCase(dao))
     private val dateTime = mockk<DateTimeInterface>()
     private val insertChecklistUseCase =

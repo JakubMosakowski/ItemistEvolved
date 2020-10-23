@@ -3,7 +3,7 @@ package com.jakmos.itemistevolved.useCase
 import com.jakmos.itemistevolved.CHECKLIST_1
 import com.jakmos.itemistevolved.CHECKLIST_2
 import com.jakmos.itemistevolved.CoroutinesTestRule
-import com.jakmos.itemistevolved.data.db.ChecklistDao
+import com.jakmos.itemistevolved.persistence.cache.database.dao.ChecklistDao
 import com.jakmos.itemistevolved.domain.model.project.None
 import com.jakmos.itemistevolved.domain.usecase.GetChecklistsUseCase
 import com.jakmos.itemistevolved.domain.usecase.RemoveChecklistUseCase
@@ -11,7 +11,6 @@ import io.mockk.coEvery
 import io.mockk.mockk
 import io.mockk.spyk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.*
 import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
@@ -21,7 +20,7 @@ class RemoveChecklistUseCaseTest {
 
     @get:Rule
     val coroutinesTestRule = CoroutinesTestRule()
-    private val dao = mockk<ChecklistDao>()
+    private val dao = mockk<com.jakmos.itemistevolved.persistence.cache.database.dao.ChecklistDao>()
     private val getChecklistsUseCase = spyk(GetChecklistsUseCase(dao))
     private val removeChecklistUseCase by lazy { RemoveChecklistUseCase(dao, getChecklistsUseCase) }
 

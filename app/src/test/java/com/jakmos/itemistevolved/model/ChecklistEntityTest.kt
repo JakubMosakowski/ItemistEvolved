@@ -2,7 +2,7 @@ package com.jakmos.itemistevolved.model
 
 import com.jakmos.itemistevolved.CHECKLIST_1
 import com.jakmos.itemistevolved.CHECKLIST_ENTITY_1
-import com.jakmos.itemistevolved.data.entity.ChecklistEntity
+import com.jakmos.itemistevolved.persistence.cache.database.entity.ChecklistEntity
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
@@ -15,7 +15,7 @@ class ChecklistEntityTest {
         val entity = CHECKLIST_ENTITY_1
 
         //When
-        val result = ChecklistEntity.entityToModel(entity)
+        val result = com.jakmos.itemistevolved.persistence.cache.database.entity.ChecklistEntity.entityToModel(entity)
 
         //Then
         assertEquals(expected, result)

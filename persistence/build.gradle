@@ -98,7 +98,6 @@ dependencies {
 
   kapt deps.database.compiler
   api deps.database.runtime
-  api deps.database.rxjava2
 
   //endregion
 

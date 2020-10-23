@@ -5,7 +5,7 @@ import com.jakmos.itemistevolved.CHECKLIST_1
 import com.jakmos.itemistevolved.CoroutinesTestRule
 import com.jakmos.itemistevolved.ITEM_1
 import com.jakmos.itemistevolved.ITEM_2
-import com.jakmos.itemistevolved.data.db.ChecklistDao
+import com.jakmos.itemistevolved.persistence.cache.database.dao.ChecklistDao
 import com.jakmos.itemistevolved.domain.model.Checklist
 import com.jakmos.itemistevolved.domain.model.project.DateTimeInterface
 import com.jakmos.itemistevolved.domain.model.project.Event
@@ -35,7 +35,7 @@ class AddViewModelTest {
     @get:Rule
     val coroutinesTestRule = CoroutinesTestRule()
 
-    private val dao = mockk<ChecklistDao>()
+    private val dao = mockk<com.jakmos.itemistevolved.persistence.cache.database.dao.ChecklistDao>()
     private val getChecklistsUseCase = spyk(GetChecklistsUseCase(dao))
     private val dateTime = mockk<DateTimeInterface>()
     private val insertChecklistUseCase =
