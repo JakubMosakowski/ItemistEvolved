@@ -28,15 +28,5 @@ fun String?.longOrNull() =
 fun String?.stringOrNull() =
   if (isNullOrEmpty()) null else this
 
-val String.Companion.NONE: String
-  get() = ""
-
-//endregion
-
-//region General - Long
-
-val Long.Companion.ZERO: Long
-  get() = 0L
-
 //endregion
 

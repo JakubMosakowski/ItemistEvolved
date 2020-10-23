@@ -2,9 +2,9 @@ package com.jakmos.itemistevolved.persistence.database.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.PrimaryKey
+import co.windly.limbo.utility.primitives.EMPTY
+import co.windly.limbo.utility.primitives.ZERO
 import com.jakmos.itemistevolved.utility.vocabulary.Id
-import com.jakmos.itemistevolved.utility.vocabulary.NONE
-import com.jakmos.itemistevolved.utility.vocabulary.ZERO
 
 data class SubsectionEntity(
 
@@ -19,7 +19,7 @@ data class SubsectionEntity(
   //region Text
 
   @ColumnInfo(name = "text")
-  var text: String = String.NONE,
+  var text: String = String.EMPTY,
 
   //endregion
 

@@ -5,7 +5,6 @@ import com.jakmos.itemistevolved.persistence.database.dao.ChecklistDao
 import com.jakmos.itemistevolved.persistence.database.dao.SubsectionDao
 import com.jakmos.itemistevolved.persistence.database.entity.ChecklistEntity
 import com.jakmos.itemistevolved.persistence.database.entity.ChecklistView
-import io.reactivex.Completable
 import io.reactivex.annotations.SchedulerSupport
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -19,11 +18,11 @@ class ChecklistPersistenceManager @Inject constructor(
 
   //region Observe
 
-  suspend fun observeChecklists(): LiveData<List<ChecklistView>> =
+  fun observeChecklists(): LiveData<List<ChecklistView>> =
     checklistDao
       .observeChecklists()
 
-  suspend fun observeChecklistsByName(name: String): LiveData<List<ChecklistView>> =
+  fun observeChecklistsByName(name: String): LiveData<List<ChecklistView>> =
     checklistDao
       .observeChecklistsByName(name)
 

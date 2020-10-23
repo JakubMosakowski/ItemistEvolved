@@ -7,7 +7,6 @@ import androidx.room.Transaction
 import com.jakmos.itemistevolved.persistence.database.entity.ChecklistEntity
 import com.jakmos.itemistevolved.persistence.database.entity.ChecklistView
 import io.reactivex.Completable
-import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface ChecklistDao : BaseDao<ChecklistEntity> {
@@ -19,14 +18,14 @@ interface ChecklistDao : BaseDao<ChecklistEntity> {
     SELECT * FROM checklist
     ORDER BY updatedAt DESC
   """)
-  suspend fun observeChecklists(): LiveData<List<ChecklistView>>
+  fun observeChecklists(): LiveData<List<ChecklistView>>
 
   @Transaction
   @Query(value = """
     SELECT * FROM checklist
     WHERE name LIKE :name
   """)
-  suspend fun observeChecklistsByName(name: String): LiveData<List<ChecklistView>>
+  fun observeChecklistsByName(name: String): LiveData<List<ChecklistView>>
 
   //endregion
 

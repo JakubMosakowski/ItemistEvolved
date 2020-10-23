@@ -1,17 +1,17 @@
 package com.jakmos.itemistevolved.persistence.database.converter
 
 import androidx.room.TypeConverter
-import java.util.Date
+import org.joda.time.DateTime
 
 class DateConverter {
 
   @TypeConverter
-  fun fromTimestamp(value: Long?): Date? {
-    return value?.let { Date(it) }
+  fun fromTimestamp(value: Long?): DateTime? {
+    return value?.let { DateTime(it) }
   }
 
   @TypeConverter
-  fun dateToTimestamp(date: Date?): Long? {
-    return date?.time
+  fun dateToTimestamp(date: DateTime?): Long? {
+    return date?.millis
   }
 }
