@@ -2,7 +2,6 @@ package com.jakmos.itemistevolved.domain.model
 
 import co.windly.limbo.utility.primitives.EMPTY
 import co.windly.limbo.utility.primitives.ZERO
-import com.jakmos.itemistevolved.persistence.database.entity.SubsectionEntity
 import com.jakmos.itemistevolved.utility.vocabulary.Id
 import org.joda.time.DateTime
 
@@ -40,7 +39,7 @@ data class Checklist(
 
   //region Subsection
 
-  var subsections: List<SubsectionEntity> = emptyList()
+  var subsections: List<Subsection> = emptyList()
 
   //endregion
 )

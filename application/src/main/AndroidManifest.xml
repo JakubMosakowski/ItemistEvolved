@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  package="com.jakmos.itemistevolved">
+
+  <application
+    android:name=".application.ItemistEvolved"
+    android:allowBackup="false"
+    android:icon="@mipmap/ic_launcher"
+    android:label="@string/app_name"
+    android:roundIcon="@mipmap/ic_launcher_round"
+    android:supportsRtl="true"
+    android:theme="@style/ItemistEvolved.AppTheme"
+    tools:ignore="GoogleAppIndexingWarning,LockedOrientationActivity,RtlEnabled"
+    tools:targetApi="m">
+
+    <!-- region Main -->
+
+    <activity
+      android:name=".presentation.main.MainActivity"
+      android:launchMode="singleTask"
+      android:screenOrientation="portrait"
+      android:windowSoftInputMode="adjustResize">
+
+      <nav-graph android:value="@navigation/nav_main" />
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+        <category android:name="android.intent.category.LAUNCHER" />
+      </intent-filter>
+    </activity>
+
+    <!-- endregion -->
+
+    <!-- region Onboarding -->
+
+<!--    TODO Implement Onboarding-->
+<!--    <activity-->
+<!--      android:name=".presentation.onboarding.OnboardingActivity"-->
+<!--      android:noHistory="true"-->
+<!--      android:screenOrientation="portrait" />-->
+
+    <!-- endregion -->
+
+    <!-- region Splash -->
+
+    <!--    TODO Implement Splash screen-->
+
+<!--    <activity-->
+<!--      android:name=".presentation.splash.SplashActivity"-->
+<!--      android:noHistory="true"-->
+<!--      android:screenOrientation="portrait">-->
+<!--      <intent-filter>-->
+<!--        <action android:name="android.intent.action.MAIN" />-->
+<!--        <category android:name="android.intent.category.LAUNCHER" />-->
+<!--      </intent-filter>-->
+<!--    </activity>-->
+
+    <!-- endregion -->
+
+  </application>
+
+</manifest>

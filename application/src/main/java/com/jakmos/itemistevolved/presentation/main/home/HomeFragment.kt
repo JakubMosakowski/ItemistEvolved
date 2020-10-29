@@ -1,0 +1,75 @@
+package com.jakmos.itemistevolved.presentation.main.home
+
+import android.os.Bundle
+import android.view.View
+import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.viewModels
+import com.jakmos.itemistevolved.presentation.base.fragment.base.BaseFragment
+import com.jakmos.itemistevolved.R
+import com.jakmos.itemistevolved.databinding.FragmentHomeBinding
+import com.jakmos.itemistevolved.presentation.base.trait.ConfirmExitTrait.ConfirmExitCallback
+
+class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
+  HomeTrait {
+
+  //region Trait
+
+  override val activityNavigationTrait: FragmentActivity
+    get() = requireActivity()
+
+  //endregion
+
+  //region Ui
+
+  override val layoutRes: Int
+    get() = R.layout.fragment_home
+
+  //endregion
+
+  //region View Model
+
+  override val viewModel: HomeViewModel
+    by viewModels { factory }
+
+  //endregion
+
+  //region Traits
+
+  override val confirmExitTrait: ConfirmExitCallback
+    by lazy { confirmExitTemplate() }
+
+  //endregion
+
+  //region Binding
+
+  override fun bindView(binding: FragmentHomeBinding) {
+    binding
+      .also { it.disposables = disposables }
+      .also { it.viewModel = viewModel }
+  }
+
+  //endregion
+
+  //region Lifecycle
+
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    super.onViewCreated(view, savedInstanceState)
+  }
+
+  override fun onPause() {
+    super.onPause()
+
+    // Unregister back pressed callback.
+    unregisterConfirmExitCallback()
+  }
+
+  override fun onResume() {
+    super.onResume()
+
+    // Register back pressed callback.
+    registerConfirmExitCallback()
+  }
+
+  //endregion
+}
+

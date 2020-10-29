@@ -43,3 +43,7 @@ captures/
 # Crashlytics
 crashlytics-build.properties
 com_crashlytics_export_strings.xml
+
+# Keystore
+/settings/keystore/debug.jks
+/settings/distribute/firebase-app-distribution-dev.json

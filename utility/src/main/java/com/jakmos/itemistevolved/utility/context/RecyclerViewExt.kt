@@ -1,11 +1,18 @@
 package com.jakmos.itemistevolved.utility.context
 
-import androidx.annotation.DimenRes
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_IDLE
 import com.google.android.flexbox.FlexboxLayoutManager
+import com.jakmos.itemistevolved.utility.context.RecyclerViewConstants.SPAN_SIZE_DEFAULT
+
+//region Constants
+
+private object RecyclerViewConstants {
+  const val SPAN_SIZE_DEFAULT = 2
+}
+
+//endregion
 
 //region Layout Manager
 

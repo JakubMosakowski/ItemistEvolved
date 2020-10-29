@@ -5,12 +5,10 @@ import com.jakmos.itemistevolved.persistence.database.dao.ChecklistDao
 import com.jakmos.itemistevolved.persistence.database.dao.SubsectionDao
 import com.jakmos.itemistevolved.persistence.database.entity.ChecklistEntity
 import com.jakmos.itemistevolved.persistence.database.entity.ChecklistView
-import io.reactivex.annotations.SchedulerSupport
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-@SchedulerSupport(value = SchedulerSupport.IO)
 class ChecklistPersistenceManager @Inject constructor(
   private val checklistDao: ChecklistDao,
   private val subsectionDao: SubsectionDao

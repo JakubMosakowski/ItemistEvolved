@@ -6,10 +6,9 @@ import androidx.room.Query
 import androidx.room.Transaction
 import com.jakmos.itemistevolved.persistence.database.entity.ChecklistEntity
 import com.jakmos.itemistevolved.persistence.database.entity.ChecklistView
-import io.reactivex.Completable
 
 @Dao
-interface ChecklistDao : BaseDao<ChecklistEntity> {
+abstract class ChecklistDao : BaseDao<ChecklistEntity>() {
 
   //region Observe
 
@@ -18,14 +17,14 @@ interface ChecklistDao : BaseDao<ChecklistEntity> {
     SELECT * FROM checklist
     ORDER BY updatedAt DESC
   """)
-  fun observeChecklists(): LiveData<List<ChecklistView>>
+  abstract fun observeChecklists(): LiveData<List<ChecklistView>>
 
   @Transaction
   @Query(value = """
     SELECT * FROM checklist
     WHERE name LIKE :name
   """)
-  fun observeChecklistsByName(name: String): LiveData<List<ChecklistView>>
+  abstract fun observeChecklistsByName(name: String): LiveData<List<ChecklistView>>
 
   //endregion
 
@@ -34,7 +33,7 @@ interface ChecklistDao : BaseDao<ChecklistEntity> {
   @Query(value = """
     DELETE FROM checklist
     """)
-  abstract fun clearTable(): Completable
+  abstract fun clearTable()
 
   //endregion
 }

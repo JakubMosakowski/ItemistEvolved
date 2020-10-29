@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools">
+
+  <!-- region Binding -->
+
+  <data>
+
+    <variable
+      name="disposables"
+      type="io.reactivex.disposables.CompositeDisposable" />
+
+    <variable
+      name="model"
+      type="com.jakmos.itemistevolved.domain.model.Checklist" />
+
+  </data>
+
+  <!-- endregion -->
+
+  <!-- region Root -->
+
+  <LinearLayout
+    android:id="@+id/rootView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal" />
+
+
+  <!--    <androidx.constraintlayout.widget.ConstraintLayout-->
+  <!--            style="@style/clickableStyle"-->
+  <!--            android:layout_width="match_parent"-->
+  <!--            android:layout_height="wrap_content"-->
+  <!--            android:onClick="@{() -> listener.onItemClicked(model)}"-->
+  <!--            android:paddingLeft="16dp"-->
+  <!--            android:paddingTop="8dp"-->
+  <!--            android:paddingRight="16dp"-->
+  <!--            android:paddingBottom="8dp">-->
+
+  <!--        <TextView-->
+  <!--                android:id="@+id/title"-->
+  <!--                style="@style/listTextView"-->
+  <!--                android:layout_width="0dp"-->
+  <!--                android:layout_height="wrap_content"-->
+  <!--                android:maxLines="2"-->
+  <!--                android:text="@{model.name}"-->
+  <!--                app:layout_constraintBottom_toBottomOf="parent"-->
+  <!--                app:layout_constraintEnd_toStartOf="@id/editBtn"-->
+  <!--                app:layout_constraintStart_toStartOf="parent"-->
+  <!--                app:layout_constraintTop_toTopOf="parent"-->
+  <!--                tools:text="Gym list" />-->
+
+  <!--        <ImageView-->
+  <!--                android:id="@+id/editBtn"-->
+  <!--                style="@style/clickableStyle"-->
+  <!--                android:layout_width="wrap_content"-->
+  <!--                android:layout_height="wrap_content"-->
+  <!--                android:contentDescription="@string/edit_button"-->
+  <!--                android:onClick="@{() -> listener.onEditClicked(model)}"-->
+  <!--                android:padding="8dp"-->
+  <!--                android:src="@drawable/ic_edit_32dp"-->
+  <!--                android:layout_marginEnd="8dp"-->
+  <!--                app:layout_constraintBottom_toBottomOf="parent"-->
+  <!--                app:layout_constraintEnd_toStartOf="@id/deleteBtn"-->
+  <!--                app:layout_constraintTop_toTopOf="parent" />-->
+
+  <!--        <ImageView-->
+  <!--                android:id="@+id/deleteBtn"-->
+  <!--                style="@style/clickableStyle"-->
+  <!--                android:layout_width="wrap_content"-->
+  <!--                android:layout_height="wrap_content"-->
+  <!--                android:layout_marginStart="8dp"-->
+  <!--                android:contentDescription="@string/deleteButton"-->
+  <!--                android:onClick="@{() -> listener.onDeleteClicked(model)}"-->
+  <!--                android:padding="8dp"-->
+  <!--                android:src="@drawable/ic_delete_32dp"-->
+  <!--                app:layout_constraintBottom_toBottomOf="parent"-->
+  <!--                app:layout_constraintEnd_toEndOf="parent"-->
+  <!--                app:layout_constraintTop_toTopOf="parent" />-->
+  <!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+  <!-- endregion -->
+
+</layout>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/nav_graph"
+  app:startDestination="@id/homeFragment">
+
+  <!-- region Home -->
+
+  <action
+    android:id="@+id/actionHome"
+    app:destination="@+id/homeFragment"
+    app:enterAnim="@anim/fade_in"
+    app:exitAnim="@anim/fade_out"
+    app:popEnterAnim="@anim/fade_in"
+    app:popExitAnim="@anim/fade_out" />
+
+  <fragment
+    android:id="@+id/homeFragment"
+    android:name="com.jakmos.itemistevolved.presentation.main.home.HomeFragment"
+    tools:layout="@layout/fragment_home" />
+
+  <!-- endregion -->
+
+  <!-- region Add -->
+
+  <action
+    android:id="@+id/actionAdd"
+    app:destination="@+id/addFragment"
+    app:enterAnim="@anim/fade_in"
+    app:exitAnim="@anim/fade_out"
+    app:popEnterAnim="@anim/fade_in"
+    app:popExitAnim="@anim/fade_out" />
+
+  <fragment
+    android:id="@+id/addFragment"
+    android:name="com.jakmos.itemistevolved.presentation.main.add.AddFragment"
+    tools:layout="@layout/fragment_add" />
+
+  <!-- endregion -->
+
+  <!-- region Checklist -->
+
+  <action
+    android:id="@+id/actionChecklist"
+    app:destination="@+id/checklistFragment"
+    app:enterAnim="@anim/fade_in"
+    app:exitAnim="@anim/fade_out"
+    app:popEnterAnim="@anim/fade_in"
+    app:popExitAnim="@anim/fade_out" />
+
+  <fragment
+    android:id="@+id/checklistFragment"
+    android:name="com.jakmos.itemistevolved.presentation.main.detail.ChecklistFragment"
+    tools:layout="@layout/fragment_checklist" />
+
+  <!-- endregion -->
+
+</navigation>

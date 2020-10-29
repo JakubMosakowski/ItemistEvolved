@@ -7,35 +7,35 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Update
 
 @Dao
-interface BaseDao<Entity> {
+abstract class BaseDao<Entity> {
 
   //region Insert
 
   @Insert(onConflict = OnConflictStrategy.REPLACE)
-  suspend fun insert(entity: Entity): Long
+  abstract suspend fun insert(entity: Entity)
 
   @Insert(onConflict = OnConflictStrategy.REPLACE)
-  suspend fun insert(entities: Iterable<Entity>): Long
+  abstract suspend fun insert(entities: Iterable<Entity>)
 
   //endregion
 
   //region Removed
 
   @Delete
-  suspend fun remove(entity: Entity): Long
+  abstract suspend fun remove(entity: Entity): Int
 
   @Delete
-  suspend fun remove(entities: Iterable<Entity>): Long
+  abstract suspend fun remove(entities: Iterable<Entity>): Int
 
   //endregion
 
   //region Update
 
   @Update(onConflict = OnConflictStrategy.REPLACE)
-  suspend fun update(entity: Entity): Long
+  abstract suspend fun update(entity: Entity): Int
 
   @Update(onConflict = OnConflictStrategy.REPLACE)
-  suspend fun update(entities: Iterable<Entity>): Long
+  abstract suspend fun update(entities: Iterable<Entity>): Int
 
   //endregion
 }

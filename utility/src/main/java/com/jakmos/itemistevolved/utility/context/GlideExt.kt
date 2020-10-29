@@ -20,6 +20,8 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.Transition
+import com.jakmos.itemistevolved.utility.image.GlideApp
+import com.jakmos.itemistevolved.utility.image.GlideRequest
 
 //region Glide
 

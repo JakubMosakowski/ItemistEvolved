@@ -1,0 +1,229 @@
+//region Startup Plugins
+
+apply plugin: "com.android.application"
+apply plugin: "com.google.firebase.appdistribution"
+apply plugin: "com.google.firebase.crashlytics"
+apply plugin: "kotlin-android"
+apply plugin: "kotlin-android-extensions"
+apply plugin: "kotlin-kapt"
+apply plugin: "androidx.navigation.safeargs.kotlin"
+
+//endregion
+
+//region Android
+
+android {
+
+    //region Build Configuration
+
+    signingConfigs {
+        debug {
+            keyAlias = "androiddebugkey"
+            keyPassword = "android"
+            storePassword = "android"
+            storeFile = rootProject.file("settings/keystore/debug.jks")
+        }
+
+        //TODO use other key for release version
+        release {
+            keyAlias = "androiddebugkey"
+            keyPassword = "android"
+            storePassword = "android"
+            storeFile = rootProject.file("settings/keystore/debug.jks")
+        }
+    }
+
+    buildTypes {
+        debug {
+            minifyEnabled = false
+            signingConfig = signingConfigs.debug
+        }
+        release {
+            minifyEnabled = true
+            signingConfig = signingConfigs.release
+            proguardFiles getDefaultProguardFile("proguard-android.txt"),
+                rootProject.file("settings/proguard/proguard-rules.pro")
+        }
+    }
+
+    //endregion
+
+    //region Compile Options
+
+    compileSdkVersion deps.build_versions.compile_sdk
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+
+    //endregion
+
+    //region Data Binding
+
+    buildFeatures {
+        dataBinding = true
+    }
+
+    //endregion
+
+    //region Default Config
+
+    defaultConfig {
+        minSdkVersion deps.build_versions.min_sdk
+        targetSdkVersion deps.build_versions.target_sdk
+        applicationId "com.jakmos.itemistevolved"
+    }
+
+    //endregion
+
+    //region Flavor Dimensions
+
+    flavorDimensions "type"
+
+    //endregion
+
+    //region Gradle Properties
+
+    // TODO:
+
+    //endregion
+
+    //region Kotlin Options
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8
+    }
+
+    //endregion
+
+    //region Product Flavors
+
+    productFlavors {
+        dev {
+            applicationIdSuffix = ".dev"
+            dimension "type"
+            firebaseAppDistribution {
+                releaseNotesFile = rootProject.file("settings/distribute/release-notes.txt")
+                serviceCredentialsFile =
+                    rootProject.file("settings/distribute/firebase-app-distribution-dev.json")
+            }
+            resValue "string", "app_name", getProjectName() + " Development"
+            versionCode = getAutoVersionCode()
+            versionName = getAutoVersionName() + " (dev)"
+        }
+        prod {
+            dimension "type"
+            firebaseAppDistribution {
+                releaseNotesFile = rootProject.file("settings/distribute/release-notes.txt")
+                serviceCredentialsFile =
+                    //TODO use other key for prod
+                    rootProject.file("settings/distribute/firebase-app-distribution-dev.json")
+            }
+            resValue "string", "app_name", getProjectName()
+            versionCode = getAutoVersionCode()
+            versionName = getAutoVersionName()
+        }
+    }
+
+    // Print version code and name.
+    printf("\n---------- VERSION DATA ----------\n")
+    printf("-> CODE: ${getAutoVersionCode()}\n")
+    printf("-> NAME: ${getAutoVersionName()}")
+    printf("\n----------------------------------\n")
+
+    //endregion
+}
+
+//endregion
+
+//region Dependencies
+
+dependencies {
+
+    //region Application Files
+
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+
+    //endregion
+
+    //region Application Modules
+
+    implementation project(":domain")
+
+    //endregion
+
+    //region AndroidX
+
+    implementation deps.androidx.constraint
+    implementation deps.androidx.recyclerview
+    implementation deps.androidx.navigation_fragment
+    implementation deps.androidx.navigation_ui
+    implementation deps.androidx.swiperefreshlayout
+
+    //endregion
+
+    //region Dependency Injection
+
+    kapt deps.dagger.android_processor
+    compileOnly deps.dagger.annotation
+    kapt deps.dagger.compiler
+
+    //endregion
+
+    //region Fast Adapter
+
+    implementation deps.fast_adapter.binding
+    implementation deps.fast_adapter.core
+    implementation deps.fast_adapter.expandable
+    implementation deps.fast_adapter.utils
+    implementation deps.fast_adapter.ui
+
+    //endregion
+
+    //region Firebase
+
+    implementation deps.firebase.analytics
+    implementation deps.firebase.crashlytics
+    implementation deps.firebase.messaging
+
+    //endregion
+
+    //region Miscellaneous
+
+    implementation deps.misc.crop
+
+    //endregion
+
+    //region Permissions
+
+    implementation deps.misc.permissions_dispatcher
+    kapt deps.misc.permissions_dispatcher_compiler
+
+    //endregion
+
+    //region Ui
+
+    implementation deps.ui.flexbox
+    implementation deps.ui.material_bottom_sheet
+    implementation deps.ui.material_dialogs
+    implementation deps.ui.material_dialogs_input
+    implementation deps.ui.material_dialogs_date
+    implementation deps.ui.photo_view
+    implementation deps.limbo.recycler_view
+
+    //endregion
+
+    //region Unit, Instrumentation and Integration Test
+
+    testImplementation deps.test.core_testing
+    testImplementation deps.test.junit
+    testImplementation deps.test.mockito_core
+    testImplementation deps.test.mockito_inline
+    testImplementation deps.test.truth
+
+    //endregion
+}
+
+//endregion
+

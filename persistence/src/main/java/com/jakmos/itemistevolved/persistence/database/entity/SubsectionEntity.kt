@@ -1,11 +1,13 @@
 package com.jakmos.itemistevolved.persistence.database.entity
 
 import androidx.room.ColumnInfo
+import androidx.room.Entity
 import androidx.room.PrimaryKey
 import co.windly.limbo.utility.primitives.EMPTY
 import co.windly.limbo.utility.primitives.ZERO
 import com.jakmos.itemistevolved.utility.vocabulary.Id
 
+@Entity(tableName = "subsection")
 data class SubsectionEntity(
 
   //region Id

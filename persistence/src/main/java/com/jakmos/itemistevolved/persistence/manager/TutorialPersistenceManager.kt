@@ -15,6 +15,7 @@ class TutorialPersistenceManager @Inject constructor(
 
   //region Tutorial Viewed
 
+  //TODO stop using rxjava
   fun getTutorialSeen(): Single<Boolean> =
     tutorialCache.getRxTutorialSeen()
 

@@ -1,0 +1,37 @@
+<resources>
+
+    <eat-comment />
+
+    <!-- region Application -->
+
+    <style name="ItemistEvolved" />
+
+    <!-- endregion -->
+
+<!--    TODO cleanup styles-->
+    <style name="editTextStyle">
+        <item name="android:paddingStart">0dp</item>
+        <item name="android:paddingEnd">0dp</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:inputType">text</item>
+    </style>
+
+    <style name="clickableStyle">
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:foreground">?android:attr/selectableItemBackground</item>
+    </style>
+
+    <style name="listTextView">
+        <item name="android:ellipsize">end</item>
+        <item name="android:textColor">@color/textColorPrimary</item>
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <!-- region Widget -->
+
+    <style name="ItemistEvolved.Widget" />
+
+    <!-- endregion -->
+
+</resources>
