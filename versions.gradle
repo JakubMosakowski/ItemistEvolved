@@ -15,6 +15,7 @@ versions.commons_collections = "4.4"
 versions.commons_io = "2.7"
 versions.commons_validator = "1.6"
 versions.core_testing = "2.1.0"
+versions.coroutines = "1.3.9"
 versions.crop = "2.2.5"
 versions.dagger = "2.28.1"
 versions.fast_adapter = "5.2.0"
@@ -123,6 +124,7 @@ deps.firebase = firebase
 
 def kotlin = [:]
 kotlin.stdlib_jdk8 = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$versions.kotlin"
+kotlin.coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versions.coroutines"
 deps.kotlin = kotlin
 
 //endregion

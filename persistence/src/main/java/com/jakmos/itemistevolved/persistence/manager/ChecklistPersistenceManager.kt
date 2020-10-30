@@ -42,4 +42,16 @@ class ChecklistPersistenceManager @Inject constructor(
   }
 
   //endregion
+
+  //region Remove
+
+  suspend fun removeChecklist(checklist: ChecklistEntity) =
+    checklistDao
+      .remove(checklist)
+
+  suspend fun clearTable() =
+    checklistDao
+      .clearTable()
+
+  //endregion
 }

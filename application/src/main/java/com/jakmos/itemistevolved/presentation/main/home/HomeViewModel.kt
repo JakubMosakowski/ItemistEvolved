@@ -1,22 +1,65 @@
 package com.jakmos.itemistevolved.presentation.main.home
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.viewModelScope
+import com.jakmos.itemistevolved.domain.manager.ChecklistDomainManager
+import com.jakmos.itemistevolved.domain.model.Checklist
 import com.jakmos.itemistevolved.presentation.base.lifecycle.BaseViewModel
+import com.jakmos.itemistevolved.sampledata.PresentationMockData
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class HomeViewModel  @Inject constructor()
-//(   private val getChecklistsUseCase: GetChecklistsUseCase,
-//    private val removeChecklistUseCase: RemoveChecklistUseCase)
-  : BaseViewModel() {
+class HomeViewModel @Inject constructor(
+  private val checklistManager: ChecklistDomainManager
+) : BaseViewModel() {
 
-//    private val _state = MutableLiveData<State<None>>().apply {
-//        this.value = State.Loading()
-//    }
-//    private val _checklists = MutableLiveData<List<Checklist>>()
+  //region Observe
+
+  val checklists: LiveData<List<Checklist>> =
+    checklistManager.observeChecklists()
+
+  //endregion
+
+  //region Init
+
+  init {
+    //TODO it fills database only for testing purposes. Delete that later.
+
+    viewModelScope.launch {
+      checklistManager
+        .clearChecklists()
+
+      PresentationMockData
+        .CHECKLISTS
+        .forEach {
+          checklistManager
+            .addChecklist(it)
+        }
+    }
+  }
+
+  //endregion
+
+  //region Add
+
+  fun onAddClicked() {
+
+  }
+
+  //endregion
+
+  //region Edit
+
+  //endregion
+
+  //region Remove
+
+  //endregion
+
 //    private val toBeRemoved = MutableLiveData<List<Checklist>>()
-//
-//    val state: LiveData<State<None>> = _state
+
 //    val checklists = MediatorLiveData<List<Checklist>>()
-//
+
 //    init {
 //        checklists.addSource(toBeRemoved) {
 //            checklists.value = combineLiveData()

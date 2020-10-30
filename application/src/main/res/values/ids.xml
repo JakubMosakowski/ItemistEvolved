@@ -6,6 +6,8 @@
 
   <!-- region Items -->
 
+  <item name="itemChecklist" type="id" />
+
   <!-- endregion -->
 
   <!-- region Ui -->

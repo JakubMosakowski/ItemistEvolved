@@ -33,7 +33,7 @@ abstract class ChecklistDao : BaseDao<ChecklistEntity>() {
   @Query(value = """
     DELETE FROM checklist
     """)
-  abstract fun clearTable()
+  abstract suspend fun clearTable()
 
   //endregion
 }
