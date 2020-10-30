@@ -64,6 +64,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
 
+    // Observe add clicked.
+    observeAddClicked()
+
     // Initialize checklist recycler view.
     initializeChecklistRecyclerView()
 
@@ -132,14 +135,26 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
 
   //endregion
 
+  //region Add
+
+  private fun observeAddClicked() {
+
+    // Observe add clicked.
+    viewModel
+      .addClicked
+      .observe(viewLifecycleOwner) { navigateToAddView() }
+  }
+
+  //endregion
+
   //region Event Hook
 
   private fun initializeEventHooks() {
 
     // Prepare checklist event hooks.
-    val checklistEventHook = ClickChecklistEventHook(::showShortSnackbar)
-    val checklistEditEventHook = ClickChecklistEditEventHook(::showShortSnackbar)
-    val checklistDeleteEventHook = ClickChecklistDeleteEventHook(::showShortSnackbar)
+    val checklistEventHook = ClickChecklistEventHook(::navigateToChecklistView)
+    val checklistEditEventHook = ClickChecklistEditEventHook(::navigateToEditView)
+    val checklistDeleteEventHook = ClickChecklistDeleteEventHook(viewModel::onDeleteClicked)
 
     // Initialize event hooks.
     checklistAdapter

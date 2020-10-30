@@ -35,7 +35,15 @@
   <fragment
     android:id="@+id/addFragment"
     android:name="com.jakmos.itemistevolved.presentation.main.add.AddFragment"
-    tools:layout="@layout/fragment_add" />
+    tools:layout="@layout/fragment_add">
+
+    <argument
+      android:name="checklist"
+      android:defaultValue="@null"
+      app:argType="com.jakmos.itemistevolved.domain.model.Checklist"
+      app:nullable="true" />
+
+  </fragment>
 
   <!-- endregion -->
 
@@ -52,7 +60,13 @@
   <fragment
     android:id="@+id/checklistFragment"
     android:name="com.jakmos.itemistevolved.presentation.main.detail.ChecklistFragment"
-    tools:layout="@layout/fragment_checklist" />
+    tools:layout="@layout/fragment_checklist">
+
+    <argument
+      android:name="checklist"
+      app:argType="com.jakmos.itemistevolved.domain.model.Checklist" />
+
+  </fragment>
 
   <!-- endregion -->
 

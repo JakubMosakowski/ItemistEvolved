@@ -2,10 +2,12 @@ package com.jakmos.itemistevolved.presentation.main.home
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
+import co.windly.limbo.mvvm.lifecycle.SingleLiveEvent
 import com.jakmos.itemistevolved.domain.manager.ChecklistDomainManager
 import com.jakmos.itemistevolved.domain.model.Checklist
 import com.jakmos.itemistevolved.presentation.base.lifecycle.BaseViewModel
 import com.jakmos.itemistevolved.sampledata.PresentationMockData
+import com.jakmos.itemistevolved.utility.log.ILogger
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -42,17 +44,21 @@ class HomeViewModel @Inject constructor(
 
   //region Add
 
-  fun onAddClicked() {
+  private val _addClicked: SingleLiveEvent<Any> =
+    SingleLiveEvent()
 
-  }
+  internal val addClicked: LiveData<Any> =
+    _addClicked
+
+  fun onAddClicked() =
+    _addClicked.postValue(true)
 
   //endregion
 
-  //region Edit
+  //region Delete
 
-  //endregion
-
-  //region Remove
+  fun onDeleteClicked(checklist: Checklist) =
+    ILogger.v("Delete clicked: $checklist")
 
   //endregion
 
@@ -71,36 +77,6 @@ class HomeViewModel @Inject constructor(
 //
 //    private fun combineLiveData(): List<Checklist>? {
 //        return (_checklists.value ?: emptyList()) - (toBeRemoved.value ?: emptyList())
-//    }
-//
-//    fun loadData() {
-//        _state.value = State.Loading()
-//        getChecklistsUseCase.execute(viewModelScope, None) {
-//            it.either(::handleFailureLoad, ::handleSuccessLoad)
-//        }
-//    }
-//
-//    private fun handleSuccessLoad(list: List<Checklist>) {
-//        when {
-//            list.isEmpty() -> _state.value = State.Empty()
-//            else -> _state.value = State.Success(None)
-//        }
-//        _checklists.value = list
-//    }
-//
-//    private fun handleFailureLoad(error: Exception) {
-//        _state.value = State.Error(error) { loadData() }
-//    }
-//
-//    fun onEditClicked(model: Checklist) {
-//        val directions = ChecklistsFragmentDirections.actionChecklistsFragmentToAddFragment(model)
-//        navigate(directions)
-//    }
-//
-//    fun onItemClicked(model: Checklist) {
-//        val directions =
-//            ChecklistsFragmentDirections.actionChecklistsFragmentToChecklistDetailFragment(model)
-//        navigate(directions)
 //    }
 //
 //    fun onDeleteClicked(model: Checklist) {
