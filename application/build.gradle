@@ -227,6 +227,7 @@ dependencies {
     testImplementation deps.test.mockito_core
     testImplementation deps.test.mockito_inline
     testImplementation deps.test.truth
+    testImplementation deps.test.coroutines_test
 
     //endregion
 }

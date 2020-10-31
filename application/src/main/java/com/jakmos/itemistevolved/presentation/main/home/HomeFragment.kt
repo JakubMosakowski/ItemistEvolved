@@ -164,8 +164,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
 
     // Show snackbar.
     showRemoveSnackbar(
-      viewModel::deleteCanceled,
-      viewModel::snackbarDismissed
+      viewModel::onUndoClicked,
+      viewModel::onSnackbarDismiss
     )
   }
 

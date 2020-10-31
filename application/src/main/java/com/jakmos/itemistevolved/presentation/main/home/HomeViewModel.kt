@@ -65,14 +65,14 @@ class HomeViewModel @Inject constructor(
     return checklists - toBeRemoved
   }
 
-  fun snackbarDismissed() {
+  fun onSnackbarDismiss() {
     viewModelScope.launch {
       checklistManager
         .removeChecklists(checklistsToBeRemoved.value.orEmpty())
     }
   }
 
-  fun deleteCanceled() {
+  fun onUndoClicked() {
     checklistsToBeRemoved.postValue(emptyList())
   }
 
