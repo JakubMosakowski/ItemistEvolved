@@ -3,6 +3,7 @@ package com.jakmos.itemistevolved.presentation.main.add
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.observe
 import com.jakmos.itemistevolved.R
 import com.jakmos.itemistevolved.databinding.FragmentAddBinding
 import com.jakmos.itemistevolved.presentation.base.fragment.base.BaseFragment
@@ -39,6 +40,21 @@ class AddFragment : BaseFragment<FragmentAddBinding, AddViewModel>(),
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
+
+    // Observe submit clicked.
+    observeSubmitClicked()
+  }
+
+  //endregion
+
+  //region Submit
+
+  private fun observeSubmitClicked() {
+
+    // Observe submit clicked.
+    viewModel
+      .submitClicked
+      .observe(viewLifecycleOwner) { navigateToHomeView() }
   }
 
   //endregion

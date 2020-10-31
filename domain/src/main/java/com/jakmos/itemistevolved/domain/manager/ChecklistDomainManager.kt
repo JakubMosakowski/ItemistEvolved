@@ -4,8 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
 import com.jakmos.itemistevolved.domain.mapper.ChecklistMapper
 import com.jakmos.itemistevolved.domain.model.Checklist
-import com.jakmos.itemistevolved.persistence.database.entity.ChecklistEntity
+import com.jakmos.itemistevolved.domain.model.Subsection
 import com.jakmos.itemistevolved.persistence.manager.ChecklistPersistenceManager
+import org.joda.time.DateTime
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -31,9 +32,27 @@ class ChecklistDomainManager @Inject constructor(
 
   //region Insert
 
-  suspend fun addChecklist(checklist: Checklist) =
+  private fun createChecklist(title: String, items: List<String>): Checklist {
+    val date = DateTime.now()
+    val subsections = items.map {
+      Subsection(text = it)
+    }
+
+    return Checklist(
+      name = title,
+      imageUrl = "",
+      createdAt = date,
+      updatedAt = date,
+      subsections = subsections
+    )
+  }
+
+  suspend fun addChecklist(title: String, items: List<String>) {
+    val checklist = createChecklist(title, items)
+
     persistence
       .saveChecklist(mapper.mapDomainToEntity(checklist))
+  }
 
   //endregion
 

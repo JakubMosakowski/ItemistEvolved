@@ -1,9 +1,47 @@
 package com.jakmos.itemistevolved.presentation.main.add
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
+import co.windly.limbo.mvvm.lifecycle.SingleLiveEvent
+import com.jakmos.itemistevolved.domain.manager.ChecklistDomainManager
 import com.jakmos.itemistevolved.presentation.base.lifecycle.BaseViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class AddViewModel @Inject constructor(): BaseViewModel() {
+class AddViewModel @Inject constructor(
+  private val checklistManager: ChecklistDomainManager
+) : BaseViewModel() {
+
+  //region Submit
+
+  private val _submitClicked: SingleLiveEvent<Any> =
+    SingleLiveEvent()
+
+  internal val submitClicked: LiveData<Any> =
+    _submitClicked
+
+  fun onSubmitClicked() =
+    viewModelScope.launch {
+      checklistManager
+        .addChecklist(title.value.orEmpty(), emptyList())
+
+      _submitClicked.post()
+    }
+
+  //endregion
+
+  //region Title
+
+  val title: MutableLiveData<String> =
+    MutableLiveData("")
+
+  //endregion
+
+  //region Items
+
+
+  //endregion
 
 //    private val _state = MutableLiveData<State<None>>()
 //    private val _items = MutableLiveData(checklist.lines)
