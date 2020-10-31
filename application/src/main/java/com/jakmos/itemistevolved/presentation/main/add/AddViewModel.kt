@@ -4,8 +4,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import co.windly.limbo.mvvm.lifecycle.SingleLiveEvent
+import co.windly.limbo.utility.primitives.EMPTY
+import co.windly.limbo.utility.primitives.orZero
 import com.jakmos.itemistevolved.domain.manager.ChecklistDomainManager
 import com.jakmos.itemistevolved.presentation.base.lifecycle.BaseViewModel
+import com.jakmos.itemistevolved.presentation.main.add.item.SimpleSubsection
+import com.jakmos.itemistevolved.utility.livedata.addToList
+import com.jakmos.itemistevolved.utility.livedata.removeFromList
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -23,8 +28,10 @@ class AddViewModel @Inject constructor(
 
   fun onSubmitClicked() =
     viewModelScope.launch {
+      val subsectionsTexts = subsections.value.orEmpty().map { it.text }
+
       checklistManager
-        .addChecklist(title.value.orEmpty(), emptyList())
+        .addChecklist(titleText.value.orEmpty(), subsectionsTexts)
 
       _submitClicked.post()
     }
@@ -33,13 +40,57 @@ class AddViewModel @Inject constructor(
 
   //region Title
 
-  val title: MutableLiveData<String> =
-    MutableLiveData("")
+  val titleText: MutableLiveData<String> =
+    MutableLiveData(String.EMPTY)
+
+  //endregion
+
+  //region Add
+
+  val subsectionText: MutableLiveData<String> =
+    MutableLiveData(String.EMPTY)
+
+  private fun getNewSubsection(text: String): SimpleSubsection {
+
+    // Get all previous subsections.
+    val previousSubsections = _subsections.value.orEmpty()
+
+    // Generate id for new subsection.
+    val newId = previousSubsections.maxBy { it.id }?.id.orZero() + 1
+
+    return SimpleSubsection(newId, text)
+  }
+
+  fun onAddClicked() {
+
+    val text = subsectionText.value.orEmpty()
+
+    // Do not add empty sections.
+    if (text.isBlank()) return
+
+    // Add new subsection.
+    _subsections.addToList(getNewSubsection(text))
+
+    // Clear subsection edit text.
+    subsectionText.postValue(String.EMPTY)
+  }
 
   //endregion
 
   //region Items
 
+  private val _subsections: MutableLiveData<List<SimpleSubsection>> =
+    MutableLiveData()
+
+  val subsections: LiveData<List<SimpleSubsection>> =
+    _subsections
+
+  //endregion
+
+  //region Delete
+
+  fun onDeleteClicked(subsection: SimpleSubsection) =
+    _subsections.removeFromList(subsection)
 
   //endregion
 

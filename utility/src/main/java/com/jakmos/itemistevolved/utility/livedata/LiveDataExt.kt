@@ -43,6 +43,30 @@ inline fun <reified T> MutableLiveData<T>.updateTo(newValue: T, byPost: Boolean 
   }
 }
 
+inline fun <reified T> MutableLiveData<List<T>>.removeFromList(
+  newValue: T,
+  byPost: Boolean = true) {
+
+  val newValues = value.orEmpty() - newValue
+
+  when (byPost) {
+    true -> postValue(newValues)
+    false -> value = newValues
+  }
+}
+
+inline fun <reified T> MutableLiveData<List<T>>.addToList(
+  newValue: T,
+  byPost: Boolean = true) {
+
+  val newValues = value.orEmpty() + newValue
+
+  when (byPost) {
+    true -> postValue(newValues)
+    false -> value = newValues
+  }
+}
+
 //endregion
 
 //region Test

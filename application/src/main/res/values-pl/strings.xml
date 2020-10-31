@@ -4,11 +4,11 @@
     <string name="add">Dodaj</string>
     <string name="add_fragment">Ekran dodawania</string>
     <string name="add_item_to_list">Dodaj podpunkt do listy</string>
-    <string name="add_list_item">Dodaj listę</string>
+    <string name="home_add_checklist">Dodaj listę</string>
     <string name="home_bring_back_checklist_question">Czy chcesz przywrócić swoją listę?</string>
     <string name="checklist_title">Tytuł listy</string>
-    <string name="deleteButton">Przycisk usuwania</string>
-    <string name="drag_handle">Uchwyt przeciągania</string>
+    <string name="add_delete_button">Przycisk usuwania</string>
+    <string name="add_drag_handle">Uchwyt przeciągania</string>
     <string name="edit_button">Przycisk edycji</string>
     <string name="edit_item">Edytuj podpunkt</string>
     <string name="empty_checklists">O nie! Nie masz żadnej listy. Może to dobry moment abyś dodał swą pierwszą?</string>

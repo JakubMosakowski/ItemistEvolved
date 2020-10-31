@@ -8,6 +8,7 @@ import co.windly.limbo.mvvm.lifecycle.SingleLiveEvent
 import com.jakmos.itemistevolved.domain.manager.ChecklistDomainManager
 import com.jakmos.itemistevolved.domain.model.Checklist
 import com.jakmos.itemistevolved.presentation.base.lifecycle.BaseViewModel
+import com.jakmos.itemistevolved.utility.livedata.addToList
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -49,10 +50,9 @@ class HomeViewModel @Inject constructor(
     MutableLiveData()
 
   fun onDeleteClicked(checklist: Checklist) {
-    val toBeRemoved = checklistsToBeRemoved.value.orEmpty()
 
     // Post new list of values to be removed.
-    checklistsToBeRemoved.postValue(toBeRemoved + checklist)
+    checklistsToBeRemoved.addToList(checklist)
 
     // Show snackbar.
     _deleteSnackbarRequested.post()

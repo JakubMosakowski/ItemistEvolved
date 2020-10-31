@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto">
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools">
 
   <!-- region Binding -->
 
@@ -33,7 +34,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginTop="16dp"
-      android:enabled="@{!viewModel.title.empty}"
+      android:enabled="@{!viewModel.titleText.empty}"
       android:text="@string/submit"
       app:disposables="@{disposables}"
       app:layout_constraintEnd_toEndOf="parent"
@@ -64,7 +65,7 @@
         android:hint="@string/checklist_title"
         android:imeOptions="actionNext"
         android:maxLength="30"
-        android:text="@={viewModel.title}" />
+        android:text="@={viewModel.titleText}" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -72,93 +73,64 @@
 
     <!-- region Item -->
 
+    <ImageButton
+      android:id="@+id/addBtn"
+      style="@style/clickableStyle"
+      android:layout_width="48dp"
+      android:layout_height="48dp"
+      android:layout_marginEnd="8dp"
+      android:background="@android:color/transparent"
+      android:contentDescription="@string/add_item_to_list"
+      android:src="@drawable/ic_add"
+      app:disposables="@{disposables}"
+      app:layout_constraintBottom_toBottomOf="@+id/lineEditTextLayout"
+      app:layout_constraintEnd_toStartOf="@id/lineEditTextLayout"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/titleEditTextLayout"
+      app:throttledClicks="@{() -> viewModel.onAddClicked()}" />
+
+    <com.google.android.material.textfield.TextInputLayout
+      android:id="@+id/lineEditTextLayout"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="16dp"
+      android:labelFor="@+id/lineEditText"
+      app:layout_constraintBottom_toTopOf="@id/subsectionsRv"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toEndOf="@id/addBtn"
+      app:layout_constraintTop_toBottomOf="@id/titleEditTextLayout"
+      app:layout_constraintVertical_bias="0.0">
+
+      <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/lineEditText"
+        style="@style/editTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/add_item_to_list"
+        android:imeOptions="actionDone"
+        android:maxLength="30"
+        android:text="@={viewModel.subsectionText}" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <!-- endregion -->
 
     <!-- region Recycler View -->
 
+    <androidx.recyclerview.widget.RecyclerView
+      android:id="@+id/subsectionsRv"
+      android:layout_width="@dimen/size_auto"
+      android:layout_height="@dimen/size_auto"
+      android:layout_marginHorizontal="@dimen/size_p8"
+      android:layout_marginTop="16dp"
+      app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/addBtn"
+      tools:listitem="@layout/item_subsection" />
 
     <!-- endregion -->
-
-    <!--        <com.google.android.material.textfield.TextInputLayout-->
-    <!--                android:id="@+id/titleEditTextLayout"-->
-    <!--                android:layout_width="0dp"-->
-    <!--                android:layout_height="wrap_content"-->
-    <!--                android:layout_marginLeft="16dp"-->
-    <!--                android:layout_marginRight="16dp"-->
-    <!--                android:labelFor="@+id/lineEditText"-->
-    <!--                app:layout_constraintEnd_toEndOf="parent"-->
-    <!--                app:layout_constraintStart_toStartOf="parent"-->
-    <!--                app:layout_constraintTop_toBottomOf="@id/submitBtn">-->
-
-    <!--            <com.google.android.material.textfield.TextInputEditText-->
-    <!--                    android:id="@+id/titleEditText"-->
-    <!--                    style="@style/editTextStyle"-->
-    <!--                    android:layout_width="match_parent"-->
-    <!--                    android:layout_height="wrap_content"-->
-    <!--                    android:imeOptions="actionNext"-->
-    <!--                    android:maxLength="30"-->
-    <!--                    android:hint="@string/checklist_title"-->
-    <!--                    android:text="@={viewModel.titleText}" />-->
-    <!--        </com.google.android.material.textfield.TextInputLayout>-->
-
-    <!--        <ImageButton-->
-    <!--                android:id="@+id/addBtn"-->
-    <!--                style="@style/clickableStyle"-->
-    <!--                android:layout_width="48dp"-->
-    <!--                android:layout_height="48dp"-->
-    <!--                android:layout_marginEnd="8dp"-->
-    <!--                android:background="@android:color/transparent"-->
-    <!--                android:contentDescription="@string/add"-->
-    <!--                android:onClick="@{() -> viewModel.addItemClicked()}"-->
-    <!--                android:src="@drawable/ic_add_32dp"-->
-    <!--                app:layout_constraintBottom_toTopOf="@id/itemsRecyclerView"-->
-    <!--                app:layout_constraintStart_toStartOf="parent"-->
-    <!--                app:layout_constraintTop_toBottomOf="@id/titleEditTextLayout" />-->
-
-    <!--        <com.google.android.material.textfield.TextInputLayout-->
-    <!--                android:id="@+id/lineEditTextLayout"-->
-    <!--                android:layout_width="0dp"-->
-    <!--                android:layout_height="wrap_content"-->
-    <!--                android:layout_marginEnd="16dp"-->
-    <!--                android:labelFor="@+id/lineEditText"-->
-    <!--                app:layout_constraintEnd_toEndOf="parent"-->
-    <!--                app:layout_constraintStart_toEndOf="@id/addBtn"-->
-    <!--                app:layout_constraintTop_toBottomOf="@id/titleEditTextLayout">-->
-
-    <!--            <com.google.android.material.textfield.TextInputEditText-->
-    <!--                    android:id="@+id/lineEditText"-->
-    <!--                    style="@style/editTextStyle"-->
-    <!--                    android:layout_width="match_parent"-->
-    <!--                    android:layout_height="wrap_content"-->
-    <!--                    android:imeOptions="actionDone"-->
-    <!--                    android:maxLength="30"-->
-    <!--                    android:hint="@string/add_item_to_list"-->
-    <!--                    android:text="@={viewModel.lineItemText}" />-->
-    <!--        </com.google.android.material.textfield.TextInputLayout>-->
-
-    <!--        <androidx.recyclerview.widget.RecyclerView-->
-    <!--                android:id="@+id/itemsRecyclerView"-->
-    <!--                android:layout_width="0dp"-->
-    <!--                android:layout_height="wrap_content"-->
-    <!--                android:layout_marginTop="16dp"-->
-    <!--                app:layout_constraintEnd_toEndOf="parent"-->
-    <!--                app:layout_constraintStart_toStartOf="parent"-->
-    <!--                app:layout_constraintTop_toBottomOf="@id/lineEditTextLayout"-->
-    <!--                tools:listitem="@layout/line_item" />-->
-
-    <!--        <androidx.core.widget.ContentLoadingProgressBar-->
-    <!--                android:id="@+id/progressBar"-->
-    <!--                style="?android:attr/progressBarStyle"-->
-    <!--                android:layout_width="wrap_content"-->
-    <!--                android:layout_height="wrap_content"-->
-    <!--                android:visibility="@{ viewModel.state.isLoading() ? View.VISIBLE : View.GONE}"-->
-    <!--                app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--                app:layout_constraintEnd_toEndOf="parent"-->
-    <!--                app:layout_constraintStart_toStartOf="parent"-->
-    <!--                app:layout_constraintTop_toTopOf="parent" />-->
-
-    <!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
 
   </androidx.constraintlayout.widget.ConstraintLayout>
 

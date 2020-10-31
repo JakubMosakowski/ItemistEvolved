@@ -33,7 +33,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/size_p8"
-      android:text="@string/add_list_item"
+      android:text="@string/home_add_checklist"
       app:disposables="@{disposables}"
       app:throttledClicks="@{() -> viewModel.onAddClicked()}"
       app:layout_constraintBottom_toTopOf="@+id/checklistsRv"

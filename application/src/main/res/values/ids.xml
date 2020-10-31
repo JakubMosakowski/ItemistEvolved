@@ -7,6 +7,7 @@
   <!-- region Items -->
 
   <item name="itemChecklist" type="id" />
+  <item name="itemSubsection" type="id" />
 
   <!-- endregion -->
 

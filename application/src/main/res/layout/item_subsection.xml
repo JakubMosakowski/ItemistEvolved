@@ -12,8 +12,8 @@
       type="io.reactivex.disposables.CompositeDisposable" />
 
     <variable
-      name="checklist"
-      type="com.jakmos.itemistevolved.domain.model.Checklist" />
+      name="subsection"
+      type="com.jakmos.itemistevolved.presentation.main.add.item.SimpleSubsection" />
 
   </data>
 
@@ -22,64 +22,47 @@
   <!-- region Root -->
 
   <androidx.constraintlayout.widget.ConstraintLayout
-    android:id="@+id/checklistItem"
+    android:id="@+id/rootView"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="@dimen/size_p16">
+    android:layout_height="wrap_content">
 
-    <!-- region Text -->
+    <ImageButton
+      android:id="@+id/handle"
+      style="@style/clickableStyle"
+      android:layout_width="48dp"
+      android:layout_height="48dp"
+      android:layout_marginEnd="8dp"
+      android:background="@android:color/transparent"
+      android:contentDescription="@string/add_drag_handle"
+      android:padding="12dp"
+      android:src="@drawable/ic_reorder"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-      android:id="@+id/title"
       style="@style/listTextView"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
-      android:layout_marginEnd="@dimen/size_p16"
-      android:ellipsize="end"
-      android:maxLines="2"
-      android:text="@{checklist.name}"
-      app:layout_constrainedWidth="true"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toStartOf="@id/editBtn"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
-      tools:text="Gym list" />
-
-    <!-- endregion -->
-
-    <!-- region Edit Button -->
-
-    <ImageView
-      android:id="@+id/editBtn"
-      style="@style/clickableStyle"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginEnd="8dp"
-      android:contentDescription="@string/edit_button"
-      android:padding="8dp"
-      android:src="@drawable/ic_edit"
+      android:text="@{subsection.text}"
+      android:textSize="16sp"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toStartOf="@id/deleteBtn"
-      app:layout_constraintTop_toTopOf="parent" />
-
-    <!-- endregion -->
-
-    <!-- region Delete Button -->
+      app:layout_constraintStart_toEndOf="@id/handle"
+      app:layout_constraintTop_toTopOf="parent"
+      tools:text="Sample item" />
 
     <ImageView
       android:id="@+id/deleteBtn"
       style="@style/clickableStyle"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginStart="8dp"
       android:contentDescription="@string/add_delete_button"
       android:padding="8dp"
       android:src="@drawable/ic_delete"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintTop_toTopOf="parent" />
-
-    <!-- endregion -->
 
   </androidx.constraintlayout.widget.ConstraintLayout>
 
