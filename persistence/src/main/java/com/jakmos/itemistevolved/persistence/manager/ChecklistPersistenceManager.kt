@@ -52,6 +52,10 @@ class ChecklistPersistenceManager @Inject constructor(
     checklistDao
       .remove(checklist)
 
+  suspend fun removeChecklists(checklists: List<ChecklistEntity>) =
+    checklistDao
+      .remove(checklists)
+
   suspend fun clearTable() =
     checklistDao
       .clearTable()

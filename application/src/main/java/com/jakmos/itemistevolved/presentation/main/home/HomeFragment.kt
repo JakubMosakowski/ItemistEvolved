@@ -67,6 +67,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
     // Observe add clicked.
     observeAddClicked()
 
+    // Observe delete clicked.
+    observeDeleteClicked()
+
     // Initialize checklist recycler view.
     initializeChecklistRecyclerView()
 
@@ -143,6 +146,27 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
     viewModel
       .addClicked
       .observe(viewLifecycleOwner) { navigateToAddView() }
+  }
+
+  //endregion
+
+  //region Delete
+
+  private fun observeDeleteClicked() {
+
+    // Observe delete clicked.
+    viewModel
+      .deleteSnackbarRequested
+      .observe(viewLifecycleOwner) { handleSnackbarRequested() }
+  }
+
+  private fun handleSnackbarRequested() {
+
+    // Show snackbar.
+    showRemoveSnackbar(
+      viewModel::deleteCanceled,
+      viewModel::snackbarDismissed
+    )
   }
 
   //endregion

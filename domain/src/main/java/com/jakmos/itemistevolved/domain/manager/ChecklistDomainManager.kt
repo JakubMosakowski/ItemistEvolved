@@ -39,9 +39,13 @@ class ChecklistDomainManager @Inject constructor(
 
   //region Remove
 
-  suspend fun removeChecklist(checklist: ChecklistEntity) =
+  suspend fun removeChecklist(checklist: Checklist) =
     persistence
-      .removeChecklist(checklist)
+      .removeChecklist(mapper.mapDomainToEntity(checklist))
+
+  suspend fun removeChecklists(checklists: List<Checklist>) =
+    persistence
+      .removeChecklists(mapper.mapDomainListToEntityList(checklists))
 
   suspend fun clearChecklists() =
     persistence

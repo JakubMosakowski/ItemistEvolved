@@ -11,7 +11,7 @@ class PresentationMockData {
 
     //region Checklist
 
-    val CHECKLISTS = (0..10).map {
+    val CHECKLISTS = (0..2).map {
       val i = it.toLong()
       val subsections = (0..i).map { j ->
         Subsection(text = "Subsection$j", isChecked = Random.nextBoolean())
