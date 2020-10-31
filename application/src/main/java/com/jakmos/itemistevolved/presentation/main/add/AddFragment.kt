@@ -11,8 +11,12 @@ import com.jakmos.itemistevolved.presentation.base.fragment.base.BaseFragment
 import com.jakmos.itemistevolved.presentation.main.add.item.ClickSubsectionDeleteEventHook
 import com.jakmos.itemistevolved.presentation.main.add.item.SimpleSubsection
 import com.jakmos.itemistevolved.presentation.main.add.item.SubsectionItem
+import com.jakmos.itemistevolved.utility.context.doActionOnDone
+import com.jakmos.itemistevolved.utility.context.showSoftInput
 import com.mikepenz.fastadapter.adapters.GenericFastItemAdapter
+import kotlinx.android.synthetic.main.fragment_add.lineEditText
 import kotlinx.android.synthetic.main.fragment_add.subsectionsRv
+import kotlinx.android.synthetic.main.fragment_add.titleEditText
 
 
 class AddFragment : BaseFragment<FragmentAddBinding, AddViewModel>(),
@@ -47,6 +51,9 @@ class AddFragment : BaseFragment<FragmentAddBinding, AddViewModel>(),
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
 
+    // Show keyboard.
+    activity?.showSoftInput(titleEditText)
+
     // Observe submit clicked.
     observeSubmitClicked()
 
@@ -55,6 +62,9 @@ class AddFragment : BaseFragment<FragmentAddBinding, AddViewModel>(),
 
     // Observe subsections.
     observeSubsections()
+
+    // Do action when done will be triggered.
+    doActionOnAddDone()
 
     // Initialize event hooks.
     initializeEventHooks()
@@ -96,6 +106,12 @@ class AddFragment : BaseFragment<FragmentAddBinding, AddViewModel>(),
       .observe(viewLifecycleOwner, ::showSubsectionItems)
   }
 
+  private fun doActionOnAddDone() = with(lineEditText) {
+
+    // Do action when click on keyboard done.
+    doActionOnDone(viewModel::onAddClicked)
+  }
+
   //endregion
 
   //region Recycler View
@@ -104,17 +120,11 @@ class AddFragment : BaseFragment<FragmentAddBinding, AddViewModel>(),
 
     // TODO add items dragging.
 
-    // TODO add exit fragment callback
+    // TODO add toolbar
 
     // TODO add view model tests
 
     // TODO Support edit checklist
-
-    // TODO add keyboard showing on fragment open
-
-    // TODO add subsection after keyboard "enter" is clicked while focused on add item to list edit text
-
-    // TODO Move to add item to list edit text after keyboard "enter" is clicked while focused on checklist title edit text
 
     // Add space decorator.
     addSpaceDecoration(

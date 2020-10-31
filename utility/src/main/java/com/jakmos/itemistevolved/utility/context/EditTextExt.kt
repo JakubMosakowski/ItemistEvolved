@@ -26,6 +26,7 @@ fun EditText.doActionOnDone(action: () -> Unit) {
     // Trigger action on done clicked.
     if (actionId == EditorInfo.IME_ACTION_DONE) {
       action.invoke()
+      return@setOnEditorActionListener true
     }
     false
   }
