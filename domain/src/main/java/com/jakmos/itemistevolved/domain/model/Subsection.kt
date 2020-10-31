@@ -23,13 +23,7 @@ data class Subsection(
 
   //region Is Checked
 
-  var isChecked: Boolean = false,
-
-  //endregion
-
-  //region Checklist Id
-
-  var checklistId: Id = Id.ZERO
+  var isChecked: Boolean = false
 
   //endregion
 ) : Parcelable

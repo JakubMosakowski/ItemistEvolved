@@ -12,7 +12,7 @@ abstract class BaseDao<Entity> {
   //region Insert
 
   @Insert(onConflict = OnConflictStrategy.REPLACE)
-  abstract suspend fun insert(entity: Entity)
+  abstract suspend fun insert(entity: Entity): Long
 
   @Insert(onConflict = OnConflictStrategy.REPLACE)
   abstract suspend fun insert(entities: Iterable<Entity>)

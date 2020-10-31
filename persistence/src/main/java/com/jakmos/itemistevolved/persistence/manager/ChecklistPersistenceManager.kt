@@ -35,10 +35,13 @@ class ChecklistPersistenceManager @Inject constructor(
     subsectionDao.remove(checklist.subsections)
 
     // Insert checklist.
-    checklistDao.insert(checklist)
+    val checklistId = checklistDao.insert(checklist)
+
+    // Add id to subsections.
+    val subsections = checklist.subsections.map { it.apply { it.checklistId = checklistId } }
 
     // Insert subsections.
-    subsectionDao.insert(checklist.subsections)
+    subsectionDao.insert(subsections)
   }
 
   //endregion
