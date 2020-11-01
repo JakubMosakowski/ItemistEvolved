@@ -26,20 +26,36 @@
     android:layout_height="match_parent"
     android:orientation="horizontal">
 
+    <!-- region Toolbar -->
+
+    <com.google.android.material.appbar.MaterialToolbar
+      android:id="@+id/toolbarView"
+      style="@style/ItemistEvolved.Widget.Toolbar"
+      android:layout_width="match_parent"
+      android:layout_height="?attr/actionBarSize"
+      app:title="@string/app_name"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- endregion -->
+
     <!-- region Add Button -->
 
     <com.google.android.material.button.MaterialButton
       android:id="@+id/addItemButton"
-      android:layout_width="wrap_content"
+      style="@style/ItemistEvolved.Widget.Button.ColdPurple"
+      android:layout_width="match_parent"
+      android:layout_marginHorizontal="@dimen/size_p16"
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/size_p8"
       android:text="@string/home_add_checklist"
       app:disposables="@{disposables}"
-      app:throttledClicks="@{() -> viewModel.onAddClicked()}"
       app:layout_constraintBottom_toTopOf="@+id/checklistsRv"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent" />
+      app:layout_constraintTop_toBottomOf="@+id/toolbarView"
+      app:throttledClicks="@{() -> viewModel.onAddClicked()}" />
 
     <!-- endregion -->
 
@@ -64,7 +80,7 @@
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:padding="8dp"
-      android:text="@string/empty_checklists"
+      android:text="@string/home_empty_checklists"
       android:textAlignment="center"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"

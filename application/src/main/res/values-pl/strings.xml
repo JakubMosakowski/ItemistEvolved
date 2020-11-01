@@ -1,23 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">ItemistEvolved</string>
+
+    <!-- region Common -->
+
     <string name="add">Dodaj</string>
-    <string name="add_fragment">Ekran dodawania</string>
-    <string name="add_item_to_list">Dodaj podpunkt do listy</string>
-    <string name="home_add_checklist">Dodaj listę</string>
-    <string name="home_bring_back_checklist_question">Czy chcesz przywrócić swoją listę?</string>
-    <string name="checklist_title">Tytuł listy</string>
+    <string name="an_error_occurred_try_again_later">Wystąpił błąd. Spróbuj ponownie później.</string>
+    <string name="are_you_sure_you_want_to_quit">Czy na pewno chcesz wyjść?</string>
+    <string name="cancel">Anuluj</string>
+    <string name="confirmation">Potwierdź</string>
+    <string name="ok">Ok</string>
+    <string name="submit">Zatwierdź</string>
+    <string name="todo">TODO: To be implemented.</string>
+
+    <!-- endregion -->
+
+    <!-- region Add -->
+
+    <string name="add_checklist_title">Tytuł</string>
+    <string name="add_item_to_list">Dodaj pozycję do listy</string>
+    <string name="add_drag_handle">Uchwyt</string>
     <string name="add_delete_button">Przycisk usuwania</string>
-    <string name="add_drag_handle">Uchwyt przeciągania</string>
-    <string name="edit_button">Przycisk edycji</string>
-    <string name="edit_item">Edytuj podpunkt</string>
-    <string name="empty_checklists">O nie! Nie masz żadnej listy. Może to dobry moment abyś dodał swą pierwszą?</string>
-    <string name="exit">Wyjdź</string>
-    <string name="oh_no">O nie!</string>
-    <string name="remove_button">Przycisk usuwania</string>
-    <string name="retry">Spróbuj ponownie</string>
-    <string name="something_went_wrong">Coś poszło nie tak</string>
-    <string name="submit">Zapisz</string>
+
+    <!-- endregion -->
+
+    <!-- region Checklist -->
+
     <string name="checklist_uncheck_all">Odznacz wszystkie</string>
+
+    <!-- endregion -->
+
+    <!-- region Home -->
+
     <string name="home_undo">Cofnij</string>
+    <string name="home_bring_back_checklist_question">Czy chcesz przywrócić swoją listę?</string>
+    <string name="home_add_checklist">Dodaj listę</string>
+    <string name="home_empty_checklists">O nie! Nie masz żadnych list. Może czas dodać swoją pierwszą?</string>
+    <string name="home_edit_button">Przycisk edycji</string>
+
+    <!-- endregion -->
 </resources>

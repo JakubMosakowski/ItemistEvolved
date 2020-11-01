@@ -28,7 +28,7 @@
 
     <ImageButton
       android:id="@+id/handle"
-      style="@style/clickableStyle"
+      style="@style/ItemistEvolved.Widget.ImageButton.Clickable"
       android:layout_width="48dp"
       android:layout_height="48dp"
       android:layout_marginEnd="8dp"
@@ -41,7 +41,7 @@
       app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-      style="@style/listTextView"
+      style="@style/ItemistEvolved.Widget.TextView.Subsection"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:text="@{subsection.text}"
@@ -54,7 +54,7 @@
 
     <ImageView
       android:id="@+id/deleteBtn"
-      style="@style/clickableStyle"
+      style="@style/ItemistEvolved.Widget.ImageButton.Clickable"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:contentDescription="@string/add_delete_button"

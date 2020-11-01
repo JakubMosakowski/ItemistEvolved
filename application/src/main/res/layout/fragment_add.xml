@@ -27,19 +27,35 @@
     android:layout_height="match_parent"
     android:orientation="horizontal">
 
+    <!-- region Toolbar -->
+
+    <com.google.android.material.appbar.MaterialToolbar
+      android:id="@+id/toolbarView"
+      style="@style/ItemistEvolved.Widget.Toolbar.Back"
+      android:layout_width="match_parent"
+      android:layout_height="?attr/actionBarSize"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:title="@string/add" />
+
+    <!-- endregion -->
+
     <!-- region Submit Button -->
 
     <com.google.android.material.button.MaterialButton
       android:id="@+id/submitBtn"
-      android:layout_width="wrap_content"
+      style="@style/ItemistEvolved.Widget.Button.ColdPurple"
+      android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      android:layout_marginHorizontal="@dimen/size_p16"
       android:layout_marginTop="16dp"
       android:enabled="@{!viewModel.titleText.empty}"
       android:text="@string/submit"
       app:disposables="@{disposables}"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/toolbarView"
       app:throttledClicks="@{() -> viewModel.onSubmitClicked()}" />
 
     <!-- endregion -->
@@ -50,19 +66,19 @@
       android:id="@+id/titleEditTextLayout"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
-      android:layout_marginLeft="16dp"
-      android:layout_marginRight="16dp"
+      android:layout_marginHorizontal="@dimen/size_p16"
       android:labelFor="@+id/lineEditText"
       app:layout_constraintEnd_toEndOf="parent"
+      android:layout_marginTop="@dimen/size_p16"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/submitBtn">
 
       <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/titleEditText"
-        style="@style/editTextStyle"
+        style="@style/ItemistEvolved.Widget.EditText.Input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/checklist_title"
+        android:hint="@string/add_checklist_title"
         android:imeOptions="actionNext"
         android:maxLength="30"
         android:text="@={viewModel.titleText}" />
@@ -75,7 +91,7 @@
 
     <ImageButton
       android:id="@+id/addBtn"
-      style="@style/clickableStyle"
+      style="@style/ItemistEvolved.Widget.ImageButton.Clickable"
       android:layout_width="48dp"
       android:layout_height="48dp"
       android:layout_marginEnd="8dp"
@@ -103,7 +119,7 @@
 
       <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/lineEditText"
-        style="@style/editTextStyle"
+        style="@style/ItemistEvolved.Widget.EditText.Input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/add_item_to_list"

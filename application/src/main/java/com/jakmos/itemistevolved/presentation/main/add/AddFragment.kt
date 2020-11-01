@@ -4,11 +4,12 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.ItemTouchHelper
 import co.windly.limbo.recyclerview.addSpaceDecoration
 import com.jakmos.itemistevolved.R
 import com.jakmos.itemistevolved.databinding.FragmentAddBinding
-import com.jakmos.itemistevolved.presentation.base.fragment.base.BaseFragment
+import com.jakmos.itemistevolved.presentation.base.fragment.back.BackFragment
 import com.jakmos.itemistevolved.presentation.common.recyclerview.TranslucentDragCallback
 import com.jakmos.itemistevolved.presentation.main.add.item.ClickSubsectionDeleteEventHook
 import com.jakmos.itemistevolved.presentation.main.add.item.SimpleSubsection
@@ -24,7 +25,7 @@ import kotlinx.android.synthetic.main.fragment_add.subsectionsRv
 import kotlinx.android.synthetic.main.fragment_add.titleEditText
 
 
-class AddFragment : BaseFragment<FragmentAddBinding, AddViewModel>(),
+class AddFragment : BackFragment<FragmentAddBinding, AddViewModel>(),
   AddTrait {
 
   //region Ui
@@ -38,6 +39,13 @@ class AddFragment : BaseFragment<FragmentAddBinding, AddViewModel>(),
 
   override val viewModel: AddViewModel
     by viewModels { factory }
+
+  //endregion
+
+  //region Arguments
+
+  private val args: AddFragmentArgs
+    by navArgs()
 
   //endregion
 
@@ -128,11 +136,11 @@ class AddFragment : BaseFragment<FragmentAddBinding, AddViewModel>(),
 
   private fun initializeSubsectionRecyclerView() = with(subsectionsRv) {
 
-    // TODO add toolbar
-
     // TODO add view model tests
 
     // TODO Support edit checklist
+
+    // TODO Make sure checklist is saved with correct order
 
     // Setup drag and drop.
     touchHelper.attachToRecyclerView(subsectionsRv)
