@@ -4,16 +4,21 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
+import androidx.recyclerview.widget.ItemTouchHelper
 import co.windly.limbo.recyclerview.addSpaceDecoration
 import com.jakmos.itemistevolved.R
 import com.jakmos.itemistevolved.databinding.FragmentAddBinding
 import com.jakmos.itemistevolved.presentation.base.fragment.base.BaseFragment
+import com.jakmos.itemistevolved.presentation.common.recyclerview.TranslucentDragCallback
 import com.jakmos.itemistevolved.presentation.main.add.item.ClickSubsectionDeleteEventHook
 import com.jakmos.itemistevolved.presentation.main.add.item.SimpleSubsection
 import com.jakmos.itemistevolved.presentation.main.add.item.SubsectionItem
 import com.jakmos.itemistevolved.utility.context.doActionOnDone
 import com.jakmos.itemistevolved.utility.context.showSoftInput
 import com.mikepenz.fastadapter.adapters.GenericFastItemAdapter
+import com.mikepenz.fastadapter.drag.ItemTouchCallback
+import com.mikepenz.fastadapter.select.getSelectExtension
+import com.mikepenz.fastadapter.utils.DragDropUtil
 import kotlinx.android.synthetic.main.fragment_add.lineEditText
 import kotlinx.android.synthetic.main.fragment_add.subsectionsRv
 import kotlinx.android.synthetic.main.fragment_add.titleEditText
@@ -87,7 +92,12 @@ class AddFragment : BaseFragment<FragmentAddBinding, AddViewModel>(),
   //region Subsection
 
   private fun List<SimpleSubsection>.subsectionItems(): List<SubsectionItem> =
-    map(::SubsectionItem)
+    map {
+      SubsectionItem(
+        it,
+        touchHelper
+      )
+    }
 
   private val subsectionAdapter: GenericFastItemAdapter
     by lazy { GenericFastItemAdapter() }
@@ -118,13 +128,17 @@ class AddFragment : BaseFragment<FragmentAddBinding, AddViewModel>(),
 
   private fun initializeSubsectionRecyclerView() = with(subsectionsRv) {
 
-    // TODO add items dragging.
-
     // TODO add toolbar
 
     // TODO add view model tests
 
     // TODO Support edit checklist
+
+    // Setup drag and drop.
+    touchHelper.attachToRecyclerView(subsectionsRv)
+    subsectionAdapter.getSelectExtension().apply {
+      isSelectable = true
+    }
 
     // Add space decorator.
     addSpaceDecoration(
@@ -137,6 +151,24 @@ class AddFragment : BaseFragment<FragmentAddBinding, AddViewModel>(),
     // Assign adapter to recycler view.
     adapter = subsectionAdapter
   }
+
+  //endregion
+
+  //region Drag
+
+  private val itemTouchCallback = object : ItemTouchCallback {
+
+    override fun itemTouchOnMove(oldPosition: Int, newPosition: Int): Boolean {
+      DragDropUtil.onMove(subsectionAdapter.itemAdapter, oldPosition, newPosition)
+      return true
+    }
+  }
+
+  private val touchHelper: ItemTouchHelper
+    by lazy {
+      val touchCallback = TranslucentDragCallback(itemTouchCallback)
+      ItemTouchHelper(touchCallback)
+    }
 
   //endregion
 
