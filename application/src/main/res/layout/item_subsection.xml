@@ -13,7 +13,7 @@
 
     <variable
       name="subsection"
-      type="com.jakmos.itemistevolved.presentation.main.add.item.SimpleSubsection" />
+      type="com.jakmos.itemistevolved.domain.model.Subsection" />
 
   </data>
 

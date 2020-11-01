@@ -34,12 +34,6 @@ data class Checklist(
 
   //endregion
 
-  //region Updated At
-
-  var updatedAt: DateTime = DateTime(),
-
-  //endregion
-
   //region Subsection
 
   var subsections: List<Subsection> = emptyList()

@@ -38,13 +38,6 @@ data class ChecklistEntity(
 
   //endregion
 
-  //region Updated At
-
-  @ColumnInfo(name = "UpdatedAt")
-  var updatedAt: DateTime = DateTime(),
-
-  //endregion
-
   //region Subsection
 
   @Ignore

@@ -9,14 +9,15 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import co.windly.limbo.recyclerview.addSpaceDecoration
 import com.jakmos.itemistevolved.R
 import com.jakmos.itemistevolved.databinding.FragmentAddBinding
+import com.jakmos.itemistevolved.domain.model.Subsection
 import com.jakmos.itemistevolved.presentation.base.fragment.back.BackFragment
 import com.jakmos.itemistevolved.presentation.common.recyclerview.TranslucentDragCallback
 import com.jakmos.itemistevolved.presentation.main.add.item.ClickSubsectionDeleteEventHook
-import com.jakmos.itemistevolved.presentation.main.add.item.SimpleSubsection
 import com.jakmos.itemistevolved.presentation.main.add.item.SubsectionItem
 import com.jakmos.itemistevolved.utility.context.doActionOnDone
 import com.jakmos.itemistevolved.utility.context.showSoftInput
-import com.mikepenz.fastadapter.adapters.GenericFastItemAdapter
+import com.jakmos.itemistevolved.utility.log.ILogger
+import com.mikepenz.fastadapter.adapters.FastItemAdapter
 import com.mikepenz.fastadapter.drag.ItemTouchCallback
 import com.mikepenz.fastadapter.select.getSelectExtension
 import com.mikepenz.fastadapter.utils.DragDropUtil
@@ -67,8 +68,17 @@ class AddFragment : BackFragment<FragmentAddBinding, AddViewModel>(),
     // Show keyboard.
     activity?.showSoftInput(titleEditText)
 
-    // Observe submit clicked.
-    observeSubmitClicked()
+    // Log argument.
+    ILogger.v("checklist: ${args.checklist}.")
+
+    // Consume arguments.
+    viewModel.onChecklistAvailable(args.checklist)
+
+    // Observe submit completed.
+    observeSubmitCompleted()
+
+    // Observe subsectionsOrderRequested.
+    observeSubsectionsOrderRequested()
 
     // Initialize subsection recycler view.
     initializeSubsectionRecyclerView()
@@ -87,11 +97,11 @@ class AddFragment : BackFragment<FragmentAddBinding, AddViewModel>(),
 
   //region Submit
 
-  private fun observeSubmitClicked() {
+  private fun observeSubmitCompleted() {
 
-    // Observe submit clicked.
+    // Observe submit completed.
     viewModel
-      .submitClicked
+      .submitCompleted
       .observe(viewLifecycleOwner) { navigateToHomeView() }
   }
 
@@ -99,7 +109,7 @@ class AddFragment : BackFragment<FragmentAddBinding, AddViewModel>(),
 
   //region Subsection
 
-  private fun List<SimpleSubsection>.subsectionItems(): List<SubsectionItem> =
+  private fun List<Subsection>.subsectionItems(): List<SubsectionItem> =
     map {
       SubsectionItem(
         it,
@@ -107,10 +117,10 @@ class AddFragment : BackFragment<FragmentAddBinding, AddViewModel>(),
       )
     }
 
-  private val subsectionAdapter: GenericFastItemAdapter
-    by lazy { GenericFastItemAdapter() }
+  private val subsectionAdapter: FastItemAdapter<SubsectionItem>
+    by lazy { FastItemAdapter<SubsectionItem>() }
 
-  private fun showSubsectionItems(result: List<SimpleSubsection>) {
+  private fun showSubsectionItems(result: List<Subsection>) {
 
     // Show list of subsection.
     subsectionAdapter.setNewList(result.subsectionItems())
@@ -130,6 +140,21 @@ class AddFragment : BackFragment<FragmentAddBinding, AddViewModel>(),
     doActionOnDone(viewModel::onAddClicked)
   }
 
+  private fun observeSubsectionsOrderRequested() {
+
+    // Observe subsections order requested.
+    viewModel
+      .currentSubsectionsOrderRequested
+      .observe(viewLifecycleOwner) { handleSubsectionOrderRequested() }
+  }
+
+  private fun handleSubsectionOrderRequested() {
+
+    val currentSubsectionsOrder = subsectionAdapter.adapterItems.map { it.model }
+
+    viewModel.postNewSubsectionOrder(currentSubsectionsOrder)
+  }
+
   //endregion
 
   //region Recycler View
@@ -137,10 +162,6 @@ class AddFragment : BackFragment<FragmentAddBinding, AddViewModel>(),
   private fun initializeSubsectionRecyclerView() = with(subsectionsRv) {
 
     // TODO add view model tests
-
-    // TODO Support edit checklist
-
-    // TODO Make sure checklist is saved with correct order
 
     // Setup drag and drop.
     touchHelper.attachToRecyclerView(subsectionsRv)

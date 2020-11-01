@@ -26,7 +26,6 @@ abstract class ChecklistMapper : CleanCodeMapper<ChecklistDto, ChecklistEntity, 
     Mapping(source = "checklistEntity.name", target = "name"),
     Mapping(source = "checklistEntity.imageUrl", target = "imageUrl"),
     Mapping(source = "checklistEntity.createdAt", target = "createdAt"),
-    Mapping(source = "checklistEntity.updatedAt", target = "updatedAt"),
     Mapping(source = "subsections", target = "subsections")
   ])
   abstract fun mapViewToDomain(view: ChecklistView): Checklist

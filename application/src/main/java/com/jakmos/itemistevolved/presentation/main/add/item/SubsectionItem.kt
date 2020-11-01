@@ -7,15 +7,16 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.jakmos.itemistevolved.R
 import com.jakmos.itemistevolved.databinding.ItemSubsectionBinding
+import com.jakmos.itemistevolved.domain.model.Subsection
 import com.mikepenz.fastadapter.binding.BindingViewHolder
 import com.mikepenz.fastadapter.binding.ModelAbstractBindingItem
 import com.mikepenz.fastadapter.drag.IExtendedDraggable
 import com.mikepenz.fastadapter.utils.DragDropUtil
 
 class SubsectionItem(
-  model: SimpleSubsection,
+  model: Subsection,
   touchHelper: ItemTouchHelper
-) : ModelAbstractBindingItem<SimpleSubsection, ItemSubsectionBinding>(
+) : ModelAbstractBindingItem<Subsection, ItemSubsectionBinding>(
   model), IExtendedDraggable<RecyclerView.ViewHolder> {
 
   //region Initialization

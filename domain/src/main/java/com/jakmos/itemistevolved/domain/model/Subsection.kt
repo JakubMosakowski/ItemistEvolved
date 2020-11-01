@@ -23,7 +23,13 @@ data class Subsection(
 
   //region Is Checked
 
-  var isChecked: Boolean = false
+  var isChecked: Boolean = false,
+
+  //endregion
+
+  //region Order Number
+
+  var orderNumber: Long = Long.ZERO
 
   //endregion
 ) : Parcelable

@@ -26,7 +26,6 @@ class TestData {
             name = "Checklist$i",
             imageUrl = "",
             createdAt = DateTime.now(),
-            updatedAt = DateTime.now(),
             subsections = subsections
           )
         }

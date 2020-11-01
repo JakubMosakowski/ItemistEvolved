@@ -35,7 +35,14 @@ data class SubsectionEntity(
   //region Checklist Id
 
   @ColumnInfo(name = "checklist_id")
-  var checklistId: Id = Id.ZERO
+  var checklistId: Id = Id.ZERO,
+
+  //endregion
+
+  //region Order Number
+
+  @ColumnInfo(name = "order_number")
+  var orderNumber: Long = Long.ZERO
 
   //endregion
 )

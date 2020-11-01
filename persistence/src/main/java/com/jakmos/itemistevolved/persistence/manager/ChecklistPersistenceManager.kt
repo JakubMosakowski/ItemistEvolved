@@ -20,10 +20,6 @@ class ChecklistPersistenceManager @Inject constructor(
     checklistDao
       .observeChecklists()
 
-  fun observeChecklistsByName(name: String): LiveData<List<ChecklistView>> =
-    checklistDao
-      .observeChecklistsByName(name)
-
   //endregion
 
   //region Save
@@ -38,7 +34,14 @@ class ChecklistPersistenceManager @Inject constructor(
     val checklistId = checklistDao.insert(checklist)
 
     // Add id to subsections.
-    val subsections = checklist.subsections.map { it.apply { it.checklistId = checklistId } }
+    var subsections = checklist
+      .subsections
+      .map { it.apply { it.checklistId = checklistId } }
+
+    // Add proper order to subsections.
+    subsections = subsections.mapIndexed { index, entity ->
+      entity.apply { orderNumber = index.toLong() }
+    }
 
     // Insert subsections.
     subsectionDao.insert(subsections)
