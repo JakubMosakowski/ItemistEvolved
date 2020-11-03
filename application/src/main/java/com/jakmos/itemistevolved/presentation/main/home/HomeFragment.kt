@@ -53,7 +53,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
 
   override fun bindView(binding: FragmentHomeBinding) {
     binding
-      .also { it.disposables = disposables }
       .also { it.viewModel = viewModel }
   }
 

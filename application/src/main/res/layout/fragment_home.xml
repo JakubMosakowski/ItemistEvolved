@@ -7,10 +7,6 @@
   <data>
 
     <variable
-      name="disposables"
-      type="io.reactivex.disposables.CompositeDisposable" />
-
-    <variable
       name="viewModel"
       type="com.jakmos.itemistevolved.presentation.main.home.HomeViewModel" />
 
@@ -44,18 +40,17 @@
 
     <com.google.android.material.button.MaterialButton
       android:id="@+id/addItemButton"
-      style="@style/ItemistEvolved.Widget.Button.ColdPurple"
+      style="@style/ItemistEvolved.Widget.Button.Primary"
       android:layout_width="match_parent"
       android:layout_marginHorizontal="@dimen/size_p16"
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/size_p8"
       android:text="@string/home_add_checklist"
-      app:disposables="@{disposables}"
       app:layout_constraintBottom_toTopOf="@+id/checklistsRv"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/toolbarView"
-      app:throttledClicks="@{() -> viewModel.onAddClicked()}" />
+      app:onThrottledClick="@{() -> viewModel.onAddClicked()}" />
 
     <!-- endregion -->
 

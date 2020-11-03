@@ -54,7 +54,6 @@ class AddFragment : BackFragment<FragmentAddBinding, AddViewModel>(),
 
   override fun bindView(binding: FragmentAddBinding) {
     binding
-      .also { it.disposables = disposables }
       .also { it.viewModel = viewModel }
   }
 

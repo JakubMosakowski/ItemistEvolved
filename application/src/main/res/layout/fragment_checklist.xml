@@ -8,10 +8,6 @@
   <data>
 
     <variable
-      name="disposables"
-      type="io.reactivex.disposables.CompositeDisposable" />
-
-    <variable
       name="viewModel"
       type="com.jakmos.itemistevolved.presentation.main.checklist.ChecklistViewModel" />
 

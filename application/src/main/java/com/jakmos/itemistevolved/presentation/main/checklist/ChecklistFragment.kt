@@ -29,7 +29,6 @@ class ChecklistFragment : BaseFragment<FragmentChecklistBinding, ChecklistViewMo
 
   override fun bindView(binding: FragmentChecklistBinding) {
     binding
-      .also { it.disposables = disposables }
       .also { it.viewModel = viewModel }
   }
 
@@ -39,6 +38,8 @@ class ChecklistFragment : BaseFragment<FragmentChecklistBinding, ChecklistViewMo
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
+
+    //TODO write tests
   }
 
   //endregion
