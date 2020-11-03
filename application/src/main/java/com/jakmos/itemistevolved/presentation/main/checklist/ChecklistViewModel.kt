@@ -1,4 +1,4 @@
-package com.jakmos.itemistevolved.presentation.main.detail
+package com.jakmos.itemistevolved.presentation.main.checklist
 
 import com.jakmos.itemistevolved.presentation.base.lifecycle.BaseViewModel
 import javax.inject.Inject

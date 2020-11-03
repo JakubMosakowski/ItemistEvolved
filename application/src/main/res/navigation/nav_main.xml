@@ -59,7 +59,7 @@
 
   <fragment
     android:id="@+id/checklistFragment"
-    android:name="com.jakmos.itemistevolved.presentation.main.detail.ChecklistFragment"
+    android:name="com.jakmos.itemistevolved.presentation.main.checklist.ChecklistFragment"
     tools:layout="@layout/fragment_checklist">
 
     <argument

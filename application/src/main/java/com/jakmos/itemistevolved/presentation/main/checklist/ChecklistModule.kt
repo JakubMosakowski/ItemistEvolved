@@ -1,4 +1,4 @@
-package com.jakmos.itemistevolved.presentation.main.detail
+package com.jakmos.itemistevolved.presentation.main.checklist
 
 import androidx.lifecycle.ViewModel
 import co.windly.limbo.dagger.ViewModelKey

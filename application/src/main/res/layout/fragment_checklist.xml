@@ -13,7 +13,7 @@
 
     <variable
       name="viewModel"
-      type="com.jakmos.itemistevolved.presentation.main.detail.ChecklistViewModel" />
+      type="com.jakmos.itemistevolved.presentation.main.checklist.ChecklistViewModel" />
 
   </data>
 

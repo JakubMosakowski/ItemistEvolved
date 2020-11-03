@@ -1,4 +1,4 @@
-package com.jakmos.itemistevolved.presentation.main.detail
+package com.jakmos.itemistevolved.presentation.main.checklist
 
 import android.os.Bundle
 import android.view.View
