@@ -9,11 +9,13 @@ import com.jakmos.itemistevolved.domain.manager.ChecklistDomainManager
 import com.jakmos.itemistevolved.domain.model.Subsection
 import com.jakmos.itemistevolved.presentation.main.add.AddViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
+import org.mockito.Mockito
 import org.mockito.junit.MockitoJUnitRunner.StrictStubs
 
 
@@ -140,138 +142,110 @@ class AddViewModelTest {
   }
 
   //endregion
+
+  //region Delete
+
+  /**
+   * Verify if new subsection is deleted after click.
+   */
+  @Test
+  fun `Delete subsection`() {
+
+    // Given.
+    val checklistToBeEdited = CHECKLISTS[2]
+    val subsectionToBeRemoved = checklistToBeEdited.subsections[0]
+    val expectedResult = checklistToBeEdited.subsections - subsectionToBeRemoved
+    viewModel.onChecklistAvailable(checklistToBeEdited)
+
+    // When.
+    viewModel.onDeleteClicked(subsectionToBeRemoved)
+
+    // Then.
+    Truth.assertThat(viewModel.subsections.value)
+      .isEqualTo(expectedResult)
+  }
+
+  //endregion
+
+  //region Move
+
+  /**
+   * Verify if new order of subsections is saved after move.
+   */
+  @Test
+  fun `Reorder subsections`() {
+
+    // Given.
+    val checklistToBeEdited = CHECKLISTS[2]
+    val newOrderOfSubsections = checklistToBeEdited.subsections.shuffled()
+    viewModel.onChecklistAvailable(checklistToBeEdited)
+
+    // When.
+    viewModel.onSubsectionsReordered(newOrderOfSubsections)
+
+    // Then.
+    Truth.assertThat(viewModel.subsections.value)
+      .isEqualTo(newOrderOfSubsections)
+  }
+
+  //endregion
+
+  //region Save
+
+  /**
+   * Verify if new checklist is saved after click.
+   */
+  @Test
+  fun `Save new checklist`() = runBlockingTest {
+
+    // Given.
+    val newChecklistName = "New checklist"
+    val newChecklistSubsections = listOf(
+      Subsection(1, "Sub1"),
+      Subsection(2, "Sub2")
+    )
+
+    // Add some data.
+    viewModel.titleText.postValue(newChecklistName)
+    viewModel.subsectionText.postValue(newChecklistSubsections[0].text)
+    viewModel.onAddClicked()
+    viewModel.subsectionText.postValue(newChecklistSubsections[1].text)
+    viewModel.onAddClicked()
+
+    // When.
+    viewModel.onSubmitClicked()
+
+    // Then.
+    Mockito
+      .verify(checklistManager)
+      .addChecklist(
+        newChecklistName,
+        newChecklistSubsections
+      )
+  }
+
+  /**
+   * Verify if edited checklist is saved after click.
+   */
+  @Test
+  fun `Save edited checklist`() = runBlockingTest {
+
+    // Given.
+    val checklistToBeSaved = CHECKLISTS[2].apply { subsections = subsections.shuffled() }
+    viewModel.onChecklistAvailable(checklistToBeSaved)
+
+    // When.
+    viewModel.onSubmitClicked()
+
+    // Then.
+    Mockito
+      .verify(checklistManager)
+      .addChecklist(
+        checklistToBeSaved.name,
+        checklistToBeSaved.subsections,
+        checklistToBeSaved.id
+      )
+  }
+
+  //endregion
 }
-
-
-//@ExperimentalCoroutinesApi
-//class AddViewModelTest {
-//
-//    @get:Rule
-//    val rule = InstantTaskExecutorRule()
-//    @get:Rule
-//    val coroutinesTestRule = CoroutinesTestRule()
-//
-//    private val dao = mockk<com.jakmos.itemistevolved.persistence.cache.database.dao.ChecklistDao>()
-//    private val getChecklistsUseCase = spyk(GetChecklistsUseCase(dao))
-//    private val dateTime = mockk<DateTimeInterface>()
-//    private val insertChecklistUseCase =
-//        spyk(InsertChecklistUseCase(dateTime, dao, getChecklistsUseCase))
-//    private lateinit var viewModel: AddViewModel
-//    private val newChecklist = Checklist.create()
-//
-//    @Before
-//    fun before() {
-//        val currentDate = Date()
-//        every { dateTime.date } returns currentDate
-//        viewModel = AddViewModel(newChecklist, insertChecklistUseCase)
-//
-//        viewModel.lineItemText.postValue(CHECKLIST_1.lines[0].text)
-//        viewModel.addItemClicked()
-//
-//        viewModel.lineItemText.postValue(CHECKLIST_1.lines[1].text)
-//        viewModel.addItemClicked()
-//        viewModel.lineItemText.postValue("")
-//    }
-//
-//    @Test
-//    fun initVMTest() {
-//        //Given
-//
-//        //When
-//        val viewModel = AddViewModel(Checklist.create(), insertChecklistUseCase)
-//
-//        //Then
-//        assertEquals(Event(BaseViewModel.KeyboardCommand.Show), viewModel.keyboardCommands.value)
-//    }
-//
-//    @Test
-//    fun addItemClickedTest() {
-//        //Given
-//        val expected = CHECKLIST_1.lines + listOf(SUBSECTION_1)
-//        viewModel.lineItemText.postValue(SUBSECTION_1.text)
-//
-//        //When
-//        viewModel.addItemClicked()
-//
-//        //Then
-//        assertEquals(expected, viewModel.items.value)
-//    }
-//
-//    @Test
-//    fun insertSubmitClickedTestSuccess() {
-//        //Given
-//        viewModel.titleText.postValue("NEW CHECKLIST")
-//        val checklistWithTitle =
-//            newChecklist.copy(name = "NEW CHECKLIST", lines = CHECKLIST_1.lines.asReversed())
-//        coEvery { insertChecklistUseCase.doWork(checklistWithTitle) } returns listOf(
-//            checklistWithTitle
-//        )
-//        val expected = AddFragmentDirections.actionAddFragmentToChecklistsFragment()
-//
-//        //When
-//        viewModel.submitClicked()
-//
-//        //Then
-//        assertEquals(
-//            expected,
-//            (viewModel.navigationCommands.value?.peekContent() as? BaseViewModel.NavigationCommand.To)?.directions
-//        )
-//    }
-//
-//    @Test
-//    fun updateSubmitClickedTestSuccess() {
-//        //Given
-//        val viewModel = AddViewModel(CHECKLIST_1, insertChecklistUseCase)
-//        viewModel.titleText.postValue("UPDATED")
-//        val updated = CHECKLIST_1.copy(name = "UPDATED")
-//        coEvery { insertChecklistUseCase.doWork(updated) } returns listOf(updated)
-//        val expected = AddFragmentDirections.actionAddFragmentToChecklistsFragment()
-//
-//        //When
-//        viewModel.submitClicked()
-//
-//        //Then
-//        assertEquals(
-//            expected,
-//            (viewModel.navigationCommands.value?.peekContent() as? BaseViewModel.NavigationCommand.To)?.directions
-//        )
-//    }
-//
-//    @Test
-//    fun submitClickedTestFailure() {
-//        //Given
-//        val viewModel = AddViewModel(CHECKLIST_1, insertChecklistUseCase)
-//        val error = Exception("SOMETHING WENT WRONG")
-//        coEvery { insertChecklistUseCase.doWork(CHECKLIST_1) } throws error
-//
-//        //When
-//        viewModel.submitClicked()
-//
-//        //Then
-//        assertEquals(error, (viewModel.state.value as State.Error).error)
-//    }
-//
-//    @Test
-//    fun onDeleteClickedTest() {
-//        //Given
-//        val expected = listOf(SUBSECTION_2)
-//
-//        //When
-//        viewModel.onDeleteClicked(SUBSECTION_1)
-//
-//        //Then
-//        assertEquals(expected, viewModel.items.value)
-//    }
-//
-//    @Test
-//    fun moveItemTest() {
-//        //Given
-//        val expected = listOf(SUBSECTION_2, SUBSECTION_1)
-//
-//        //When
-//        viewModel.moveItem(0, 1)
-//
-//        //Then
-//        assertEquals(expected, viewModel.items.value)
-//    }
-//}

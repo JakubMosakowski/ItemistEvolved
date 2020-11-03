@@ -77,9 +77,6 @@ class AddFragment : BackFragment<FragmentAddBinding, AddViewModel>(),
     // Observe submit completed.
     observeSubmitCompleted()
 
-    // Observe subsectionsOrderRequested.
-    observeSubsectionsOrderRequested()
-
     // Initialize subsection recycler view.
     initializeSubsectionRecyclerView()
 
@@ -140,28 +137,11 @@ class AddFragment : BackFragment<FragmentAddBinding, AddViewModel>(),
     doActionOnDone(viewModel::onAddClicked)
   }
 
-  private fun observeSubsectionsOrderRequested() {
-
-    // Observe subsections order requested.
-    viewModel
-      .currentSubsectionsOrderRequested
-      .observe(viewLifecycleOwner) { handleSubsectionOrderRequested() }
-  }
-
-  private fun handleSubsectionOrderRequested() {
-
-    val currentSubsectionsOrder = subsectionAdapter.adapterItems.map { it.model }
-
-    viewModel.postNewSubsectionOrder(currentSubsectionsOrder)
-  }
-
   //endregion
 
   //region Recycler View
 
   private fun initializeSubsectionRecyclerView() = with(subsectionsRv) {
-
-    // TODO add view model tests
 
     // Setup drag and drop.
     touchHelper.attachToRecyclerView(subsectionsRv)
@@ -189,6 +169,11 @@ class AddFragment : BackFragment<FragmentAddBinding, AddViewModel>(),
 
     override fun itemTouchOnMove(oldPosition: Int, newPosition: Int): Boolean {
       DragDropUtil.onMove(subsectionAdapter.itemAdapter, oldPosition, newPosition)
+
+      // Inform view model about new order of subsections.
+      val currentSubsectionsOrder = subsectionAdapter.adapterItems.map { it.model }
+      viewModel.onSubsectionsReordered(currentSubsectionsOrder)
+
       return true
     }
   }

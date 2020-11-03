@@ -51,10 +51,12 @@ class AddViewModel @Inject constructor(
     _submitCompleted
 
   fun onSubmitClicked() =
-    /**
-     * Fetch current order of subsections. User could reorder them.
-     */
-    _currentSubsectionsOrderRequested.post()
+    viewModelScope.launch {
+      checklistManager
+        .addChecklist(titleText.value.orEmpty(), subsections.value.orEmpty(), checklist?.id)
+
+      _submitCompleted.post()
+    }
 
   //endregion
 
@@ -70,7 +72,7 @@ class AddViewModel @Inject constructor(
   val subsectionText: MutableLiveData<String> =
     MutableLiveData(String.EMPTY)
 
-  private fun getNewSubsection(text: String): Subsection {
+  private fun createNewSubsection(text: String): Subsection {
 
     // Get all previous subsections.
     val previousSubsections = _subsections.value.orEmpty()
@@ -89,7 +91,7 @@ class AddViewModel @Inject constructor(
     if (text.isBlank()) return
 
     // Add new subsection.
-    _subsections.addToList(getNewSubsection(text))
+    _subsections.addToList(createNewSubsection(text))
 
     // Clear subsection edit text.
     subsectionText.postValue(String.EMPTY)
@@ -105,19 +107,8 @@ class AddViewModel @Inject constructor(
   val subsections: LiveData<List<Subsection>> =
     _subsections
 
-  private val _currentSubsectionsOrderRequested: SingleLiveEvent<Any> =
-    SingleLiveEvent()
-
-  internal val currentSubsectionsOrderRequested: LiveData<Any> =
-    _currentSubsectionsOrderRequested
-
-  fun postNewSubsectionOrder(subsections: List<Subsection>) =
-    viewModelScope.launch {
-      checklistManager
-        .addChecklist(titleText.value.orEmpty(), subsections, checklist?.id)
-
-      _submitCompleted.post()
-    }
+  fun onSubsectionsReordered(subsections: List<Subsection>) =
+    _subsections.postValue(subsections)
 
   //endregion
 
