@@ -1,32 +1,105 @@
 package com.jakmos.itemistevolved.viewModel
-//
-//import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-//import com.jakmos.itemistevolved.CHECKLIST_1
-//import com.jakmos.itemistevolved.CoroutinesTestRule
-//import com.jakmos.itemistevolved.SUBSECTION_1
-//import com.jakmos.itemistevolved.SUBSECTION_2
-//import com.jakmos.itemistevolved.persistence.cache.database.dao.ChecklistDao
-//import com.jakmos.itemistevolved.domain.model.Checklist
-//import com.jakmos.itemistevolved.domain.model.project.DateTimeInterface
-//import com.jakmos.itemistevolved.domain.model.project.Event
-//import com.jakmos.itemistevolved.domain.model.project.State
-//import com.jakmos.itemistevolved.domain.usecase.GetChecklistsUseCase
-//import com.jakmos.itemistevolved.domain.usecase.InsertChecklistUseCase
-//import com.jakmos.itemistevolved.presentation.main.add.AddFragmentDirections
-//import com.jakmos.itemistevolved.presentation.main.add.AddViewModel
-//import com.jakmos.itemistevolved.presentation.base.BaseViewModel
-//import io.mockk.coEvery
-//import io.mockk.every
-//import io.mockk.mockk
-//import io.mockk.spyk
-//import kotlinx.coroutines.ExperimentalCoroutinesApi
-//import org.junit.Assert.assertEquals
-//import org.junit.Before
-//import org.junit.Test
-//import org.junit.Rule
-//import java.lang.Exception
-//import java.util.*
-//
+
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import com.google.common.truth.Truth
+import com.jakmos.itemistevolved.CoroutinesTestRule
+import com.jakmos.itemistevolved.TestData
+import com.jakmos.itemistevolved.domain.manager.ChecklistDomainManager
+import com.jakmos.itemistevolved.presentation.main.add.AddViewModel
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import org.junit.Before
+import org.junit.Rule
+import org.junit.Test
+import org.junit.runner.RunWith
+import org.mockito.Mock
+import org.mockito.junit.MockitoJUnitRunner.StrictStubs
+
+
+@ExperimentalCoroutinesApi
+@RunWith(value = StrictStubs::class)
+class AddViewModelTest {
+
+  //region ViewModel
+
+  private lateinit var viewModel: AddViewModel
+
+  @Mock
+  private lateinit var checklistManager: ChecklistDomainManager
+
+  //endregion
+
+  //region Rules
+
+  @get:Rule
+  val rule = InstantTaskExecutorRule()
+
+  @get:Rule
+  val coroutinesRule = CoroutinesTestRule()
+
+  //endregion
+
+  //region Setup
+
+  companion object {
+    private val CHECKLISTS = TestData.CHECKLISTS
+    private val CHECKLIST_TO_BE_EDITED = CHECKLISTS[0]
+  }
+
+  @Before
+  fun setUp() {
+
+    // Build view model.
+    viewModel = AddViewModel(checklistManager)
+  }
+
+  //endregion
+
+  //region Initialize
+
+  /**
+   * Verify if fields are empty after initialization creation of checklist
+   */
+  @Test
+  fun `Create checklist view model`() {
+
+    // Given.
+
+    // When.
+    viewModel.onChecklistAvailable(null)
+
+    // Then.
+    Truth.assertThat(viewModel.titleText.value)
+      .isEqualTo("")
+
+    Truth.assertThat(viewModel.subsections.value)
+      .isEqualTo(null)
+  }
+
+  //endregion
+
+  /**
+   * Verify if fields are filling with correct data on edit checklist initialization.
+   */
+  @Test
+  fun `Edit checklist view model`() {
+
+    // Given.
+
+    // When.
+    viewModel.onChecklistAvailable(CHECKLIST_TO_BE_EDITED)
+
+    // Then.
+    Truth.assertThat(viewModel.titleText.value)
+      .isEqualTo(CHECKLIST_TO_BE_EDITED.name)
+
+    Truth.assertThat(viewModel.subsections.value)
+      .isEqualTo(CHECKLIST_TO_BE_EDITED.subsections)
+  }
+
+  //endregion
+}
+
+
 //@ExperimentalCoroutinesApi
 //class AddViewModelTest {
 //
