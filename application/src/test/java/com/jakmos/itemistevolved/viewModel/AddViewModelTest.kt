@@ -1,10 +1,12 @@
 package com.jakmos.itemistevolved.viewModel
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import co.windly.limbo.utility.primitives.EMPTY
 import com.google.common.truth.Truth
 import com.jakmos.itemistevolved.CoroutinesTestRule
-import com.jakmos.itemistevolved.TestData
+import com.jakmos.itemistevolved.TestData.Companion.CHECKLISTS
 import com.jakmos.itemistevolved.domain.manager.ChecklistDomainManager
+import com.jakmos.itemistevolved.domain.model.Subsection
 import com.jakmos.itemistevolved.presentation.main.add.AddViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Before
@@ -40,11 +42,6 @@ class AddViewModelTest {
 
   //region Setup
 
-  companion object {
-    private val CHECKLISTS = TestData.CHECKLISTS
-    private val CHECKLIST_TO_BE_EDITED = CHECKLISTS[0]
-  }
-
   @Before
   fun setUp() {
 
@@ -75,8 +72,6 @@ class AddViewModelTest {
       .isEqualTo(null)
   }
 
-  //endregion
-
   /**
    * Verify if fields are filling with correct data on edit checklist initialization.
    */
@@ -84,16 +79,64 @@ class AddViewModelTest {
   fun `Edit checklist view model`() {
 
     // Given.
+    val checklistToBeEdited = CHECKLISTS[0]
 
     // When.
-    viewModel.onChecklistAvailable(CHECKLIST_TO_BE_EDITED)
+    viewModel.onChecklistAvailable(checklistToBeEdited)
 
     // Then.
     Truth.assertThat(viewModel.titleText.value)
-      .isEqualTo(CHECKLIST_TO_BE_EDITED.name)
+      .isEqualTo(checklistToBeEdited.name)
 
     Truth.assertThat(viewModel.subsections.value)
-      .isEqualTo(CHECKLIST_TO_BE_EDITED.subsections)
+      .isEqualTo(checklistToBeEdited.subsections)
+  }
+
+  //endregion
+
+  //region Add
+
+  /**
+   * Verify if new subsection is added after click (when checklist is empty).
+   */
+  @Test
+  fun `Add first subsection`() {
+
+    // Given.
+    val subsectionToBeAdded = CHECKLISTS[0].subsections[0]
+    viewModel.subsectionText.postValue(subsectionToBeAdded.text)
+
+    // When.
+    viewModel.onAddClicked()
+
+    // Then.
+    Truth.assertThat(viewModel.subsections.value)
+      .isEqualTo(listOf(Subsection(1, subsectionToBeAdded.text)))
+
+    Truth.assertThat(viewModel.subsectionText.value)
+      .isEqualTo(String.EMPTY)
+  }
+
+  /**
+   * Verify if new subsection is added after click (when checklist is NOT empty).
+   */
+  @Test
+  fun `Add the following subsection`() {
+
+    // Given
+    val checklistToBeEdited = CHECKLISTS[2]
+    val newSubsectionText = "New subsection"
+    val newIndex = checklistToBeEdited.subsections.maxBy { it.id }!!.id + 1L
+
+    viewModel.onChecklistAvailable(checklistToBeEdited)
+    viewModel.subsectionText.postValue(newSubsectionText)
+
+    // When.
+    viewModel.onAddClicked()
+
+    // Then.
+    Truth.assertThat(viewModel.subsections.value)
+      .isEqualTo(checklistToBeEdited.subsections + Subsection(newIndex, newSubsectionText))
   }
 
   //endregion
