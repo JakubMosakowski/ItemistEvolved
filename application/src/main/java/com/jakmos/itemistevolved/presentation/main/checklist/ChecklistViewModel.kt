@@ -1,13 +1,55 @@
 package com.jakmos.itemistevolved.presentation.main.checklist
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import co.windly.limbo.utility.primitives.orZero
+import com.jakmos.itemistevolved.domain.manager.ChecklistDomainManager
+import com.jakmos.itemistevolved.domain.model.Checklist
 import com.jakmos.itemistevolved.presentation.base.lifecycle.BaseViewModel
 import javax.inject.Inject
 
-class ChecklistViewModel @Inject constructor()
+class ChecklistViewModel @Inject constructor(
+  private val checklistManager: ChecklistDomainManager
+) : BaseViewModel() {
 
-//(    checklist: Checklist,
-//    private val insertChecklistUseCase: InsertChecklistUseCase )
-: BaseViewModel() {
+  //region Checklist
+
+  private val _checklist: MutableLiveData<Checklist> =
+    MutableLiveData()
+
+  val checklist: LiveData<Checklist> =
+    _checklist
+
+  fun onChecklistAvailable(checklist: Checklist) {
+    this._checklist.postValue(checklist)
+  }
+
+  //endregion
+
+  //region Toolbar
+
+  private val _title: MutableLiveData<String> =
+    MutableLiveData()
+
+  val title: LiveData<String> =
+    _title
+
+  fun onChecklistUpdated() {
+    this._title.postValue(getTitle())
+  }
+
+  private fun getTitle(): String =
+    "${getCounterText()} ${checklist.value?.name.orEmpty()}"
+
+  private fun getCounterText(): String {
+    val selectedCount = checklist.value?.getNumberOfSelectedSubsection().orZero()
+    val max = checklist.value?.subsections?.size.orZero()
+
+    return "($selectedCount/$max)"
+  }
+
+  //endregion
+
 //
 //    private val _checklist = MutableLiveData(checklist)
 //    val checklistLiveData: LiveData<Checklist> = _checklist

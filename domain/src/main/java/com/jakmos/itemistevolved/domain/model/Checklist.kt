@@ -39,4 +39,9 @@ data class Checklist(
   var subsections: List<Subsection> = emptyList()
 
   //endregion
-) : Parcelable
+) : Parcelable {
+
+  fun getNumberOfSelectedSubsection(): Int =
+    subsections.count { it.isChecked }
+
+}
