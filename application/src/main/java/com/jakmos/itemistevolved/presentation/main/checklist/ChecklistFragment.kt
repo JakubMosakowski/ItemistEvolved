@@ -50,7 +50,8 @@ class ChecklistFragment : BackFragment<FragmentChecklistBinding, ChecklistViewMo
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
 
-    //TODO write tests (clear, fill, check, uncheck, counter)
+    //TODO pass here only checklist id -> fetch it from db.
+    //TODO MAYBE -> write test for observing db, or smth else that is going to be added
     //TODO add clear button
     //TODO add recycler view
 

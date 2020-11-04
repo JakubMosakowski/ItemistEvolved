@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import co.windly.limbo.utility.primitives.orZero
 import com.jakmos.itemistevolved.domain.manager.ChecklistDomainManager
 import com.jakmos.itemistevolved.domain.model.Checklist
+import com.jakmos.itemistevolved.domain.model.Subsection
 import com.jakmos.itemistevolved.presentation.base.lifecycle.BaseViewModel
 import javax.inject.Inject
 
@@ -21,6 +22,9 @@ class ChecklistViewModel @Inject constructor(
     _checklist
 
   fun onChecklistAvailable(checklist: Checklist) {
+
+    //TODO add observing db
+
     this._checklist.postValue(checklist)
   }
 
@@ -46,6 +50,29 @@ class ChecklistViewModel @Inject constructor(
     val max = checklist.value?.subsections?.size.orZero()
 
     return "($selectedCount/$max)"
+  }
+
+  //endregion
+
+  //region Clear
+
+  fun onClearClicked() {
+    /**
+     * Update all subsections
+     * put it to db
+     */
+  }
+
+  //endregion
+
+  //region Select
+
+  fun onSubsectionClicked(subsection: Subsection) {
+    //TODO implement
+    /**
+     * Update subsection
+     * put it to db
+     */
   }
 
   //endregion
