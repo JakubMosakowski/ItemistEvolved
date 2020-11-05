@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto">
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools">
 
   <!-- region Binding -->
 
@@ -44,9 +45,22 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginHorizontal="@dimen/size_p20"
-      android:layout_marginTop="16dp"
+      android:layout_marginTop="@dimen/size_p16"
       android:text="@string/checklist_uncheck_all"
       app:layout_constraintTop_toBottomOf="@id/toolbarView" />
+
+    <!-- endregion -->
+
+    <!-- region Recycler View -->
+
+    <androidx.recyclerview.widget.RecyclerView
+      android:id="@+id/checkboxRv"
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/size_auto"
+      app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/clearBtn"
+      tools:listitem="@layout/item_checkbox" />
 
     <!-- endregion -->
 

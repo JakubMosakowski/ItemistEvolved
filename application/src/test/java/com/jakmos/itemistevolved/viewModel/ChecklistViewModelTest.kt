@@ -7,11 +7,13 @@ import com.jakmos.itemistevolved.TestData.Companion.CHECKLISTS
 import com.jakmos.itemistevolved.domain.manager.ChecklistDomainManager
 import com.jakmos.itemistevolved.presentation.main.checklist.ChecklistViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.flowOf
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
+import org.mockito.Mockito
 import org.mockito.junit.MockitoJUnitRunner.StrictStubs
 
 
@@ -47,11 +49,16 @@ class ChecklistViewModelTest {
   @Before
   fun setUp() {
 
+    // Stub manager.
+    Mockito
+      .doReturn(flowOf(checklist))
+      .`when`<ChecklistDomainManager>(checklistManager).observeChecklist(checklist.id)
+
     // Build view model.
     viewModel = ChecklistViewModel(checklistManager)
 
     // Initialize view model.
-    viewModel.onChecklistAvailable(checklist)
+    viewModel.onChecklistAvailable(checklist.id)
   }
 
   //endregion

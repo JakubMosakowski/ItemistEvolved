@@ -45,7 +45,7 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginHorizontal="@dimen/size_p16"
-      android:layout_marginTop="16dp"
+      android:layout_marginTop="@dimen/size_p16"
       android:enabled="@{!viewModel.titleText.empty}"
       android:text="@string/submit"
       app:layout_constraintEnd_toEndOf="parent"
@@ -59,7 +59,7 @@
 
     <com.google.android.material.textfield.TextInputLayout
       android:id="@+id/titleEditTextLayout"
-      android:layout_width="0dp"
+      android:layout_width="@dimen/size_auto"
       android:layout_height="wrap_content"
       android:layout_marginHorizontal="@dimen/size_p16"
       android:layout_marginTop="@dimen/size_p16"
@@ -87,9 +87,9 @@
     <ImageButton
       android:id="@+id/addBtn"
       style="@style/ItemistEvolved.Widget.ImageButton.Clickable"
-      android:layout_width="48dp"
-      android:layout_height="48dp"
-      android:layout_marginEnd="8dp"
+      android:layout_width="@dimen/size_p48"
+      android:layout_height="@dimen/size_p48"
+      android:layout_marginEnd="@dimen/size_p8"
       android:background="@android:color/transparent"
       android:contentDescription="@string/add_item_to_list"
       android:src="@drawable/ic_add"
@@ -101,9 +101,9 @@
 
     <com.google.android.material.textfield.TextInputLayout
       android:id="@+id/lineEditTextLayout"
-      android:layout_width="0dp"
+      android:layout_width="@dimen/size_auto"
       android:layout_height="wrap_content"
-      android:layout_marginEnd="16dp"
+      android:layout_marginEnd="@dimen/size_p16"
       android:labelFor="@+id/lineEditText"
       app:layout_constraintBottom_toTopOf="@id/subsectionsRv"
       app:layout_constraintEnd_toEndOf="parent"
@@ -132,7 +132,7 @@
       android:layout_width="@dimen/size_auto"
       android:layout_height="@dimen/size_auto"
       android:layout_marginHorizontal="@dimen/size_p8"
-      android:layout_marginTop="16dp"
+      android:layout_marginTop="@dimen/size_p16"
       app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"

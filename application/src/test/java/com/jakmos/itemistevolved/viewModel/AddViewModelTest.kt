@@ -8,6 +8,8 @@ import com.jakmos.itemistevolved.TestData.Companion.CHECKLISTS
 import com.jakmos.itemistevolved.domain.manager.ChecklistDomainManager
 import com.jakmos.itemistevolved.domain.model.Subsection
 import com.jakmos.itemistevolved.presentation.main.add.AddViewModel
+import com.jakmos.itemistevolved.utility.vocabulary.INVALID_ID
+import com.jakmos.itemistevolved.utility.vocabulary.Id
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Before
@@ -44,8 +46,27 @@ class AddViewModelTest {
 
   //region Setup
 
+  companion object {
+    private val checklistToBeCreated = CHECKLISTS[0]
+    private val checklistToBeSaved = CHECKLISTS[1]
+    private val checklistToBeEdited = CHECKLISTS[2]
+  }
+
   @Before
-  fun setUp() {
+  fun setUp() = runBlockingTest {
+
+    // Stub manager.
+    Mockito
+      .doThrow(IllegalArgumentException("Not found"))
+      .`when`<ChecklistDomainManager>(checklistManager).getChecklist(Id.INVALID_ID)
+
+    Mockito
+      .doReturn(checklistToBeSaved)
+      .`when`<ChecklistDomainManager>(checklistManager).getChecklist(checklistToBeSaved.id)
+
+    Mockito
+      .doReturn(checklistToBeEdited)
+      .`when`<ChecklistDomainManager>(checklistManager).getChecklist(checklistToBeEdited.id)
 
     // Build view model.
     viewModel = AddViewModel(checklistManager)
@@ -64,7 +85,7 @@ class AddViewModelTest {
     // Given.
 
     // When.
-    viewModel.onChecklistAvailable(null)
+    viewModel.onChecklistAvailable(Id.INVALID_ID)
 
     // Then.
     Truth.assertThat(viewModel.titleText.value)
@@ -81,10 +102,9 @@ class AddViewModelTest {
   fun `Edit checklist view model`() {
 
     // Given.
-    val checklistToBeEdited = CHECKLISTS[0]
 
     // When.
-    viewModel.onChecklistAvailable(checklistToBeEdited)
+    viewModel.onChecklistAvailable(checklistToBeEdited.id)
 
     // Then.
     Truth.assertThat(viewModel.titleText.value)
@@ -105,7 +125,7 @@ class AddViewModelTest {
   fun `Add first subsection`() {
 
     // Given.
-    val subsectionToBeAdded = CHECKLISTS[0].subsections[0]
+    val subsectionToBeAdded = checklistToBeCreated.subsections[0]
     viewModel.subsectionText.postValue(subsectionToBeAdded.text)
 
     // When.
@@ -126,11 +146,10 @@ class AddViewModelTest {
   fun `Add the following subsection`() {
 
     // Given
-    val checklistToBeEdited = CHECKLISTS[2]
     val newSubsectionText = "New subsection"
     val newIndex = checklistToBeEdited.subsections.maxBy { it.id }!!.id + 1L
 
-    viewModel.onChecklistAvailable(checklistToBeEdited)
+    viewModel.onChecklistAvailable(checklistToBeEdited.id)
     viewModel.subsectionText.postValue(newSubsectionText)
 
     // When.
@@ -152,10 +171,9 @@ class AddViewModelTest {
   fun `Delete subsection`() {
 
     // Given.
-    val checklistToBeEdited = CHECKLISTS[2]
     val subsectionToBeRemoved = checklistToBeEdited.subsections[0]
     val expectedResult = checklistToBeEdited.subsections - subsectionToBeRemoved
-    viewModel.onChecklistAvailable(checklistToBeEdited)
+    viewModel.onChecklistAvailable(checklistToBeEdited.id)
 
     // When.
     viewModel.onDeleteClicked(subsectionToBeRemoved)
@@ -176,9 +194,8 @@ class AddViewModelTest {
   fun `Reorder subsections`() {
 
     // Given.
-    val checklistToBeEdited = CHECKLISTS[2]
     val newOrderOfSubsections = checklistToBeEdited.subsections.shuffled()
-    viewModel.onChecklistAvailable(checklistToBeEdited)
+    viewModel.onChecklistAvailable(checklistToBeEdited.id)
 
     // When.
     viewModel.onSubsectionsReordered(newOrderOfSubsections)
@@ -231,8 +248,7 @@ class AddViewModelTest {
   fun `Save edited checklist`() = runBlockingTest {
 
     // Given.
-    val checklistToBeSaved = CHECKLISTS[2].apply { subsections = subsections.shuffled() }
-    viewModel.onChecklistAvailable(checklistToBeSaved)
+    viewModel.onChecklistAvailable(checklistToBeSaved.id)
 
     // When.
     viewModel.onSubmitClicked()

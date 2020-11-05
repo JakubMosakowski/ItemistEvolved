@@ -2,11 +2,16 @@ package com.jakmos.itemistevolved.presentation.main.checklist
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import co.windly.limbo.utility.primitives.orZero
 import com.jakmos.itemistevolved.domain.manager.ChecklistDomainManager
 import com.jakmos.itemistevolved.domain.model.Checklist
 import com.jakmos.itemistevolved.domain.model.Subsection
 import com.jakmos.itemistevolved.presentation.base.lifecycle.BaseViewModel
+import com.jakmos.itemistevolved.utility.vocabulary.Id
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class ChecklistViewModel @Inject constructor(
@@ -21,11 +26,12 @@ class ChecklistViewModel @Inject constructor(
   val checklist: LiveData<Checklist> =
     _checklist
 
-  fun onChecklistAvailable(checklist: Checklist) {
+  @ExperimentalCoroutinesApi
+  fun onChecklistAvailable(checklistId: Id) = viewModelScope.launch {
 
-    //TODO add observing db
-
-    this._checklist.postValue(checklist)
+    checklistManager.observeChecklist(checklistId).collect {
+      _checklist.postValue(it)
+    }
   }
 
   //endregion

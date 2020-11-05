@@ -6,7 +6,6 @@ import co.windly.limbo.utility.primitives.ZERO
 import com.jakmos.itemistevolved.utility.vocabulary.Id
 import kotlinx.android.parcel.Parcelize
 
-@Parcelize
 data class Subsection(
 
   //region Id
@@ -32,4 +31,4 @@ data class Subsection(
   var orderNumber: Long = Long.ZERO
 
   //endregion
-) : Parcelable
+)

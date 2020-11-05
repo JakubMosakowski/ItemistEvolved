@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto">
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools">
 
   <!-- region Binding -->
 
@@ -29,10 +30,10 @@
       style="@style/ItemistEvolved.Widget.Toolbar"
       android:layout_width="match_parent"
       android:layout_height="?attr/actionBarSize"
-      app:title="@string/app_name"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent" />
+      app:layout_constraintTop_toTopOf="parent"
+      app:title="@string/app_name" />
 
     <!-- endregion -->
 
@@ -42,8 +43,8 @@
       android:id="@+id/addItemButton"
       style="@style/ItemistEvolved.Widget.Button.Primary"
       android:layout_width="match_parent"
-      android:layout_marginHorizontal="@dimen/size_p16"
       android:layout_height="wrap_content"
+      android:layout_marginHorizontal="@dimen/size_p16"
       android:layout_marginTop="@dimen/size_p8"
       android:text="@string/home_add_checklist"
       app:layout_constraintBottom_toTopOf="@+id/checklistsRv"
@@ -58,13 +59,14 @@
 
     <androidx.recyclerview.widget.RecyclerView
       android:id="@+id/checklistsRv"
-      android:layout_width="0dp"
-      android:layout_height="0dp"
+      android:layout_width="@dimen/size_auto"
+      android:layout_height="@dimen/size_auto"
       app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/addItemButton" />
+      app:layout_constraintTop_toBottomOf="@+id/addItemButton"
+      tools:listitem="@layout/item_checklist" />
 
     <!-- endregion -->
 
@@ -72,15 +74,16 @@
 
     <TextView
       android:id="@+id/emptyText"
-      android:layout_width="0dp"
+      android:layout_width="@dimen/size_auto"
       android:layout_height="wrap_content"
-      android:padding="8dp"
+      android:padding="@dimen/size_p8"
       android:text="@string/home_empty_checklists"
       android:textAlignment="center"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/addItemButton"
-      app:visible="@{ viewModel.checklists.isEmpty()}" />
+      app:visible="@{ viewModel.checklists.isEmpty()}"
+      tools:visible="false" />
 
     <!-- endregion -->
 

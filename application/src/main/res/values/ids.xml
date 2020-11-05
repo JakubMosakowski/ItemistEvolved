@@ -8,6 +8,7 @@
 
   <item name="itemChecklist" type="id" />
   <item name="itemSubsection" type="id" />
+  <item name="itemCheckbox" type="id" />
 
   <!-- endregion -->
 

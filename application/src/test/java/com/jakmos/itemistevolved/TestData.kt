@@ -18,7 +18,7 @@ class TestData {
         return (0..2).map {
           val i = it.toLong()
           val subsections = (0..i).map { j ->
-            Subsection(id = subsectionId++, text = "Subsection$j", isChecked = j%2L==0L)
+            Subsection(id = subsectionId++, text = "Subsection$j", isChecked = j%2L==0L, orderNumber = j)
           }
 
           Checklist(

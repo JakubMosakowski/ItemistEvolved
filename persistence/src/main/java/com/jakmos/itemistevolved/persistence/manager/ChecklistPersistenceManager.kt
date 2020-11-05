@@ -5,6 +5,10 @@ import com.jakmos.itemistevolved.persistence.database.dao.ChecklistDao
 import com.jakmos.itemistevolved.persistence.database.dao.SubsectionDao
 import com.jakmos.itemistevolved.persistence.database.entity.ChecklistEntity
 import com.jakmos.itemistevolved.persistence.database.entity.ChecklistView
+import com.jakmos.itemistevolved.utility.vocabulary.Id
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.distinctUntilChanged
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -14,11 +18,25 @@ class ChecklistPersistenceManager @Inject constructor(
   private val subsectionDao: SubsectionDao
 ) {
 
-  //region Observe
+  //region Observe - List
 
   fun observeChecklists(): LiveData<List<ChecklistView>> =
     checklistDao
       .observeChecklists()
+
+  //endregion
+
+  //region Observe - Checklist
+
+  @ExperimentalCoroutinesApi
+  fun observeChecklist(id: Id): Flow<ChecklistView> =
+    checklistDao
+      .observeChecklist(id)
+      .distinctUntilChanged()
+
+  suspend fun getChecklist(id: Id): ChecklistView =
+    checklistDao
+      .getChecklist(id)
 
   //endregion
 

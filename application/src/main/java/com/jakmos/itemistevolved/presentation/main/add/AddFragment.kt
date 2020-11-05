@@ -68,10 +68,10 @@ class AddFragment : BackFragment<FragmentAddBinding, AddViewModel>(),
     activity?.showSoftInput(titleEditText)
 
     // Log argument.
-    ILogger.v("checklist: ${args.checklist}.")
+    ILogger.v("Checklist: ${args.checklistId}.")
 
     // Consume arguments.
-    viewModel.onChecklistAvailable(args.checklist)
+    viewModel.onChecklistAvailable(args.checklistId)
 
     // Observe submit completed.
     observeSubmitCompleted()
@@ -143,7 +143,7 @@ class AddFragment : BackFragment<FragmentAddBinding, AddViewModel>(),
   private fun initializeSubsectionRecyclerView() = with(subsectionsRv) {
 
     // Setup drag and drop.
-    touchHelper.attachToRecyclerView(subsectionsRv)
+    touchHelper.attachToRecyclerView(this)
     subsectionAdapter.getSelectExtension().apply {
       isSelectable = true
     }

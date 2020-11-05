@@ -12,6 +12,9 @@ import com.jakmos.itemistevolved.domain.model.Subsection
 import com.jakmos.itemistevolved.presentation.base.lifecycle.BaseViewModel
 import com.jakmos.itemistevolved.utility.livedata.addToList
 import com.jakmos.itemistevolved.utility.livedata.removeFromList
+import com.jakmos.itemistevolved.utility.log.ILogger
+import com.jakmos.itemistevolved.utility.vocabulary.INVALID_ID
+import com.jakmos.itemistevolved.utility.vocabulary.Id
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -21,16 +24,20 @@ class AddViewModel @Inject constructor(
 
   //region Checklist
 
-  private var checklist: Checklist? =
-    null
+  private var checklistId: Id = Id.INVALID_ID
 
-  fun onChecklistAvailable(checklist: Checklist?) {
-    this.checklist = checklist
+  fun onChecklistAvailable(id: Id) = viewModelScope.launch {
 
-    if (checklist == null) return
+    checklistId = id
 
-    // If checklist is not null, we are editing instead of creating new.
-    initializeEdit(checklist)
+    // Try to fetch checklist from db.
+    try {
+      val checklist = checklistManager.getChecklist(checklistId)
+
+      initializeEdit(checklist)
+    } catch (e: IllegalArgumentException) {
+      ILogger.e("Checklist with id: ($checklistId) was not found.")
+    }
   }
 
   private fun initializeEdit(checklist: Checklist) {
@@ -50,13 +57,12 @@ class AddViewModel @Inject constructor(
   internal val submitCompleted: LiveData<Any> =
     _submitCompleted
 
-  fun onSubmitClicked() =
-    viewModelScope.launch {
-      checklistManager
-        .addChecklist(titleText.value.orEmpty(), subsections.value.orEmpty(), checklist?.id)
+  fun onSubmitClicked() = viewModelScope.launch {
+    checklistManager
+      .addChecklist(titleText.value.orEmpty(), subsections.value.orEmpty(), checklistId)
 
-      _submitCompleted.post()
-    }
+    _submitCompleted.post()
+  }
 
   //endregion
 

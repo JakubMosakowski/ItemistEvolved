@@ -8,7 +8,7 @@
   <data>
 
     <variable
-      name="model"
+      name="subsection"
       type="com.jakmos.itemistevolved.domain.model.Subsection" />
 
   </data>
@@ -17,47 +17,20 @@
 
   <!-- region Root -->
 
-  <LinearLayout
-    android:id="@+id/rootView"
+  <com.google.android.material.checkbox.MaterialCheckBox
+    android:id="@+id/checkbox"
+    style="@style/ItemistEvolved.Widget.TextView.Subsection"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="horizontal" />
-
-  <!--    <androidx.constraintlayout.widget.ConstraintLayout-->
-  <!--            android:layout_width="match_parent"-->
-  <!--            android:layout_height="wrap_content"-->
-  <!--            android:paddingStart="32dp"-->
-  <!--            android:paddingTop="8dp"-->
-  <!--            android:paddingBottom="16dp"-->
-  <!--            tools:ignore="RtlSymmetry">-->
-
-  <!--        <TextView-->
-  <!--                style="@style/listTextView"-->
-  <!--                android:layout_width="0dp"-->
-  <!--                android:layout_height="wrap_content"-->
-  <!--                android:layout_marginEnd="16dp"-->
-  <!--                android:text="@{model.text}"-->
-  <!--                android:textSize="16sp"-->
-  <!--                app:layout_constraintBottom_toBottomOf="parent"-->
-  <!--                app:layout_constraintStart_toStartOf="parent"-->
-  <!--                app:layout_constraintTop_toTopOf="parent"-->
-  <!--                app:layout_constraintEnd_toStartOf="@id/checkbox"-->
-  <!--                tools:text="Sample item" />-->
-
-  <!--        <com.google.android.material.checkbox.MaterialCheckBox-->
-  <!--                android:id="@+id/checkbox"-->
-  <!--                android:layout_width="wrap_content"-->
-  <!--                android:layout_height="wrap_content"-->
-  <!--                android:checked="@{model.checked}"-->
-  <!--                android:minWidth="0dp"-->
-  <!--                android:minHeight="0dp"-->
-  <!--                android:onClick="@{() -> listener.onItemClicked(model)}"-->
-  <!--                android:padding="16dp"-->
-  <!--                app:layout_constraintBottom_toBottomOf="parent"-->
-  <!--                app:layout_constraintEnd_toEndOf="parent"-->
-  <!--                app:layout_constraintTop_toTopOf="parent" />-->
-
-  <!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/size_p16"
+    android:checked="@{subsection.isChecked}"
+    android:layoutDirection="rtl"
+    android:padding="@dimen/size_p16"
+    android:text="@{subsection.text}"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    tools:text="Subsection" />
 
   <!-- endregion -->
 

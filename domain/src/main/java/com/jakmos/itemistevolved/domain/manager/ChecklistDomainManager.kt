@@ -2,13 +2,16 @@ package com.jakmos.itemistevolved.domain.manager
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
-import co.windly.limbo.utility.primitives.orZero
 import com.jakmos.itemistevolved.domain.mapper.ChecklistMapper
 import com.jakmos.itemistevolved.domain.model.Checklist
 import com.jakmos.itemistevolved.domain.model.Subsection
 import com.jakmos.itemistevolved.persistence.manager.ChecklistPersistenceManager
+import com.jakmos.itemistevolved.utility.vocabulary.INVALID_ID
 import com.jakmos.itemistevolved.utility.vocabulary.Id
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import org.joda.time.DateTime
 import javax.inject.Inject
@@ -20,23 +23,31 @@ class ChecklistDomainManager @Inject constructor(
   private val persistence: ChecklistPersistenceManager
 ) {
 
-  //region Common
-
-  private fun sortSubsectionByOrder(list: List<Checklist>): List<Checklist> =
-    list.map { checklist ->
-      checklist.subsections = checklist.subsections.sortedBy { it.orderNumber }
-      checklist
-    }
-
-  //endregion
-
-  //region Observe
+  //region Observe - List
 
   fun observeChecklists(): LiveData<List<Checklist>> =
     persistence
       .observeChecklists()
       .map(mapper::mapViewListToDomainList)
-      .map(::sortSubsectionByOrder)
+
+  //endregion
+
+  //region Observe - Checklist
+
+  @ExperimentalCoroutinesApi
+  fun observeChecklist(id: Id): Flow<Checklist> =
+    persistence
+      .observeChecklist(id)
+      .map {
+        mapper.mapViewToDomainSorted(it)
+      }
+
+  suspend fun getChecklist(id: Id): Checklist = withContext(Dispatchers.IO) {
+    mapper.mapViewToDomainSorted(
+      persistence
+        .getChecklist(id)
+    )
+  }
 
   //endregion
 
@@ -53,16 +64,18 @@ class ChecklistDomainManager @Inject constructor(
     )
   }
 
-  suspend fun addChecklist(title: String, items: List<Subsection>, checklistId: Id? = null) =
-    createChecklist(title, items).apply {
+  suspend fun addChecklist(
+    title: String,
+    items: List<Subsection>,
+    checklistId: Id = Id.INVALID_ID) = createChecklist(title, items).apply {
 
-      /**
-       * Set id to distinguish update from insert.
-       */
-      this.id = checklistId.orZero()
+    /**
+     * Set id to distinguish update from insert.
+     */
+    this.id = checklistId
 
-      insertNewChecklist(this)
-    }
+    insertNewChecklist(this)
+  }
 
   private suspend fun insertNewChecklist(checklist: Checklist) = withContext(Dispatchers.IO) {
     persistence

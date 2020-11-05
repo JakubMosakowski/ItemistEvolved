@@ -30,3 +30,10 @@ fun String?.stringOrNull() =
 
 //endregion
 
+//region General - Id
+
+val Long.Companion.INVALID_ID: Id
+  get() = -1L
+
+//endregion
+

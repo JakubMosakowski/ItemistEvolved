@@ -38,10 +38,9 @@
     tools:layout="@layout/fragment_add">
 
     <argument
-      android:name="checklist"
-      android:defaultValue="@null"
-      app:argType="com.jakmos.itemistevolved.domain.model.Checklist"
-      app:nullable="true" />
+      android:name="checklistId"
+      android:defaultValue="-1L"
+      app:argType="long" />
 
   </fragment>
 
@@ -63,8 +62,8 @@
     tools:layout="@layout/fragment_checklist">
 
     <argument
-      android:name="checklist"
-      app:argType="com.jakmos.itemistevolved.domain.model.Checklist" />
+      android:name="checklistId"
+      app:argType="long" />
 
   </fragment>
 

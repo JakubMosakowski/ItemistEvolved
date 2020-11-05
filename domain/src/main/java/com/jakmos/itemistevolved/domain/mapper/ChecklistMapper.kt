@@ -28,7 +28,7 @@ abstract class ChecklistMapper : CleanCodeMapper<ChecklistDto, ChecklistEntity, 
     Mapping(source = "checklistEntity.createdAt", target = "createdAt"),
     Mapping(source = "subsections", target = "subsections")
   ])
-  abstract fun mapViewToDomain(view: ChecklistView): Checklist
+  protected abstract fun mapViewToDomain(view: ChecklistView): Checklist
 
   //endregion
 
@@ -36,7 +36,14 @@ abstract class ChecklistMapper : CleanCodeMapper<ChecklistDto, ChecklistEntity, 
 
   fun mapViewListToDomainList(views: List<ChecklistView>): List<Checklist> =
     views
-      .map(::mapViewToDomain)
+      .map(::mapViewToDomainSorted)
+
+  fun mapViewToDomainSorted(view: ChecklistView): Checklist {
+    val checklist = mapViewToDomain(view)
+
+    checklist.subsections = checklist.subsections.sortedBy { it.orderNumber }
+    return checklist
+  }
 
   //endregion
 }

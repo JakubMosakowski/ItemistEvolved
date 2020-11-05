@@ -7,9 +7,9 @@ import com.google.android.material.snackbar.Snackbar
 import com.jakmos.itemistevolved.NavGraphDirections.Companion.actionAdd
 import com.jakmos.itemistevolved.NavGraphDirections.Companion.actionChecklist
 import com.jakmos.itemistevolved.R
-import com.jakmos.itemistevolved.domain.model.Checklist
 import com.jakmos.itemistevolved.presentation.base.trait.ConfirmExitTrait
 import com.jakmos.itemistevolved.presentation.base.trait.SnackbarTrait
+import com.jakmos.itemistevolved.utility.vocabulary.Id
 
 //region Home
 
@@ -24,20 +24,20 @@ interface HomeTrait :
 
 interface HomeNavigationTrait : FragmentNavigationTrait {
 
-  fun navigateToChecklistView(checklist: Checklist) {
+  fun navigateToChecklistView(checklistId: Id) {
 
     // Navigate to checklist view.
     navigationTrait
       .findNavController()
-      .navigate(actionChecklist(checklist))
+      .navigate(actionChecklist(checklistId))
   }
 
-  fun navigateToEditView(checklist: Checklist) {
+  fun navigateToEditView(checklistId: Id) {
 
     // Navigate to edit view.
     navigationTrait
       .findNavController()
-      .navigate(actionAdd(checklist))
+      .navigate(actionAdd(checklistId))
   }
 
   fun navigateToAddView() {
