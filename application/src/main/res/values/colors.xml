@@ -14,14 +14,12 @@
 
   <!-- region Colors -->
 
-  <color name="coldPurple">#B39DDB</color>
-  <color name="deluge">#836FA9</color>
-  <color name="fog">#E6CEFF</color>
-  <color name="corvette">#FAD6A5</color>
-  <color name="mineShaft">#333333</color>
-  <color name="emperor">#555555</color>
-  <color name="alto">#D3D3D3</color>
-  <color name="smoky">#62507E</color>
+  <color name="coldPurple">#ABA0D9</color>
+  <color name="deluge">#7563A8</color>
+  <color name="corvette">#FAD3A2</color>
+  <color name="emperor">#514649</color>
+  <color name="boulder">#7A7A7A</color>
+  <color name="alto">#DBDBDB</color>
 
   <!-- endregion -->
 

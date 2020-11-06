@@ -2,6 +2,7 @@ package com.jakmos.itemistevolved.domain.manager
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
+import co.windly.limbo.utility.primitives.ZERO
 import com.jakmos.itemistevolved.domain.mapper.ChecklistMapper
 import com.jakmos.itemistevolved.domain.model.Checklist
 import com.jakmos.itemistevolved.domain.model.Subsection
@@ -53,16 +54,13 @@ class ChecklistDomainManager @Inject constructor(
 
   //region Insert
 
-  private fun createChecklist(title: String, items: List<Subsection>): Checklist {
-    val date = DateTime.now()
-
-    return Checklist(
+  private fun createChecklist(title: String, items: List<Subsection>): Checklist =
+    Checklist(
       name = title,
       imageUrl = "",
-      createdAt = date,
+      createdAt = DateTime.now(),
       subsections = items
     )
-  }
 
   suspend fun addChecklist(
     title: String,
@@ -72,7 +70,10 @@ class ChecklistDomainManager @Inject constructor(
     /**
      * Set id to distinguish update from insert.
      */
-    this.id = checklistId
+    this.id = if (checklistId == Id.INVALID_ID)
+      Id.ZERO
+    else
+      checklistId
 
     insertNewChecklist(this)
   }
@@ -80,6 +81,17 @@ class ChecklistDomainManager @Inject constructor(
   private suspend fun insertNewChecklist(checklist: Checklist) = withContext(Dispatchers.IO) {
     persistence
       .saveChecklist(mapper.mapDomainToEntity(checklist))
+  }
+
+  //endregion
+
+  //region Update
+
+  suspend fun updateSubsections(checklist: Checklist) = withContext(Dispatchers.IO) {
+    persistence
+      .updateSubsections(
+        mapper.mapDomainToEntity(checklist)
+      )
   }
 
   //endregion

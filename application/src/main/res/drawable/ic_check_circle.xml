@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <!-- region State - Checked -->
+
+  <item
+    android:drawable="@drawable/ic_check_circle_checked"
+    android:state_selected="true" />
+
+  <!-- endregion -->
+
+  <!-- region State - Default -->
+
+  <item
+    android:drawable="@drawable/ic_check_circle_unchecked"
+    android:state_selected="false" />
+
+  <!-- endregion -->
+
+</selector>

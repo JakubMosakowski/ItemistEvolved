@@ -52,7 +52,7 @@ class ChecklistViewModel @Inject constructor(
     "${getCounterText()} ${checklist.value?.name.orEmpty()}"
 
   private fun getCounterText(): String {
-    val selectedCount = checklist.value?.getNumberOfSelectedSubsection().orZero()
+    val selectedCount = checklist.value?.getNumberOfSelectedSubsections().orZero()
     val max = checklist.value?.subsections?.size.orZero()
 
     return "($selectedCount/$max)"
@@ -62,61 +62,37 @@ class ChecklistViewModel @Inject constructor(
 
   //region Clear
 
-  fun onClearClicked() {
-    /**
-     * Update all subsections
-     * put it to db
-     */
+  private fun updateChecklist(): Checklist? =
+    checklist.value.apply {
+      this?.deselectAllSubsections()
+    }
+
+  fun onClearClicked() = viewModelScope.launch {
+    val checklist = updateChecklist()
+
+    checklist?.let {
+      checklistManager.updateSubsections(it)
+    }
   }
 
   //endregion
 
   //region Select
 
+  private fun updateChecklist(subsection: Subsection): Checklist? =
+    checklist.value.apply {
+      this?.selectSubsection(subsection)
+    }
+
   fun onSubsectionClicked(subsection: Subsection) {
-    //TODO implement
-    /**
-     * Update subsection
-     * put it to db
-     */
+    viewModelScope.launch {
+      val checklist = updateChecklist(subsection)
+
+      checklist?.let {
+        checklistManager.updateSubsections(it)
+      }
+    }
   }
 
   //endregion
-
-//
-//    private val _checklist = MutableLiveData(checklist)
-//    val checklistLiveData: LiveData<Checklist> = _checklist
-//
-//    fun clearClicked() {
-//        val lines = getClearedLines()
-//        _checklist.value = _checklist.value?.copy(lines = lines)
-//        saveToDb()
-//    }
-//
-//    private fun saveToDb() {
-//        val updatedChecklist = _checklist.value ?: return
-//        insertChecklistUseCase.execute(viewModelScope, updatedChecklist) {
-//            it.either({}, {})
-//        }
-//    }
-//
-//    private fun getClearedLines() =
-//        _checklist.value?.lines?.map { it.copy(isChecked = false) } ?: emptyList()
-//
-//    override fun onItemClicked(model: Item) {
-//        _checklist.value = getUpdatedChecklist(model)
-//        saveToDb()
-//    }
-//
-//    private fun getUpdatedChecklist(model: Item): Checklist? {
-//        var items = _checklist.value?.lines ?: emptyList()
-//
-//        items = items.map {
-//            return@map if (it == model)
-//                it.copy(isChecked = !it.isChecked)
-//            else
-//                it
-//        }
-//        return _checklist.value?.copy(lines = items)
-//    }
 }

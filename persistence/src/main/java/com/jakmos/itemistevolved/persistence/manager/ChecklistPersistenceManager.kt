@@ -46,15 +46,16 @@ class ChecklistPersistenceManager @Inject constructor(
 
     // Cleanup.
     checklistDao.remove(checklist)
-    subsectionDao.remove(checklist.subsections)
+    subsectionDao.removeByChecklistId(checklist.id)
 
     // Insert checklist.
     val checklistId = checklistDao.insert(checklist)
 
     // Add id to subsections.
-    var subsections = checklist
-      .subsections
-      .map { it.apply { it.checklistId = checklistId } }
+    var subsections = checklist.subsections.map {
+      it.checklistId = checklistId
+      it
+    }
 
     // Add proper order to subsections.
     subsections = subsections.mapIndexed { index, entity ->
@@ -63,6 +64,20 @@ class ChecklistPersistenceManager @Inject constructor(
 
     // Insert subsections.
     subsectionDao.insert(subsections)
+  }
+
+  //endregion
+
+  //region Update
+
+  suspend fun updateSubsections(checklist: ChecklistEntity) {
+    val subsections = checklist.subsections.map {
+      it.checklistId = checklist.id
+      it
+    }
+
+    subsectionDao
+      .update(subsections)
   }
 
   //endregion

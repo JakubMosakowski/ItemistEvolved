@@ -47,7 +47,8 @@
       android:layout_marginHorizontal="@dimen/size_p20"
       android:layout_marginTop="@dimen/size_p16"
       android:text="@string/checklist_uncheck_all"
-      app:layout_constraintTop_toBottomOf="@id/toolbarView" />
+      app:layout_constraintTop_toBottomOf="@id/toolbarView"
+      app:onThrottledClick="@{() -> viewModel.onClearClicked()}" />
 
     <!-- endregion -->
 

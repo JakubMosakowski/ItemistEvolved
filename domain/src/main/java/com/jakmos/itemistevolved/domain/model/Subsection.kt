@@ -1,10 +1,8 @@
 package com.jakmos.itemistevolved.domain.model
 
-import android.os.Parcelable
 import co.windly.limbo.utility.primitives.EMPTY
 import co.windly.limbo.utility.primitives.ZERO
 import com.jakmos.itemistevolved.utility.vocabulary.Id
-import kotlinx.android.parcel.Parcelize
 
 data class Subsection(
 

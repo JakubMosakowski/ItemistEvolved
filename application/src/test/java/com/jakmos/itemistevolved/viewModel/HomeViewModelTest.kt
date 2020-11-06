@@ -6,6 +6,7 @@ import com.google.common.truth.Truth.assertThat
 import com.jakmos.itemistevolved.CoroutinesTestRule
 import com.jakmos.itemistevolved.TestData
 import com.jakmos.itemistevolved.domain.manager.ChecklistDomainManager
+import com.jakmos.itemistevolved.domain.model.Checklist
 import com.jakmos.itemistevolved.presentation.main.home.HomeViewModel
 import com.jakmos.itemistevolved.utility.livedata.observeForTesting
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -44,8 +45,11 @@ class HomeViewModelTest {
   //region Setup
 
   companion object {
-    private val CHECKLISTS = TestData.CHECKLISTS
-    private val CHECKLIST_TO_BE_DELETED = CHECKLISTS[0]
+    private val CHECKLISTS: List<Checklist> =
+      TestData.CHECKLISTS
+
+    private val CHECKLIST_TO_BE_DELETED: Checklist =
+      CHECKLISTS[0]
   }
 
   @Before

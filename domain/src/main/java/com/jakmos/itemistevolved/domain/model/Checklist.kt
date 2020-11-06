@@ -38,7 +38,16 @@ data class Checklist(
   //endregion
 ) {
 
-  fun getNumberOfSelectedSubsection(): Int =
+  fun getNumberOfSelectedSubsections(): Int =
     subsections.count { it.isChecked }
+
+  fun selectSubsection(subsection: Subsection) {
+    subsections.find { it.id == subsection.id }?.isChecked = !subsection.isChecked
+  }
+
+  fun deselectAllSubsections() =
+    subsections.forEach {
+      it.isChecked = false
+    }
 
 }

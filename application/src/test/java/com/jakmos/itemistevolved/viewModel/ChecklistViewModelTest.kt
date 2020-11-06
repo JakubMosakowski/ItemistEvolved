@@ -5,9 +5,11 @@ import com.google.common.truth.Truth
 import com.jakmos.itemistevolved.CoroutinesTestRule
 import com.jakmos.itemistevolved.TestData.Companion.CHECKLISTS
 import com.jakmos.itemistevolved.domain.manager.ChecklistDomainManager
+import com.jakmos.itemistevolved.domain.model.Checklist
 import com.jakmos.itemistevolved.presentation.main.checklist.ChecklistViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -43,7 +45,8 @@ class ChecklistViewModelTest {
   //region Setup
 
   companion object {
-    private val checklist = CHECKLISTS[2]
+    private val checklist: Checklist
+      get() = CHECKLISTS[2].copy()
   }
 
   @Before
@@ -69,7 +72,7 @@ class ChecklistViewModelTest {
    * Verify if title sets correctly on initialize.
    */
   @Test
-  fun `Create checklist view model`() {
+  fun `Create checklist view model`() = runBlockingTest {
 
     // Given.
     val expectedTitle = "(2/3) Checklist2"
@@ -90,7 +93,7 @@ class ChecklistViewModelTest {
    * Verify if checklist updates correctly on clear clicked.
    */
   @Test
-  fun `Click clear button`() {
+  fun `Click clear button`() = runBlockingTest {
 
     // Given.
     val expectedTitle = "(0/3) Checklist2"
@@ -112,7 +115,7 @@ class ChecklistViewModelTest {
    * Verify if checklist updates correctly on selection.
    */
   @Test
-  fun `Select subsection`() {
+  fun `Select subsection`() = runBlockingTest {
 
     // Given.
     val subsection = checklist.subsections[1]
@@ -131,7 +134,7 @@ class ChecklistViewModelTest {
    * Verify if checklist updates correctly on deselection.
    */
   @Test
-  fun `Deselect subsection`() {
+  fun `Deselect subsection`() = runBlockingTest {
 
     // Given.
     val subsection = checklist.subsections[0]

@@ -37,14 +37,25 @@ class CheckboxItem(
   override fun bindView(binding: ItemCheckboxBinding, payloads: List<Any>) {
     super.bindView(binding, payloads)
 
-    // Update binding.
-    updateCheckboxBinding(binding)
+    // Update indicators.
+    updateText(binding)
+    updateSelection(binding)
   }
 
-  private fun updateCheckboxBinding(binding: ItemCheckboxBinding) = with(binding) {
+  //endregion
 
-    // Send subsection data to layout.
-    subsection = model
+  //region Indicator
+
+  private fun updateText(binding: ItemCheckboxBinding) = with(binding.checkbox) {
+
+    // Update text.
+    text = model.text
+  }
+
+  private fun updateSelection(binding: ItemCheckboxBinding) = with(binding.checkbox) {
+
+    // Update is checked.
+    isSelected = model.isChecked
   }
 
   //endregion

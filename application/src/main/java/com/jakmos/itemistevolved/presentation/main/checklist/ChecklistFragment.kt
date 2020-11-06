@@ -58,10 +58,6 @@ class ChecklistFragment : BackFragment<FragmentChecklistBinding, ChecklistViewMo
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
 
-    //TODO pass here only checklist id -> fetch it from db.
-    //TODO MAYBE -> write test for observing db, or smth else that is going to be added
-    //TODO add clear button
-
     // Log argument.
     ILogger.v("Checklist: ${args.checklistId}.")
 
@@ -112,8 +108,8 @@ class ChecklistFragment : BackFragment<FragmentChecklistBinding, ChecklistViewMo
     // Add item decoration.
     addDividerDecorationWithHorizontalInsets(
       dividerRes = R.drawable.divider_checkbox,
-      leftInsetRes = R.dimen.size_p8,
-      rightInsetRes = R.dimen.size_p8
+      leftInsetRes = R.dimen.size_p16,
+      rightInsetRes = R.dimen.size_p16
     )
 
     // Assign adapter to recycler view.

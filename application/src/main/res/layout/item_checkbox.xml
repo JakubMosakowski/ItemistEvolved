@@ -5,28 +5,19 @@
 
   <!-- region Binding -->
 
-  <data>
-
-    <variable
-      name="subsection"
-      type="com.jakmos.itemistevolved.domain.model.Subsection" />
-
-  </data>
+  <data />
 
   <!-- endregion -->
 
   <!-- region Root -->
 
-  <com.google.android.material.checkbox.MaterialCheckBox
+  <TextView
     android:id="@+id/checkbox"
-    style="@style/ItemistEvolved.Widget.TextView.Subsection"
+    style="@style/ItemistEvolved.Widget.Checkbox"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="@dimen/size_p16"
-    android:checked="@{subsection.isChecked}"
-    android:layoutDirection="rtl"
+    android:layout_marginHorizontal="@dimen/size_p16"
     android:padding="@dimen/size_p16"
-    android:text="@{subsection.text}"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintTop_toTopOf="parent"

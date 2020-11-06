@@ -70,42 +70,16 @@
 
   <!-- endregion -->
 
-  <!-- region Bottom Sheet -->
-
-  <!-- endregion -->
-
   <!-- region Checkbox -->
 
-  <style name="ItemistEvolved.Widget.Checkbox" />
-
-  <style name="ItemistEvolved.Widget.Checkbox.FilterCheckbox">
-    <item name="android:background">?attr/selectableItemBackground</item>
-    <item name="android:button">@null</item>
-    <item name="android:layout_marginEnd">@dimen/size_p15</item>
-    <item name="android:layout_marginStart">@dimen/size_p15</item>
-    <item name="android:textSize">@dimen/font_18</item>
+  <style name="ItemistEvolved.Widget.Checkbox" parent="ItemistEvolved.Widget.ImageButton.Clickable">
+    <item name="drawableEndCompat">@drawable/ic_check_circle</item>
+    <item name="android:ellipsize">end</item>
+    <item name="android:textColor">@color/boulder</item>
+    <item name="android:textSize">@dimen/font_17</item>
+    <item name="android:textAlignment">textStart</item>
+    <item name="android:textAllCaps">false</item>
   </style>
-
-  <!-- endregion -->
-
-  <!-- region Chip -->
-
-  <style name="ItemistEvolved.Widget.Chip">
-    <item name="chipEndPadding">@dimen/size_p8</item>
-    <item name="chipMinHeight">@dimen/size_p44</item>
-    <item name="chipStartPadding">@dimen/size_p8</item>
-  </style>
-
-  <style name="ItemistEvolved.Widget.ChipSelector">
-    <item name="android:gravity">center</item>
-    <item name="android:textSize">@dimen/font_14</item>
-  </style>
-
-  <!-- endregion -->
-
-  <!-- region Dialog -->
-
-  <style name="ItemistEvolved.Dialog" />
 
   <!-- endregion -->
 
