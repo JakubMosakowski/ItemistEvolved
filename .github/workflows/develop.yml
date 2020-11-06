@@ -1,0 +1,24 @@
+name: Push Develop Workflow
+
+on:
+  push:
+    branches: [ develop ]
+
+jobs:  
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v2
+      - name: Create gradle properties
+        uses: echo $GRADLE_PROPERTIES > utility/gradle.properties
+      - name: Add debug key
+        uses: TODO
+      - name: Add firebase service credentials file
+        uses: TODO
+      - name: Build the app
+        run: ./gradlew clean :application-main:assembleDevDebug
+      - name: Start tests
+        run: TODO
+      - name: Send to testers
+        run: ./gradlew:application-main:appDistributionUploadDevDebug
