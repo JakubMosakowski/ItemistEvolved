@@ -3,6 +3,7 @@
 apply plugin: "com.android.application"
 apply plugin: "com.google.firebase.appdistribution"
 apply plugin: "com.google.firebase.crashlytics"
+apply plugin: "com.google.gms.google-services"
 apply plugin: "kotlin-android"
 apply plugin: "kotlin-android-extensions"
 apply plugin: "kotlin-kapt"
@@ -107,6 +108,7 @@ android {
                 releaseNotesFile = rootProject.file("settings/distribute/release-notes.txt")
                 serviceCredentialsFile =
                     rootProject.file("settings/distribute/firebase-app-distribution-dev.json")
+                groups = "internal"
             }
             resValue "string", "app_name", getProjectName() + " Development"
             versionCode = getAutoVersionCode()
@@ -119,6 +121,7 @@ android {
                 serviceCredentialsFile =
                     //TODO use other key for prod
                     rootProject.file("settings/distribute/firebase-app-distribution-dev.json")
+                groups = "internal"
             }
             resValue "string", "app_name", getProjectName()
             versionCode = getAutoVersionCode()
@@ -127,10 +130,7 @@ android {
     }
 
     // Print version code and name.
-    printf("\n---------- VERSION DATA ----------\n")
-    printf("-> CODE: ${getAutoVersionCode()}\n")
-    printf("-> NAME: ${getAutoVersionName()}")
-    printf("\n----------------------------------\n")
+    printVersionCode()
 
     //endregion
 }

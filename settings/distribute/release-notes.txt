@@ -1,0 +1,12 @@
+7c84440cb0a102902cccca656694e10101513b10 Add printing release notes to develop workflow
+dd4050cff01c6b670a4d694fa29ce428d573febf Add create release notes task to develop workflow
+60b71b0b47d08f08dca167fe0dbf3389a66f72bb Add fetching whole repo to develop workflow
+0957aa4bb12cb7824fa916110e0b53e525b19ab4 Remove printing credentials + add method for printing version in gradle
+cd911566b9bbf3465f4ba947616357780b1f1d0a Add keep files for two dir
+e50ed00e57fb90d38a563ca1ced47a024ea488ec Fix app distribution
+d10bbdb7a9219378c6c8670bce11b1adfcc4af4a Fix wrong file name for firebase credentials
+56607d9742c7d24c2a2cd092d3a0d9956cc24126 Add google service file to workflow
+b07c9dba53d3094e5eb0a8211dc38474dd695def Fix commands chaining on develop workflow
+589d4d0c6154795d4fcfab9820d9722162781020 Fix wrong project name in develop workflow
+959dc3a5f568dd441e42e22492f463e443d20d4e Update develop.yml
+3c19d8bd48ef9ed34d44cfc02347ab2523bab877 Start working on workflows for github actions

@@ -8,7 +8,7 @@
 
 | Type        | Keytool   | Password                         |
 | :---------- | :-------- | :------------------------------- |
-| keystore    | storepass | a4f49924028fb17433ebaa7be8566be3 |
+| keystore    | storepass |  |
 
 You can generate password by executing the following command:
 

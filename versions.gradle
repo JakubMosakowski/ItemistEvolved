@@ -116,7 +116,7 @@ deps.fast_adapter = fast_adapter
 //region Firebase
 
 def firebase = [:]
-firebase.analytics = "com.google.firebase:firebase-analytics:$versions.firebase_analytics"
+firebase.analytics = "com.google.firebase:firebase-analytics-ktx:$versions.firebase_analytics"
 firebase.crashlytics = "com.google.firebase:firebase-crashlytics:$versions.firebase_crashlytics"
 firebase.messaging = "com.google.firebase:firebase-messaging:$versions.firebase_messaging"
 deps.firebase = firebase

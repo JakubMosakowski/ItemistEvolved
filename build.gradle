@@ -38,6 +38,17 @@ task clean(type: Delete) {
     delete rootProject.buildDir
 }
 
+task createReleaseNotesTask() {
+
+    def releaseNotes = getReleaseNotes()
+
+    file("settings/distribute/release-notes.txt").text = releaseNotes
+
+    printf("\n\n---------------- RELEASE NOTES (since tag: ${getNewestTag()}) ----------------\n")
+    println("cat settings/distribute/release-notes.txt".execute().text.trim())
+    printf("\n-------------------------------------------------------------------\n")
+}
+
 //endregion
 
 //region Naming
@@ -50,6 +61,20 @@ static def getProjectName() {
 //endregion
 
 //region Versioning
+
+@SuppressWarnings("GroovyUnusedDeclaration")
+static def printVersionCode() {
+    printf("\n---------- VERSION DATA ----------\n")
+    printf("-> CODE: ${getAutoVersionCode()}\n")
+    printf("-> NAME: ${getAutoVersionName()}\n")
+    printf("\n")
+    printf("-> CURRENT_BRANCH: ${getCurrentBranch()}\n")
+    printf("-> COMMIT_COUNT: ${getGitCommitsCount()}\n")
+    printf("-> DEV_VERSION_CODE: ${getDevelopVersionCode()}\n")
+    printf("-> LAST_MASTER_GIT_TAG: ${getLastMasterGitTagVersion()}\n")
+    printf("-> PROD_VERSION_CODE: ${getProductionVersionCode()}\n")
+    printf("\n----------------------------------\n")
+}
 
 @SuppressWarnings("GroovyUnusedDeclaration")
 static def getAutoVersionName() {
@@ -101,6 +126,19 @@ static def getLastMasterGitTagVersion() {
     def (tag, build, sha) = name.tokenize('-')
     def (major, minor, patch) = (tag != null) ? tag.tokenize('.') : [0, 0, 0]
     return [major, minor, patch, build, sha]
+}
+
+static def getReleaseNotes() {
+    def tag = getNewestTag()
+    def format = "\"%ad %an: %s\""
+
+    def gitLog = "git log develop --no-merges --date=short --pretty=format:${format} ${tag}...HEAD"
+
+    return gitLog.execute().text.trim()
+}
+
+static def getNewestTag() {
+    return "git describe --tags --abbrev=0".execute().text.trim()
 }
 
 //endregion
