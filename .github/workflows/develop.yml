@@ -11,7 +11,17 @@ jobs:
       - name: Checkout the code
         uses: actions/checkout@v2
         with:
-          fetch-depth: 0
+          fetch-depth: 0   
+      - name: Get gradle cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+            ~/.android/build-cache
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
       - name: Create dev release notes
         run: ./gradlew createReleaseNotesTask
       - name: Create gradle properties

@@ -46,16 +46,6 @@ This flavor uses production configuration files. These files introduces crucial 
 
 There are available options that can be configured in `utility\gradle.properties` file.
 
-Common options:
-
-  - `EnableDebugBridge` - allows to enable/disable debug bridge (eg. Stetho),
-  - `<flavor>DefaultLogin` - allows to configure default login to pre-fill login form,
-  - `<flavor>DefaultPassword` - allows to configure default password to pre-fill login form.
-
-Product flavor server-related options:
-
-  - `<flavor>ServerUrl` - allows to configure server uri.
-
 > Note that you can find `gradle.properties.sample` file in application modules. If you would like to use default values, just copy this file and paste as `gradle.properties`.
 
 After preparing `gradle.properties` file you have to synchronize your Gradle build. This allows to generate `BuildConfig` class with required constant variables.
