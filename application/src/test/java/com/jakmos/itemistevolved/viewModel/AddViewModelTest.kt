@@ -153,7 +153,7 @@ class AddViewModelTest {
 
     // Given
     val newSubsectionText = "New subsection"
-    val newIndex = CHECKLIST_TO_BE_EDITED.subsections.maxBy { it.id }!!.id + 1L
+    val newIndex = CHECKLIST_TO_BE_EDITED.subsections.maxByOrNull { it.id }!!.id + 1L
 
     viewModel.onChecklistAvailable(CHECKLIST_TO_BE_EDITED.id)
     viewModel.subsectionText.postValue(newSubsectionText)

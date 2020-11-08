@@ -84,7 +84,7 @@ class AddViewModel @Inject constructor(
     val previousSubsections = _subsections.value.orEmpty()
 
     // Generate id for new subsection.
-    val newId = previousSubsections.maxBy { it.id }?.id.orZero() + 1
+    val newId = previousSubsections.maxByOrNull { it.id }?.id.orZero() + 1
 
     return Subsection(newId, text)
   }
