@@ -22,6 +22,8 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
+      - name: Get release-notes.txt
+        run: ./gradlew downloadReleaseNotesTask -Pgithub_token=${{ secrets.GET_ARTIFACT_TOKEN }}
       - name: Create dev release notes
         run: ./gradlew createReleaseNotesTask
       - name: Create gradle properties
@@ -41,3 +43,8 @@ jobs:
         run: ./gradlew testDevDebugUnitTest 
       - name: Send to testers
         run: ./gradlew :application:appDistributionUploadDevDebug
+      - name: Save release notes file
+        uses: actions/upload-artifact@v2
+        with:
+          name: release-notes.txt
+          path: settings/distribute/release-notes.txt
