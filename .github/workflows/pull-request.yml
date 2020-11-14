@@ -10,12 +10,6 @@ jobs:
     steps:
       - name: Checkout the code
         uses: actions/checkout@v2
-      - name: TODO TEMP PRINT BEFORE CHMOD
-        run:  ls -l ~/.gradle/caches 2> /dev/null
-      - name: Add correct permissions to files that need to be cached
-        run:  chmod 755 -R {~/.gradle/caches,~/.gradle/wrapper,~/.android/build-cache}
-      - name: TODO TEMP PRINT AFTER CHMOD
-        run:  ls -l ~/.gradle/caches 2> /dev/null
       - name: Get gradle cache
         uses: actions/cache@v2
         with:
@@ -41,3 +35,9 @@ jobs:
         run: ./gradlew clean :application:assembleDevDebug
       - name: Start tests
         run: ./gradlew testDevDebugUnitTest
+      - name: TODO TEMP PRINT BEFORE CHMOD
+        run:  ls -l ~/.gradle/caches
+      - name: Add correct permissions to files that need to be cached
+        run:  chmod 755 -R {~/.gradle/caches,~/.gradle/wrapper,~/.android/build-cache}
+      - name: TODO TEMP PRINT AFTER CHMOD
+        run:  ls -l ~/.gradle/caches
