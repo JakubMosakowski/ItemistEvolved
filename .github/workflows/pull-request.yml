@@ -35,5 +35,9 @@ jobs:
         run: ./gradlew clean :application:assembleDevDebug
       - name: Start tests
         run: ./gradlew testDevDebugUnitTest
+      - name: TODO TEMP PRINT BEFORE CHMOD
+        run:  ls -l ~/.gradle/caches
       - name: Add correct permissions to files that need to be cached
-        run:  chmod -R +x ~/.gradle/caches
+        run:  icacls "~/.gradle/caches" /grant:r "$($env:UserName):F" /T
+      - name: TODO TEMP PRINT AFTER CHMOD
+        run:  ls -l ~/.gradle/caches
