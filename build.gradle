@@ -45,6 +45,16 @@ task downloadReleaseNotesTask {
     }
 }
 
+task setPermissionsForCacheTask {
+    doLast {
+        project.exec {
+            commandLine 'icacls', '~/.gradle/caches', '/grant:r', '"$($env:UserName):F"', '/T'
+            commandLine 'icacls', '~/.gradle/wrapper', '/grant:r', '"$($env:UserName):F"', '/T'
+            commandLine 'icacls', '~/.android/build-cache', '/grant:r', '"$($env:UserName):F"', '/T'
+        }
+    }
+}
+
 task createReleaseNotesTask {
     doLast {
         def latestCommit = getLatestSavedCommit()
