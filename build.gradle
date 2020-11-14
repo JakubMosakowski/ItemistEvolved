@@ -144,7 +144,7 @@ static def getReleaseNotes() {
     def format = "\"%h %ad %an: %s\""
 
     // Get latest commit since last saved commit.
-    def gitLog = "git log develop --no-merges --date=short --pretty=format:${format} ${commit}^...HEAD"
+    def gitLog = "git log develop --no-merges --date=short --pretty=format:${format} ${commit}...HEAD"
 
     // If release notes is empty, get last 10 commits.
     if (commit.empty) {
