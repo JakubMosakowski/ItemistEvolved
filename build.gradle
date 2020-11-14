@@ -45,6 +45,15 @@ task downloadReleaseNotesTask {
     }
 }
 
+task setPermissionsForCacheTask {
+    doLast {
+        project.exec {
+            commandLine 'chmod', '755', '-R', '~/.gradle/caches', '&&', 'chmod', '755', '-R',
+                '~/.gradle/wrapper', '&&', 'chmod', '755', '-R', '~/.android/build-cache'
+        }
+    }
+}
+
 task createReleaseNotesTask {
     doLast {
         def latestCommit = getLatestSavedCommit()
