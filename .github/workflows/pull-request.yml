@@ -38,6 +38,6 @@ jobs:
       - name: TODO TEMP PRINT BEFORE CHMOD
         run:  ls -l ~/.gradle/caches
       - name: Add correct permissions to files that need to be cached
-        run:  ./gradlew setPermissionsForCacheTask
+        run:  chmod -R +x ~/.gradle/caches
       - name: TODO TEMP PRINT AFTER CHMOD
         run:  ls -l ~/.gradle/caches
