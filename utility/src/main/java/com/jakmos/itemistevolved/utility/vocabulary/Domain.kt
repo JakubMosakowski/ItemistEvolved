@@ -37,3 +37,9 @@ val Long.Companion.INVALID_ID: Id
 
 //endregion
 
+//region No-op
+
+typealias NoOp = Unit
+
+//endregion
+
