@@ -14,8 +14,6 @@ class SplashViewModel @Inject constructor(
   private val remoteConfigManager: RemoteConfigDomainManager
 ) : BaseViewModel() {
 
-  // TODO add tests
-
   //region Home
 
   private val _navigateToHome: SingleLiveEvent<Any> =

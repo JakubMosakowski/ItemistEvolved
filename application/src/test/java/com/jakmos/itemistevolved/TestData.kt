@@ -2,8 +2,8 @@ package com.jakmos.itemistevolved
 
 import com.jakmos.itemistevolved.domain.model.Checklist
 import com.jakmos.itemistevolved.domain.model.Subsection
+import com.jakmos.itemistevolved.utility.network.remoteconfig.AnimationConfig
 import org.joda.time.DateTime
-import kotlin.random.Random
 
 class TestData {
 
@@ -18,7 +18,8 @@ class TestData {
         return (0..2).map {
           val i = it.toLong()
           val subsections = (0..i).map { j ->
-            Subsection(id = subsectionId++, text = "Subsection$j", isChecked = j%2L==0L, orderNumber = j)
+            Subsection(id = subsectionId++, text = "Subsection$j", isChecked = j % 2L == 0L,
+              orderNumber = j)
           }
 
           Checklist(
@@ -30,6 +31,13 @@ class TestData {
           )
         }
       }
+
+    //endregion
+
+    //region Animation Config
+
+    val ANIMATION_CONFIG: AnimationConfig
+      get() = AnimationConfig("RandomUrl", 5)
 
     //endregion
   }

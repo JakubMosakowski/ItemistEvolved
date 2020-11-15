@@ -119,8 +119,8 @@ def firebase = [:]
 firebase.analytics = "com.google.firebase:firebase-analytics-ktx"
 firebase.bom = "com.google.firebase:firebase-bom:$versions.firebase_bom"
 firebase.config = "com.google.firebase:firebase-config-ktx"
-firebase.crashlytics = "com.google.firebase:firebase-crashlytics"
-firebase.messaging = "com.google.firebase:firebase-messaging"
+firebase.crashlytics = "com.google.firebase:firebase-crashlytics-ktx"
+firebase.messaging = "com.google.firebase:firebase-messaging-ktx"
 deps.firebase = firebase
 
 //endregion
