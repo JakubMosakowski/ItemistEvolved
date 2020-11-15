@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.observe
 import co.windly.limbo.recyclerview.addSpaceDecoration
 import com.jakmos.itemistevolved.R
 import com.jakmos.itemistevolved.databinding.FragmentHomeBinding

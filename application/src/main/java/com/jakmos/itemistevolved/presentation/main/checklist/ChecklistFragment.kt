@@ -3,7 +3,6 @@ package com.jakmos.itemistevolved.presentation.main.checklist
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.observe
 import androidx.navigation.fragment.navArgs
 import co.windly.limbo.recyclerview.addDividerDecorationWithHorizontalInsets
 import com.jakmos.itemistevolved.R

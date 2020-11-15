@@ -23,7 +23,7 @@ typealias Password = String
 //region General - String
 
 fun String?.longOrNull() =
-  if (isNullOrEmpty()) null else this!!.toLong()
+  if (isNullOrEmpty()) null else this.toLong()
 
 fun String?.stringOrNull() =
   if (isNullOrEmpty()) null else this

@@ -15,16 +15,15 @@ versions.commons_collections = "4.4"
 versions.commons_io = "2.7"
 versions.commons_validator = "1.6"
 versions.core_testing = "2.1.0"
-versions.coroutines = "1.3.9"
+versions.coroutines = "1.4.1"
+versions.coroutines_play_services = "1.4.1"
 versions.coroutines_test = "1.4.0"
 versions.crop = "2.2.5"
 versions.dagger = "2.28.1"
 versions.fast_adapter = "5.2.0"
-versions.firebase_analytics = "17.4.3"
-versions.firebase_appdistribution = "2.0.0"
-versions.firebase_crashlytics = "17.1.0"
-versions.firebase_crashlytics_plugin = "2.2.0"
-versions.firebase_messaging = "20.2.1"
+versions.firebase_appdistribution = "2.0.1"
+versions.firebase_bom = "26.1.0"
+versions.firebase_crashlytics_plugin = "2.4.1"
 versions.flexbox = "2.0.1"
 versions.glide = "4.11.0"
 versions.google_services_plugin = "4.3.3"
@@ -117,9 +116,11 @@ deps.fast_adapter = fast_adapter
 //region Firebase
 
 def firebase = [:]
-firebase.analytics = "com.google.firebase:firebase-analytics-ktx:$versions.firebase_analytics"
-firebase.crashlytics = "com.google.firebase:firebase-crashlytics:$versions.firebase_crashlytics"
-firebase.messaging = "com.google.firebase:firebase-messaging:$versions.firebase_messaging"
+firebase.analytics = "com.google.firebase:firebase-analytics-ktx"
+firebase.bom = "com.google.firebase:firebase-bom:$versions.firebase_bom"
+firebase.config = "com.google.firebase:firebase-config-ktx"
+firebase.crashlytics = "com.google.firebase:firebase-crashlytics"
+firebase.messaging = "com.google.firebase:firebase-messaging"
 deps.firebase = firebase
 
 //endregion
@@ -129,6 +130,7 @@ deps.firebase = firebase
 def kotlin = [:]
 kotlin.stdlib_jdk8 = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$versions.kotlin"
 kotlin.coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versions.coroutines"
+kotlin.coroutines_play_services = "org.jetbrains.kotlinx:kotlinx-coroutines-play-services:$versions.coroutines_play_services"
 deps.kotlin = kotlin
 
 //endregion

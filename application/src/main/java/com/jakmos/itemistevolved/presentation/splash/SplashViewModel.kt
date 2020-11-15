@@ -4,14 +4,17 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import co.windly.limbo.mvvm.lifecycle.SingleLiveEvent
+import com.jakmos.itemistevolved.domain.manager.RemoteConfigDomainManager
 import com.jakmos.itemistevolved.presentation.base.lifecycle.BaseViewModel
-import kotlinx.coroutines.delay
+import com.jakmos.itemistevolved.utility.network.remoteconfig.AnimationConfig
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import kotlin.random.Random
 
 class SplashViewModel @Inject constructor(
+  private val remoteConfigManager: RemoteConfigDomainManager
 ) : BaseViewModel() {
+
+  // TODO add tests
 
   //region Home
 
@@ -25,26 +28,23 @@ class SplashViewModel @Inject constructor(
 
   //region Splash
 
-  private val _animationUrl: MutableLiveData<Pair<String, Int>> =
+  private val _animationConfig: MutableLiveData<AnimationConfig> =
     MutableLiveData()
 
-  internal val animationUrl: LiveData<Pair<String, Int>> =
-    _animationUrl
+  internal val animationConfig: LiveData<AnimationConfig> =
+    _animationConfig
 
   fun animationEnded() = _navigateToHome.post()
 
-  fun getAnimationUrl() =
-    viewModelScope.launch {
+  fun getAnimationUrl() = viewModelScope.launch {
 
-      // To simulate fetching url from remote.
-      delay(2000)
-      _animationUrl.postValue(
-        if (Random.nextBoolean())
-          Pair("https://assets9.lottiefiles.com/private_files/lf30_wGOUY8.json", 2)
-        else
-          Pair("https://assets6.lottiefiles.com/packages/lf20_iax08muv.json", 0)
-      )
-    }
+    // Initialize remote config.
+    remoteConfigManager.init()
+
+    // Get splash config.
+    val splashAnimationConfig = remoteConfigManager.getSplashAnimationConfig()
+    _animationConfig.postValue(splashAnimationConfig)
+  }
 
   //endregion
 }

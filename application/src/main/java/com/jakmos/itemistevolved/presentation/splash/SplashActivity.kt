@@ -1,14 +1,15 @@
 package com.jakmos.itemistevolved.presentation.splash
 
-import android.animation.Animator
 import android.os.Bundle
 import androidx.activity.viewModels
-import com.airbnb.lottie.LottieComposition
 import com.airbnb.lottie.LottieCompositionFactory
 import com.airbnb.lottie.LottieDrawable
 import com.jakmos.itemistevolved.R
 import com.jakmos.itemistevolved.presentation.base.activity.BaseActivity
-import com.jakmos.itemistevolved.utility.vocabulary.NoOp
+import com.jakmos.itemistevolved.utility.context.addEndAnimationListener
+import com.jakmos.itemistevolved.utility.context.getOneTimeRepeatListener
+import com.jakmos.itemistevolved.utility.context.getSmoothFailureListener
+import com.jakmos.itemistevolved.utility.network.remoteconfig.AnimationConfig
 import kotlinx.android.synthetic.main.activity_splash.splashAnimation
 
 class SplashActivity : BaseActivity<SplashViewModel>(), SplashTrait {
@@ -38,8 +39,8 @@ class SplashActivity : BaseActivity<SplashViewModel>(), SplashTrait {
     // Setup animation.
     setupLottieView()
 
-    // Observe animation url.
-    observeAnimationUrl()
+    // Observe animation config.
+    observeAnimationConfig()
   }
 
   //endregion
@@ -55,61 +56,60 @@ class SplashActivity : BaseActivity<SplashViewModel>(), SplashTrait {
 
   //endregion
 
-  //region Animation
+  //region Lottie View
 
-  private fun observeAnimationUrl() {
+  private fun observeAnimationConfig() {
 
     viewModel
-      .animationUrl
-      .observe(this) { setupAnimation(it.first, it.second) }
+      .animationConfig
+      .observe(this, ::setupAnimation)
   }
 
   private fun setupLottieView() {
 
     // Add animation listener.
     splashAnimation
-      .addAnimatorListener(this)
+      .addEndAnimationListener(viewModel::animationEnded)
 
     // Set placeholder.
     splashAnimation.repeatCount = LottieDrawable.INFINITE
     splashAnimation.setAnimation(R.raw.splash)
 
     // Set fallback res.
-    splashAnimation.setFailureListener {
-      splashAnimation.repeatCount = 0
-      splashAnimation.setAnimation(R.raw.splash)
-    }
+    splashAnimation.setFailureListener(getFailureListener())
 
     // Get animation url.
     viewModel.getAnimationUrl()
   }
 
+  //endregion
+
+  //region Animation
+
   /**
    * It adds new animation inside the listener because we don't want to stop the previous animation in the middle.
    */
-  private fun setupAnimation(url: String, repeatCount: Int) {
-    LottieCompositionFactory.fromUrl(this, url).addListener {
-      splashAnimation.addAnimatorListener(getRepeatListener(it, repeatCount))
-    }
+  private fun setupAnimation(animationConfig: AnimationConfig) {
+    LottieCompositionFactory.fromUrl(this, animationConfig.url)
+      .addListener {
+
+        val repeatListener = splashAnimation.getOneTimeRepeatListener {
+          splashAnimation.pauseAnimation()
+          splashAnimation.setComposition(it)
+          splashAnimation.repeatCount = animationConfig.repeatCount
+          splashAnimation.progress = 0f
+          splashAnimation.playAnimation()
+        }
+
+        splashAnimation.addAnimatorListener(repeatListener)
+      }
+      .addFailureListener(getFailureListener())
   }
 
-  private fun getRepeatListener(composition: LottieComposition,
-    repeatCount: Int) = object : Animator.AnimatorListener {
-    override fun onAnimationStart(animator: Animator?) = NoOp
-    override fun onAnimationEnd(animator: Animator?) = NoOp
-    override fun onAnimationCancel(animator: Animator?) = NoOp
-
-    override fun onAnimationRepeat(animator: Animator?) {
-      splashAnimation.pauseAnimation()
-      splashAnimation.setComposition(composition)
-      splashAnimation.repeatCount = repeatCount
-      splashAnimation.progress = 0f
-      splashAnimation.removeAnimatorListener(this)
-      splashAnimation.playAnimation()
-    }
+  private fun getFailureListener() = splashAnimation.getSmoothFailureListener {
+    splashAnimation.repeatCount = 0
+    splashAnimation.playAnimation()
   }
-
-  override fun onAnimationEnd(animator: Animator?) = viewModel.animationEnded()
 
   //endregion
 }

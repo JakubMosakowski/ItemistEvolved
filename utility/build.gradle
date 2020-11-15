@@ -181,6 +181,12 @@ dependencies {
 
   //endregion
 
+  //region Firebase
+
+  api platform(deps.firebase.bom)
+
+  //endregion
+
   //region Images
 
   api deps.misc.glide
@@ -224,6 +230,7 @@ dependencies {
 
   implementation deps.ui.flexbox
   implementation deps.ui.material_dialogs
+  implementation deps.ui.lottie
 
   //endregion
 }
