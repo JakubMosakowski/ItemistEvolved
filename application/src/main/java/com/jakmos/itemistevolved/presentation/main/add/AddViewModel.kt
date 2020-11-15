@@ -35,7 +35,7 @@ class AddViewModel @Inject constructor(
       val checklist = checklistManager.getChecklist(checklistId)
 
       initializeEdit(checklist)
-    } catch (e: IllegalArgumentException) {
+    } catch (e: Exception) {
       ILogger.e("Checklist with id: ($checklistId) was not found.")
     }
   }

@@ -86,8 +86,6 @@ android {
 
     //region Gradle Properties
 
-    // TODO:
-
     //endregion
 
     //region Kotlin Options
@@ -212,6 +210,7 @@ dependencies {
     implementation deps.ui.material_dialogs_input
     implementation deps.ui.material_dialogs_date
     implementation deps.ui.photo_view
+    implementation deps.ui.lottie
     implementation deps.limbo.recycler_view
 
     //endregion

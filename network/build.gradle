@@ -102,6 +102,18 @@ dependencies {
     kapt deps.dagger.compiler
 
     //endregion
+
+    //region Firebase
+
+    api deps.firebase.config
+
+    //endregion
+
+    //region Kotlin
+
+    implementation deps.kotlin.coroutines_play_services
+
+    //endregion
 }
 
 //endregion

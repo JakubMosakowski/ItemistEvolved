@@ -87,24 +87,3 @@ fun Context.openWebBrowser(
 }
 
 //endregion
-
-//region Hashkey
-
-fun Context.printHashKey() {
-  try {
-    val info: PackageInfo = packageManager.getPackageInfo(packageName,
-      PackageManager.GET_SIGNATURES)
-    for (signature in info.signatures) {
-      val md: MessageDigest = MessageDigest.getInstance("SHA")
-      md.update(signature.toByteArray())
-      val hashKey = String(Base64.encode(md.digest(), 0))
-      Log.i("HASH", "printHashKey() Hash Key: $hashKey")
-    }
-  } catch (e: NoSuchAlgorithmException) {
-    Log.e("HASH", "printHashKey()")
-  } catch (e: Exception) {
-    Log.e("HASH", "printHashKey()")
-  }
-}
-
-//endregion

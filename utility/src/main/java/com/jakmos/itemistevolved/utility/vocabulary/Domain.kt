@@ -23,7 +23,7 @@ typealias Password = String
 //region General - String
 
 fun String?.longOrNull() =
-  if (isNullOrEmpty()) null else this!!.toLong()
+  if (isNullOrEmpty()) null else this.toLong()
 
 fun String?.stringOrNull() =
   if (isNullOrEmpty()) null else this
@@ -34,6 +34,12 @@ fun String?.stringOrNull() =
 
 val Long.Companion.INVALID_ID: Id
   get() = -1L
+
+//endregion
+
+//region No-op
+
+typealias NoOp = Unit
 
 //endregion
 

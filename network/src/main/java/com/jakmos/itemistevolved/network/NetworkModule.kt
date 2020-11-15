@@ -1,6 +1,11 @@
 package com.jakmos.itemistevolved.network
 
+import com.jakmos.itemistevolved.network.remoteconfig.RemoteConfigModule
 import dagger.Module
 
-@Module
+@Module(
+  includes = [
+    RemoteConfigModule::class
+  ]
+)
 class NetworkModule
