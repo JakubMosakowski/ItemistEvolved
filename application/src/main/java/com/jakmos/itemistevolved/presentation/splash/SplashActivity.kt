@@ -3,6 +3,8 @@ package com.jakmos.itemistevolved.presentation.splash
 import android.animation.Animator
 import android.os.Bundle
 import androidx.activity.viewModels
+import com.airbnb.lottie.LottieComposition
+import com.airbnb.lottie.LottieCompositionFactory
 import com.airbnb.lottie.LottieDrawable
 import com.jakmos.itemistevolved.R
 import com.jakmos.itemistevolved.presentation.base.activity.BaseActivity
@@ -86,10 +88,12 @@ class SplashActivity : BaseActivity<SplashViewModel>(), SplashTrait {
    * It adds new animation inside the listener because we don't want to stop the previous animation in the middle.
    */
   private fun setupAnimation(url: String, repeatCount: Int) {
-    splashAnimation.addAnimatorListener(getRepeatListener(url, repeatCount))
+    LottieCompositionFactory.fromUrl(this, url).addListener {
+      splashAnimation.addAnimatorListener(getRepeatListener(it, repeatCount))
+    }
   }
 
-  private fun getRepeatListener(url: String,
+  private fun getRepeatListener(composition: LottieComposition,
     repeatCount: Int) = object : Animator.AnimatorListener {
     override fun onAnimationStart(animator: Animator?) = NoOp
     override fun onAnimationEnd(animator: Animator?) = NoOp
@@ -97,11 +101,11 @@ class SplashActivity : BaseActivity<SplashViewModel>(), SplashTrait {
 
     override fun onAnimationRepeat(animator: Animator?) {
       splashAnimation.pauseAnimation()
-      splashAnimation.setAnimationFromUrl(url)
+      splashAnimation.setComposition(composition)
       splashAnimation.repeatCount = repeatCount
       splashAnimation.progress = 0f
-      splashAnimation.playAnimation()
       splashAnimation.removeAnimatorListener(this)
+      splashAnimation.playAnimation()
     }
   }
 
