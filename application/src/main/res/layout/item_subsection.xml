@@ -37,6 +37,7 @@
       app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+      android:id="@+id/subtitleText"
       style="@style/ItemistEvolved.Widget.TextView.Subsection"
       android:layout_width="@dimen/size_auto"
       android:layout_height="wrap_content"

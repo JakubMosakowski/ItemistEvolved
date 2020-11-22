@@ -28,13 +28,4 @@ class MainActivity : BaseActivity<MainViewModel>(), MainTrait {
     get() = this
 
   //endregion
-
-  //region Lifecycle
-
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-  }
-
-  //endregion
-
 }

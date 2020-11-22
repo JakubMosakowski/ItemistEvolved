@@ -81,4 +81,5 @@ class SplashViewModelTest {
       .isEqualTo(ANIMATION_CONFIG)
   }
 
+  //endregion
 }
