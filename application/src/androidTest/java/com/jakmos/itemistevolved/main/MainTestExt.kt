@@ -4,10 +4,10 @@ import com.jakmos.itemistevolved.R.id
 import com.jakmos.itemistevolved.domain.model.Checklist
 import com.schibsted.spain.barista.interaction.BaristaClickInteractions.clickOn
 import com.schibsted.spain.barista.interaction.BaristaEditTextInteractions.writeTo
+import com.schibsted.spain.barista.interaction.BaristaKeyboardInteractions.closeKeyboard
+import com.schibsted.spain.barista.interaction.BaristaSleepInteractions.sleep
 
 fun createChecklist(checklist: Checklist) {
-
-  //TODO find more efficient way to fill db.
 
   // Verify add clicked.
   clickOn(id.addItemButton)
@@ -22,6 +22,8 @@ fun createChecklist(checklist: Checklist) {
   }
 
   // Submit
+  closeKeyboard()
   clickOn(id.submitBtn)
+  sleep(500)
 }
 

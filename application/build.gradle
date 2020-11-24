@@ -233,9 +233,10 @@ dependencies {
     androidTestImplementation deps.test.espresso
     androidTestImplementation deps.test.mockito_core
     androidTestImplementation deps.test.mockito_inline
-    androidTestImplementation deps.test.restMock
     androidTestImplementation deps.test.rules
     androidTestImplementation deps.test.runner
+    androidTestImplementation deps.test.test_core
+    androidTestImplementation deps.test.junit_ktx
     androidTestImplementation deps.test.truth
     androidTestUtil deps.test.orchestrator
 

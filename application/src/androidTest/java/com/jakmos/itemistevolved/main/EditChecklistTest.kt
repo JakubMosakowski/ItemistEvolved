@@ -1,8 +1,9 @@
 package com.jakmos.itemistevolved.main
 
-import androidx.test.rule.ActivityTestRule
+import androidx.test.ext.junit.rules.activityScenarioRule
 import com.jakmos.itemistevolved.AndroidTestData
 import com.jakmos.itemistevolved.R.id
+import com.jakmos.itemistevolved.RetryTestRule
 import com.jakmos.itemistevolved.presentation.main.MainActivity
 import com.schibsted.spain.barista.assertion.BaristaVisibilityAssertions.assertContains
 import com.schibsted.spain.barista.assertion.BaristaVisibilityAssertions.assertNotContains
@@ -12,13 +13,16 @@ import com.schibsted.spain.barista.interaction.BaristaKeyboardInteractions.close
 import com.schibsted.spain.barista.interaction.BaristaListInteractions.clickListItemChild
 import org.junit.Rule
 import org.junit.Test
+import org.junit.rules.RuleChain
 
 class EditChecklistTest {
 
   //region Rules
 
   @get:Rule
-  var activityRule = ActivityTestRule(MainActivity::class.java)
+  val rule: RuleChain = RuleChain
+    .outerRule(RetryTestRule(3))
+    .around(activityScenarioRule<MainActivity>())
 
   //endregion
 
@@ -35,7 +39,7 @@ class EditChecklistTest {
     val newTitle = "New title"
 
     // When
-    clickOn(id.editBtn)
+    clickListItemChild(id.checklistsRv, 0, id.editBtn)
     writeTo(id.titleEditText, newTitle)
     clickOn(id.submitBtn)
 
@@ -87,15 +91,6 @@ class EditChecklistTest {
     clickOn(checklist.name)
     assertNotContains(id.checkbox, subsectionTitle)
   }
-
-  /**
-   * Reorder subsection.
-   */
-  @Test
-  fun reorderSubsection() {
-    //TODO think how you can mock drag and drop action efficiently.
-  }
-
 
   //endregion
 }

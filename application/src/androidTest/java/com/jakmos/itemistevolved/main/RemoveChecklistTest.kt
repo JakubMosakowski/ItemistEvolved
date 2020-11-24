@@ -1,9 +1,11 @@
 package com.jakmos.itemistevolved.main
 
-import androidx.test.rule.ActivityTestRule
+import androidx.test.ext.junit.rules.activityScenarioRule
+import androidx.test.platform.app.InstrumentationRegistry
 import com.jakmos.itemistevolved.AndroidTestData
 import com.jakmos.itemistevolved.R
 import com.jakmos.itemistevolved.R.id
+import com.jakmos.itemistevolved.RetryTestRule
 import com.jakmos.itemistevolved.presentation.main.MainActivity
 import com.schibsted.spain.barista.assertion.BaristaListAssertions.assertListItemCount
 import com.schibsted.spain.barista.assertion.BaristaVisibilityAssertions.assertDisplayed
@@ -13,13 +15,16 @@ import com.schibsted.spain.barista.interaction.BaristaListInteractions.clickList
 import com.schibsted.spain.barista.interaction.BaristaSleepInteractions.sleep
 import org.junit.Rule
 import org.junit.Test
+import org.junit.rules.RuleChain
 
 class RemoveChecklistTest {
 
   //region Rules
 
   @get:Rule
-  var activityRule = ActivityTestRule(MainActivity::class.java)
+  val rule: RuleChain = RuleChain
+    .outerRule(RetryTestRule(3))
+    .around(activityScenarioRule<MainActivity>())
 
   //endregion
 
@@ -55,7 +60,8 @@ class RemoveChecklistTest {
     val checklist = AndroidTestData.CHECKLISTS[1]
     createChecklist(AndroidTestData.CHECKLISTS[2])
     createChecklist(checklist)
-    val undoText = activityRule.activity.getString(R.string.home_undo)
+    val undoText =
+      InstrumentationRegistry.getInstrumentation().targetContext.getString(R.string.home_undo)
 
     // When
     clickListItemChild(id.checklistsRv, 0, id.deleteBtn)

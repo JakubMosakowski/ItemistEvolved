@@ -10,10 +10,11 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.test.espresso.matcher.BoundedMatcher
 import androidx.test.espresso.matcher.ViewMatchers.withText
-import androidx.test.rule.ActivityTestRule
+import androidx.test.ext.junit.rules.activityScenarioRule
 import com.jakmos.itemistevolved.AndroidTestData
 import com.jakmos.itemistevolved.R
 import com.jakmos.itemistevolved.R.id
+import com.jakmos.itemistevolved.RetryTestRule
 import com.jakmos.itemistevolved.presentation.main.MainActivity
 import com.schibsted.spain.barista.interaction.BaristaClickInteractions.clickBack
 import com.schibsted.spain.barista.interaction.BaristaClickInteractions.clickOn
@@ -23,6 +24,7 @@ import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.junit.Rule
 import org.junit.Test
+import org.junit.rules.RuleChain
 
 
 class ClickCheckboxTest {
@@ -30,7 +32,9 @@ class ClickCheckboxTest {
   //region Rules
 
   @get:Rule
-  var activityRule = ActivityTestRule(MainActivity::class.java)
+  val rule: RuleChain = RuleChain
+    .outerRule(RetryTestRule(3))
+    .around(activityScenarioRule<MainActivity>())
 
   //endregion
 
@@ -56,7 +60,6 @@ class ClickCheckboxTest {
 
     // When
     clickListItemChild(id.checkboxRv, 0, id.checkbox)
-    clickBack()
     clickBack()
     clickOn(CHECKLIST.name)
 
@@ -84,7 +87,6 @@ class ClickCheckboxTest {
 
     // When
     clickOn(id.clearBtn)
-    clickBack()
     clickBack()
     clickOn(CHECKLIST.name)
 
@@ -147,19 +149,10 @@ class ClickCheckboxTest {
   private fun invokeStateListDrawable(drawable: Drawable, view: View): Drawable =
     if (drawable is StateListDrawable) {
 
-      val getStateDrawableIndex =
-        StateListDrawable::class.java.getMethod(
-          "getStateDrawableIndex",
-          IntArray::class.java
-        )
-      val getStateDrawable =
-        StateListDrawable::class.java.getMethod(
-          "getStateDrawable",
-          Int::class.javaPrimitiveType
-        )
+      val index =
+        drawable.findStateDrawableIndex(view.drawableState)
 
-      val index = getStateDrawableIndex.invoke(drawable, view.drawableState)
-      getStateDrawable.invoke(drawable, index) as Drawable
+      drawable.getStateDrawable(index)!!
 
     } else drawable
 

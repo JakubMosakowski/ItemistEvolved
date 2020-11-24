@@ -14,6 +14,7 @@ import com.jakmos.itemistevolved.presentation.main.home.item.ChecklistItem
 import com.jakmos.itemistevolved.presentation.main.home.item.ClickChecklistDeleteEventHook
 import com.jakmos.itemistevolved.presentation.main.home.item.ClickChecklistEditEventHook
 import com.jakmos.itemistevolved.presentation.main.home.item.ClickChecklistEventHook
+import com.jakmos.itemistevolved.utility.context.hideSoftInput
 import com.mikepenz.fastadapter.adapters.GenericFastItemAdapter
 import kotlinx.android.synthetic.main.fragment_home.checklistsRv
 
@@ -61,6 +62,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
+
+    // Hide keyboard.
+    activity?.hideSoftInput()
 
     // Observe add clicked.
     observeAddClicked()

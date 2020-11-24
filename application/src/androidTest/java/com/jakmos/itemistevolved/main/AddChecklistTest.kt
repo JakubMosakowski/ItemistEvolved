@@ -1,8 +1,9 @@
 package com.jakmos.itemistevolved.main
 
-import androidx.test.rule.ActivityTestRule
+import androidx.test.ext.junit.rules.activityScenarioRule
 import com.jakmos.itemistevolved.AndroidTestData.Companion.CHECKLISTS
 import com.jakmos.itemistevolved.R.id
+import com.jakmos.itemistevolved.RetryTestRule
 import com.jakmos.itemistevolved.presentation.main.MainActivity
 import com.schibsted.spain.barista.assertion.BaristaListAssertions.assertListItemCount
 import com.schibsted.spain.barista.assertion.BaristaVisibilityAssertions.assertContains
@@ -11,13 +12,16 @@ import com.schibsted.spain.barista.interaction.BaristaClickInteractions.clickOn
 import com.schibsted.spain.barista.interaction.BaristaEditTextInteractions.writeTo
 import org.junit.Rule
 import org.junit.Test
+import org.junit.rules.RuleChain
 
 class AddChecklistTest {
 
   //region Rules
 
   @get:Rule
-  var activityRule = ActivityTestRule(MainActivity::class.java)
+  val rule: RuleChain = RuleChain
+    .outerRule(RetryTestRule(3))
+    .around(activityScenarioRule<MainActivity>())
 
   //endregion
 
