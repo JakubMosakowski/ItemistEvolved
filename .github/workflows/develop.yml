@@ -8,10 +8,12 @@ jobs:
   build:
     runs-on: windows-latest
     steps:
+
       - name: Checkout the code
         uses: actions/checkout@v2
         with:
-          fetch-depth: 0   
+          fetch-depth: 0
+
       - name: Get gradle cache
         uses: actions/cache@v2
         with:
@@ -22,36 +24,72 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
+
       - name: Get release-notes.txt
         run: ./gradlew downloadReleaseNotesTask -Pgithub_token=${{ secrets.GET_ARTIFACT_TOKEN }}
+
       - name: Create dev release notes
         run: ./gradlew createReleaseNotesTask
+
       - name: Create gradle properties
         run: echo $GRADLE_PROPERTIES > utility/gradle.properties
+
       - name: Add debug key
         uses: JakubMosakowski/secret-into-file-action@v1.0.0
         with:
           secret: ${{ secrets.DEBUG_KEYSTORE }}
           passphrase: ${{ secrets.DEBUG_KEYSTORE_PASSPHRASE }}
           filename: "settings/keystore/debug.jks"
+
       - name: Add firebase service credentials file
         uses: JakubMosakowski/secret-into-file-action@v1.0.0
         with:
           secret: ${{ secrets.DEBUG_FIREBASE_CREDENTIALS_FILE }}
           passphrase: ${{ secrets.DEBUG_FIREBASE_CREDENTIALS_PASSPHRASE }}
           filename: "settings/distribute/firebase-app-distribution-dev.json"
+
       - name: Add google service file
         uses: JakubMosakowski/secret-into-file-action@v1.0.0
         with:
           secret: ${{ secrets.DEBUG_GOOGLE_SERVICE_FILE }}
           passphrase: ${{ secrets.DEBUG_GOOGLE_SERVICE_PASSPHRASE }}
           filename: "application/src/dev/google-services.json"
+
       - name: Build the app
         run: ./gradlew clean :application:assembleDevDebug
+
+      - name: Build the instrumentation tests apk
+        run: ./gradlew :application:assembleDevDebugAndroidTest
+
       - name: Start tests
-        run: ./gradlew testDevDebugUnitTest 
+        run: ./gradlew testDevDebugUnitTest
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@master
+        with:
+          project_id: ${{ secrets.GCLOUD_PROJECT_ID }}
+          service_account_key: ${{ secrets.GCLOUD_AUTH }}
+          export_default_credentials: true
+
+      - name: Start UI tests
+        run: gcloud firebase test android run
+              --type instrumentation
+              --use-orchestrator
+              --app application/build/outputs/apk/dev/debug/application-dev-debug.apk
+              --test application/build/outputs/apk/androidTest/dev/debug/application-dev-debug-androidTest.apk
+              --device model=Pixel2,version=29,orientation=portrait
+              --environment-variables clearPackageData=true
+
+      - name: Start Robo tests
+        run: gcloud firebase test android run
+              --type robo
+              --app application/build/outputs/apk/dev/debug/application-dev-debug.apk
+              --device model=Pixel2,version=29,orientation=portrait
+              --timeout 300s
+
       - name: Send to testers
         run: ./gradlew :application:appDistributionUploadDevDebug
+
       - name: Save release notes file
         uses: actions/upload-artifact@v2
         with:

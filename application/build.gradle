@@ -74,6 +74,12 @@ android {
         minSdkVersion deps.build_versions.min_sdk
         targetSdkVersion deps.build_versions.target_sdk
         applicationId "com.jakmos.itemistevolved"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunnerArguments clearPackageData: 'true'
+    }
+
+    testOptions {
+        execution 'ANDROIDX_TEST_ORCHESTRATOR'
     }
 
     //endregion
@@ -222,6 +228,17 @@ dependencies {
     //endregion
 
     //region Unit, Instrumentation and Integration Test
+
+    androidTestImplementation deps.test.barista
+    androidTestImplementation deps.test.espresso
+    androidTestImplementation deps.test.mockito_core
+    androidTestImplementation deps.test.mockito_inline
+    androidTestImplementation deps.test.rules
+    androidTestImplementation deps.test.runner
+    androidTestImplementation deps.test.test_core
+    androidTestImplementation deps.test.junit_ktx
+    androidTestImplementation deps.test.truth
+    androidTestUtil deps.test.orchestrator
 
     testImplementation deps.test.core_testing
     testImplementation deps.test.junit
