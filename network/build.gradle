@@ -2,7 +2,6 @@
 
 apply plugin: "com.android.library"
 apply plugin: "kotlin-android"
-apply plugin: "kotlin-android-extensions"
 apply plugin: "kotlin-kapt"
 
 //endregion
@@ -97,8 +96,8 @@ dependencies {
 
     //region Dependency Injection
 
-    kapt deps.dagger.android_processor
     compileOnly deps.dagger.annotation
+    kapt deps.dagger.android_processor
     kapt deps.dagger.compiler
 
     //endregion

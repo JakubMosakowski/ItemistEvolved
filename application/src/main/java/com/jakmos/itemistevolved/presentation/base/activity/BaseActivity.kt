@@ -3,36 +3,17 @@ package com.jakmos.itemistevolved.presentation.base.activity
 import android.app.Activity
 import android.os.Bundle
 import androidx.annotation.IdRes
-import androidx.annotation.LayoutRes
-import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
+import androidx.databinding.ViewDataBinding
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import co.windly.limbo.mvvm.activity.DaggerMvvmActivity
 import co.windly.limbo.mvvm.trait.ActivityNavigationTrait
 import co.windly.limbo.mvvm.trait.ActivityTrait
 import com.jakmos.itemistevolved.R
-import dagger.android.AndroidInjection
 import com.jakmos.itemistevolved.presentation.base.lifecycle.BaseViewModel
-import javax.inject.Inject
 
-abstract class BaseActivity<VM : BaseViewModel> : AppCompatActivity(), ActivityTrait,
-  ActivityNavigationTrait {
-
-  //region Ui
-
-  @get:LayoutRes
-  abstract val layoutRes: Int
-
-  //endregion
-
-  //region View Model
-
-  @Inject
-  lateinit var factory: ViewModelProvider.Factory
-
-  abstract val viewModel: VM
-
-  //endregion
+abstract class BaseActivity<Binding : ViewDataBinding, VM : BaseViewModel> :
+  DaggerMvvmActivity<Binding, VM>(), ActivityTrait, ActivityNavigationTrait {
 
   //region Traits
 
@@ -49,14 +30,8 @@ abstract class BaseActivity<VM : BaseViewModel> : AppCompatActivity(), ActivityT
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
 
-    // Set content view.
-    setContentView(layoutRes)
-
     // Initialize navigation controller.
     initializeNavigationController()
-
-    // Inject dependencies.
-    AndroidInjection.inject(this)
   }
 
   //endregion

@@ -172,12 +172,12 @@ dependencies {
 
   //region Dependency Injection
 
-  kapt deps.dagger.android_processor
-  compileOnly deps.dagger.annotation
   api deps.dagger.android
   api deps.dagger.android_support
-  kapt deps.dagger.compiler
   api deps.dagger.runtime
+  compileOnly deps.dagger.annotation
+  kapt deps.dagger.android_processor
+  kapt deps.dagger.compiler
 
   //endregion
 

@@ -96,16 +96,16 @@ dependencies {
 
   //region Database
 
-  kapt deps.database.compiler
-  implementation deps.database.ktx
   api deps.database.runtime
+  implementation deps.database.ktx
+  kapt deps.database.compiler
 
   //endregion
 
   //region Dependency Injection
 
-  kapt deps.dagger.android_processor
   compileOnly deps.dagger.annotation
+  kapt deps.dagger.android_processor
   kapt deps.dagger.compiler
 
   //endregion

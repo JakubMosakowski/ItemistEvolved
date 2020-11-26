@@ -15,7 +15,6 @@ import com.jakmos.itemistevolved.presentation.main.checklist.item.CheckboxItem
 import com.jakmos.itemistevolved.presentation.main.checklist.item.ClickCheckboxEventHook
 import com.jakmos.itemistevolved.utility.log.ILogger
 import com.mikepenz.fastadapter.adapters.GenericFastItemAdapter
-import kotlinx.android.synthetic.main.fragment_checklist.checkboxRv
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 class ChecklistFragment : BackFragment<FragmentChecklistBinding, ChecklistViewModel>(),
@@ -102,7 +101,7 @@ class ChecklistFragment : BackFragment<FragmentChecklistBinding, ChecklistViewMo
 
   //region Recycler View
 
-  private fun initializeRecyclerView() = with(checkboxRv) {
+  private fun initializeRecyclerView() = with(binding.checkboxRv) {
 
     // Add item decoration.
     addDividerDecorationWithHorizontalInsets(

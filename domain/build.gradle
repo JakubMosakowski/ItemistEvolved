@@ -2,7 +2,6 @@
 
 apply plugin: "com.android.library"
 apply plugin: "kotlin-android"
-apply plugin: "kotlin-android-extensions"
 apply plugin: "kotlin-kapt"
 
 //endregion
@@ -85,8 +84,8 @@ dependencies {
 
     //region Annotation Processors
 
-    kapt deps.dagger.compiler
     kapt deps.dagger.android_processor
+    kapt deps.dagger.compiler
     kapt deps.misc.mapstruct_processor
 
     //endregion

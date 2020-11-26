@@ -16,7 +16,6 @@ import com.jakmos.itemistevolved.presentation.main.home.item.ClickChecklistEditE
 import com.jakmos.itemistevolved.presentation.main.home.item.ClickChecklistEventHook
 import com.jakmos.itemistevolved.utility.context.hideSoftInput
 import com.mikepenz.fastadapter.adapters.GenericFastItemAdapter
-import kotlinx.android.synthetic.main.fragment_home.checklistsRv
 
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
   HomeTrait {
@@ -124,7 +123,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
 
   //region Recycler View
 
-  private fun initializeChecklistRecyclerView() = with(checklistsRv) {
+  private fun initializeChecklistRecyclerView() = with(binding.checklistsRv) {
 
     // Add space decorator.
     addSpaceDecoration(

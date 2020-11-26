@@ -20,9 +20,6 @@ import com.mikepenz.fastadapter.adapters.FastItemAdapter
 import com.mikepenz.fastadapter.drag.ItemTouchCallback
 import com.mikepenz.fastadapter.select.getSelectExtension
 import com.mikepenz.fastadapter.utils.DragDropUtil
-import kotlinx.android.synthetic.main.fragment_add.lineEditText
-import kotlinx.android.synthetic.main.fragment_add.subsectionsRv
-import kotlinx.android.synthetic.main.fragment_add.titleEditText
 
 
 class AddFragment : BackFragment<FragmentAddBinding, AddViewModel>(),
@@ -64,7 +61,7 @@ class AddFragment : BackFragment<FragmentAddBinding, AddViewModel>(),
     super.onViewCreated(view, savedInstanceState)
 
     // Show keyboard.
-    activity?.showSoftInput(titleEditText)
+    activity?.showSoftInput(binding.titleEditText)
 
     // Log argument.
     ILogger.v("Checklist: ${args.checklistId}.")
@@ -129,7 +126,7 @@ class AddFragment : BackFragment<FragmentAddBinding, AddViewModel>(),
       .observe(viewLifecycleOwner, ::showSubsectionItems)
   }
 
-  private fun doActionOnAddDone() = with(lineEditText) {
+  private fun doActionOnAddDone() = with(binding.lineEditText) {
 
     // Do action when click on keyboard done.
     doActionOnDone(viewModel::onAddClicked)
@@ -139,7 +136,7 @@ class AddFragment : BackFragment<FragmentAddBinding, AddViewModel>(),
 
   //region Recycler View
 
-  private fun initializeSubsectionRecyclerView() = with(subsectionsRv) {
+  private fun initializeSubsectionRecyclerView() = with(binding.subsectionsRv) {
 
     // Setup drag and drop.
     touchHelper.attachToRecyclerView(this)
