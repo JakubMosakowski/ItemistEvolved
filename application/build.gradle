@@ -195,27 +195,9 @@ dependencies {
 
     //endregion
 
-    //region Miscellaneous
-
-    implementation deps.misc.crop
-
-    //endregion
-
-    //region Permissions
-
-    implementation deps.misc.permissions_dispatcher
-    kapt deps.misc.permissions_dispatcher_compiler
-
-    //endregion
-
     //region Ui
 
-    implementation deps.ui.flexbox
-    implementation deps.ui.material_bottom_sheet
     implementation deps.ui.material_dialogs
-    implementation deps.ui.material_dialogs_input
-    implementation deps.ui.material_dialogs_date
-    implementation deps.ui.photo_view
     implementation deps.ui.lottie
     implementation deps.limbo.recycler_view
 
@@ -240,7 +222,6 @@ dependencies {
     androidTestImplementation deps.test.truth
     androidTestUtil deps.test.orchestrator
 
-    testImplementation deps.test.core_testing
     testImplementation deps.test.junit
     testImplementation deps.test.mockito_core
     testImplementation deps.test.mockito_inline

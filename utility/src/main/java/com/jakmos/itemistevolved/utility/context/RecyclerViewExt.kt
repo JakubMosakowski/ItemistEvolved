@@ -3,7 +3,6 @@ package com.jakmos.itemistevolved.utility.context
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.flexbox.FlexboxLayoutManager
 import com.jakmos.itemistevolved.utility.context.RecyclerViewConstants.SPAN_SIZE_DEFAULT
 
 //region Constants
@@ -15,10 +14,6 @@ private object RecyclerViewConstants {
 //endregion
 
 //region Layout Manager
-
-fun RecyclerView.addFlexBoxLayoutManager() {
-  layoutManager = FlexboxLayoutManager(context)
-}
 
 fun RecyclerView.addGridLayoutManager(
   spanSizeTotal: Int = SPAN_SIZE_DEFAULT,

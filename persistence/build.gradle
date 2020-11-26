@@ -109,13 +109,6 @@ dependencies {
   kapt deps.dagger.compiler
 
   //endregion
-
-  //region Shared Preferences
-
-  api deps.misc.ktx_prefs
-  kapt deps.misc.ktx_prefs_compiler
-
-  //endregion
 }
 
 //endregion

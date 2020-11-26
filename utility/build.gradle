@@ -187,14 +187,6 @@ dependencies {
 
   //endregion
 
-  //region Images
-
-  api deps.misc.glide
-  api deps.misc.glide_integration
-  kapt deps.misc.glide_compiler
-
-  //endregion
-
   //region Kotlin
 
   api deps.kotlin.stdlib_jdk8
@@ -213,23 +205,17 @@ dependencies {
   api deps.limbo.mvvm
   api deps.limbo.mvvm_dagger
   api deps.limbo.recycler_view
-  api deps.limbo.utility
 
   //endregion
 
   //region Miscellaneous
 
-  api deps.misc.commons_collections
-  api deps.misc.commons_io
-  api deps.misc.commons_validator
   api deps.misc.joda_time
 
   //endregion
 
   //region Ui
 
-  implementation deps.ui.flexbox
-  implementation deps.ui.material_dialogs
   implementation deps.ui.lottie
 
   //endregion
