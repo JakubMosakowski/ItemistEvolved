@@ -2,22 +2,23 @@ package com.jakmos.itemistevolved.presentation.splash
 
 import android.os.Bundle
 import androidx.activity.viewModels
+import com.airbnb.lottie.LottieAnimationView
 import com.airbnb.lottie.LottieComposition
 import com.airbnb.lottie.LottieCompositionFactory
 import com.jakmos.itemistevolved.R
+import com.jakmos.itemistevolved.databinding.ActivitySplashBinding
 import com.jakmos.itemistevolved.presentation.base.activity.BaseActivity
 import com.jakmos.itemistevolved.utility.context.addEndAnimationListener
 import com.jakmos.itemistevolved.utility.context.getOneTimeRepeatListener
 import com.jakmos.itemistevolved.utility.context.getSmoothFailureListener
 import com.jakmos.itemistevolved.utility.context.setPlaceholder
 import com.jakmos.itemistevolved.utility.network.remoteconfig.AnimationConfig
-import kotlinx.android.synthetic.main.activity_splash.splashAnimation
 
-class SplashActivity : BaseActivity<SplashViewModel>(), SplashTrait {
+class SplashActivity : BaseActivity<ActivitySplashBinding, SplashViewModel>(), SplashTrait {
 
   //region Ui
 
-  override val layoutRes: Int
+  override val layoutResId: Int
     get() = R.layout.activity_splash
 
   //endregion
@@ -26,6 +27,14 @@ class SplashActivity : BaseActivity<SplashViewModel>(), SplashTrait {
 
   override val viewModel: SplashViewModel
     by viewModels { factory }
+
+  //endregion
+
+  //region Binding
+
+  override fun bindView(binding: ActivitySplashBinding) {
+    splashAnimation = binding.splashAnimation
+  }
 
   //endregion
 
@@ -58,6 +67,8 @@ class SplashActivity : BaseActivity<SplashViewModel>(), SplashTrait {
   //endregion
 
   //region Lottie View
+
+  private lateinit var splashAnimation: LottieAnimationView
 
   private fun observeAnimationConfig() {
 

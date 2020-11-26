@@ -172,26 +172,18 @@ dependencies {
 
   //region Dependency Injection
 
-  kapt deps.dagger.android_processor
-  compileOnly deps.dagger.annotation
   api deps.dagger.android
   api deps.dagger.android_support
-  kapt deps.dagger.compiler
   api deps.dagger.runtime
+  compileOnly deps.dagger.annotation
+  kapt deps.dagger.android_processor
+  kapt deps.dagger.compiler
 
   //endregion
 
   //region Firebase
 
   api platform(deps.firebase.bom)
-
-  //endregion
-
-  //region Images
-
-  api deps.misc.glide
-  api deps.misc.glide_integration
-  kapt deps.misc.glide_compiler
 
   //endregion
 
@@ -213,23 +205,17 @@ dependencies {
   api deps.limbo.mvvm
   api deps.limbo.mvvm_dagger
   api deps.limbo.recycler_view
-  api deps.limbo.utility
 
   //endregion
 
   //region Miscellaneous
 
-  api deps.misc.commons_collections
-  api deps.misc.commons_io
-  api deps.misc.commons_validator
   api deps.misc.joda_time
 
   //endregion
 
   //region Ui
 
-  implementation deps.ui.flexbox
-  implementation deps.ui.material_dialogs
   implementation deps.ui.lottie
 
   //endregion
