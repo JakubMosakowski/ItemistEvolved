@@ -8,7 +8,7 @@ import org.junit.runners.model.Statement
 /**
  * Retry test rule used to retry test that failed.
  * Retry failed test 3 times.
- * Thanks to:
+ * Thanks to: https://andresand.medium.com/retry-testrule-for-android-espresso-tests-74683ee3b845
  */
 class RetryTestRule(val retryCount: Int = 3) : TestRule {
 
