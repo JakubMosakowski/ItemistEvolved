@@ -13,6 +13,9 @@ apply plugin: "androidx.navigation.safeargs.kotlin"
 //region Keystore
 
 def keystorePropertiesFile = rootProject.file("settings/keystore/keystore.properties")
+if (!keystorePropertiesFile.exists()) {
+  keystorePropertiesFile.createNewFile()
+}
 def keystoreProperties = new Properties()
 keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 
