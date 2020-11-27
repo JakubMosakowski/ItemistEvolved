@@ -36,8 +36,4 @@ interface DomainComponent {
   fun remoteConfigManager(): RemoteConfigDomainManager
 
   //endregion
-
-  //region Share Various
-
-  //endregion
 }

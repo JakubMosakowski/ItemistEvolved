@@ -1,9 +1,0 @@
-#region Debugging
-EnableDebugBridge=true
-#endregion
-
-#region Server - Common
-ServerConnectionTimeout=30L
-ServerReadTimeout=30L
-ServerWriteTimeout=30L
-#endregion

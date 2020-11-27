@@ -44,15 +44,15 @@ jobs:
       - name: Add firebase service credentials file
         uses: JakubMosakowski/secret-into-file-action@v1.0.0
         with:
-          secret: ${{ secrets.DEBUG_FIREBASE_CREDENTIALS_FILE }}
-          passphrase: ${{ secrets.DEBUG_FIREBASE_CREDENTIALS_PASSPHRASE }}
-          filename: "settings/distribute/firebase-app-distribution-dev.json"
+          secret: ${{ secrets.FIREBASE_CREDENTIALS_FILE }}
+          passphrase: ${{ secrets.FIREBASE_CREDENTIALS_PASSPHRASE }}
+          filename: "settings/distribute/firebase-app-distribution.json"
 
       - name: Add google service file
         uses: JakubMosakowski/secret-into-file-action@v1.0.0
         with:
-          secret: ${{ secrets.DEBUG_GOOGLE_SERVICE_FILE }}
-          passphrase: ${{ secrets.DEBUG_GOOGLE_SERVICE_PASSPHRASE }}
+          secret: ${{ secrets.GOOGLE_SERVICE_FILE }}
+          passphrase: ${{ secrets.GOOGLE_SERVICE_PASSPHRASE }}
           filename: "application/src/dev/google-services.json"
 
       - name: Build the app

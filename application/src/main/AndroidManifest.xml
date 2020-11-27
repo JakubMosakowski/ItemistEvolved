@@ -24,16 +24,6 @@
 
     <!-- endregion -->
 
-    <!-- region Onboarding -->
-
-<!--    TODO Implement Onboarding-->
-<!--    <activity-->
-<!--      android:name=".presentation.onboarding.OnboardingActivity"-->
-<!--      android:noHistory="true"-->
-<!--      android:screenOrientation="portrait" />-->
-
-    <!-- endregion -->
-
     <!-- region Splash -->
 
     <activity

@@ -26,5 +26,4 @@ class RemoteConfigDomainManager @Inject constructor(
     )
 
   //endregion
-
 }

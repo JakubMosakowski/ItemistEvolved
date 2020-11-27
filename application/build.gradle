@@ -10,6 +10,17 @@ apply plugin: "androidx.navigation.safeargs.kotlin"
 
 //endregion
 
+//region Keystore
+
+def keystorePropertiesFile = rootProject.file("settings/keystore/keystore.properties")
+if (!keystorePropertiesFile.exists()) {
+  keystorePropertiesFile.createNewFile()
+}
+def keystoreProperties = new Properties()
+keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+
+//endregion
+
 //region Android
 
 android {
@@ -24,12 +35,11 @@ android {
       storeFile = rootProject.file("settings/keystore/debug.jks")
     }
 
-    //TODO use other key for release version
     release {
-      keyAlias = "androiddebugkey"
-      keyPassword = "android"
-      storePassword = "android"
-      storeFile = rootProject.file("settings/keystore/debug.jks")
+      keyAlias = keystoreProperties['keyAlias']
+      keyPassword = keystoreProperties['keyPassword']
+      storePassword = keystoreProperties['storePassword']
+      storeFile = rootProject.file("settings/keystore/release.jks")
     }
   }
 
@@ -111,7 +121,7 @@ android {
       firebaseAppDistribution {
         releaseNotesFile = rootProject.file("settings/distribute/release-notes.txt")
         serviceCredentialsFile =
-            rootProject.file("settings/distribute/firebase-app-distribution-dev.json")
+            rootProject.file("settings/distribute/firebase-app-distribution.json")
         groups = "internal"
       }
       resValue "string", "app_name", getProjectName() + " Development"
@@ -122,8 +132,8 @@ android {
       dimension "type"
       firebaseAppDistribution {
         releaseNotesFile = rootProject.file("settings/distribute/release-notes.txt")
-        serviceCredentialsFile = //TODO use other key for prod
-            rootProject.file("settings/distribute/firebase-app-distribution-dev.json")
+        serviceCredentialsFile =
+            rootProject.file("settings/distribute/firebase-app-distribution.json")
         groups = "internal"
       }
       resValue "string", "app_name", getProjectName()

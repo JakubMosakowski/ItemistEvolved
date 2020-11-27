@@ -5,21 +5,6 @@ import androidx.databinding.BindingAdapter
 import co.windly.limbo.utility.view.changeVisibility
 import com.google.android.material.textfield.TextInputLayout
 
-//region TextInputLayout
-
-@BindingAdapter(
-  requireAll = false,
-  value = ["validationError"]
-)
-fun setValidationError(
-  view: TextInputLayout, validationError: String? = null) {
-
-  // Update validation error.
-  view.error = validationError
-}
-
-//endregion
-
 //region View
 
 @BindingAdapter(

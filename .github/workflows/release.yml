@@ -2,15 +2,35 @@ name: Push Master Workflow
 
 on:
   push:
-    branches: [ master ]
+    tags:
+      - 'v*'
 
 jobs:  
   build:
     runs-on: windows-latest
     steps:
-
-      - name: Checkout the code
+      - name: Checkout code
         uses: actions/checkout@v2
+
+      - name: Read Release Notes
+        id: release_notes
+        uses: juliangruber/read-file-action@v1
+        with:
+          path: settings/distribute/whatsnew/whatsnew-en-US
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          body: |
+            Changes in this Release:
+            ${{ steps.release_notes.outputs.content }}
+          draft: false
+          prerelease: false
 
       - name: Create gradle properties
         run: echo $GRADLE_PROPERTIES > utility/gradle.properties
@@ -39,31 +59,12 @@ jobs:
       - name: Build the app
         run: ./gradlew clean :application:assembleProdRelease
 
-      - name: Build the instrumentation tests apk
-        run: ./gradlew :application:assembleProdReleaseAndroidTest
-
-      - name: Start tests
-        run: ./gradlew prodReleaseDebugUnitTest
-
-      - name: Set up Cloud SDK
-        uses: google-github-actions/setup-gcloud@master
+      - name: Upload to play store
+        uses: r0adkll/upload-google-play@v1
         with:
-          project_id: ${{ secrets.GCLOUD_PROJECT_ID }}
-          service_account_key: ${{ secrets.GCLOUD_AUTH }}
-          export_default_credentials: true
-
-      - name: Start UI tests
-        run: gcloud firebase test android run
-          --type instrumentation
-          --use-orchestrator
-          --app application/build/outputs/apk/prod/release/application-prod-release.apk
-          --test application/build/outputs/apk/androidTest/prod/release/application-prod-release-androidTest.apk
-          --device model=Pixel2,version=29,orientation=portrait
-          --environment-variables clearPackageData=true
-
-      - name: Start Robo tests
-        run: gcloud firebase test android run
-          --type robo
-          --app application/build/outputs/apk/prod/release/application-prod-release.apk
-          --device model=Pixel2,version=29,orientation=portrait
-          --timeout 300s
+          serviceAccountJson: settings/distribute/firebase-app-distribution.json
+          packageName: com.jakmos.itemistevolved
+          releaseFiles: application/build/outputs/apk/prod/release/application-prod-release.apk
+          track: internal
+          whatsNewDirectory: settings/distribution/whatsnew
+          mappingFile: application/build/outputs/mapping/prodRelease/mapping.txt

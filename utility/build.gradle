@@ -54,33 +54,6 @@ android {
 
   //endregion
 
-  //region Gradle Properties
-
-  buildTypes.each {
-
-    //region Debug
-
-    it.buildConfigField "Boolean", "ENABLE_DEBUG_BRIDGE",
-        (project.hasProperty("EnableDebugBridge")) ? EnableDebugBridge : "false"
-
-    //endregion
-
-    //region Server
-
-    it.buildConfigField "Long", "SERVER_CONNECTION_TIMEOUT",
-        (project.hasProperty("ServerConnectionTimeout")) ? ServerConnectionTimeout : "30L"
-
-    it.buildConfigField "Long", "SERVER_READ_TIMEOUT",
-        (project.hasProperty("ServerReadTimeout")) ? ServerReadTimeout : "30L"
-
-    it.buildConfigField "Long", "SERVER_WRITE_TIMEOUT",
-        (project.hasProperty("ServerWriteTimeout")) ? ServerWriteTimeout : "30L"
-
-    //endregion
-  }
-
-  //endregion
-
   //region Kotlin Options
 
   kotlinOptions {
@@ -95,44 +68,10 @@ android {
 
     dev {
       dimension "type"
-
-      //region Authenticator
-
-      buildConfigField "String", "AUTHENTICATOR",
-          (project.hasProperty("AccountAuthenticator")) ? AccountAuthenticator :
-                  "\"com.jakmos.itemistevolved.dev\""
-
-      resValue "string", "authenticator",
-          (project.hasProperty("AccountAuthenticator")) ? AccountAuthenticator :
-              "com.jakmos.itemistevolved.dev"
-
-      //endregion
-
-      // Server configuration.
-
-      // In-app urls and addresses configuration.
-
     }
 
     prod {
       dimension "type"
-
-      //region Authenticator
-
-      buildConfigField "String", "AUTHENTICATOR",
-          (project.hasProperty("AccountAuthenticator")) ? AccountAuthenticator :
-                  "\"com.jakmos.itemistevolved\""
-
-      resValue "string", "authenticator",
-          (project.hasProperty("AccountAuthenticator")) ? AccountAuthenticator :
-              "com.jakmos.itemistevolved"
-
-      //endregion
-
-      // Server configuration.
-
-      // In-app urls and addresses configuration.
-
     }
   }
 
@@ -144,13 +83,6 @@ android {
 //region Dependencies
 
 dependencies {
-
-  //region Account
-
-  api deps.misc.ktx_account
-  kapt deps.misc.ktx_account_compiler
-
-  //endregion
 
   //region Androidx
 
