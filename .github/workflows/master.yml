@@ -4,13 +4,15 @@ on:
   push:
     branches: [ master ]
 
-jobs:  
+jobs:
   build:
     runs-on: windows-latest
     steps:
 
       - name: Checkout the code
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
 
       - name: Create gradle properties
         run: echo $GRADLE_PROPERTIES > utility/gradle.properties
@@ -21,6 +23,13 @@ jobs:
           secret: ${{ secrets.RELEASE_KEYSTORE }}
           passphrase: ${{ secrets.RELEASE_KEYSTORE_PASSPHRASE }}
           filename: "settings/keystore/release.jks"
+
+      - name: Add keystore properties file
+        uses: JakubMosakowski/secret-into-file-action@v1.0.0
+        with:
+          secret: ${{ secrets.KEYSTORE_PROPERTIES_FILE }}
+          passphrase: ${{ secrets.KEYSTORE_PROPERTIES_PASSPHRASE }}
+          filename: "settings/keystore/keystore.properties"
 
       - name: Add firebase service credentials file
         uses: JakubMosakowski/secret-into-file-action@v1.0.0
@@ -40,10 +49,10 @@ jobs:
         run: ./gradlew clean :application:assembleProdRelease
 
       - name: Build the instrumentation tests apk
-        run: ./gradlew :application:assembleProdReleaseAndroidTest
+        run: ./gradlew :application:assembleProdReleaseAndroidTest -PtestBuildType=release
 
       - name: Start tests
-        run: ./gradlew prodReleaseDebugUnitTest
+        run: ./gradlew testProdReleaseUnitTest
 
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@master

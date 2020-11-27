@@ -33,6 +33,16 @@ allprojects {
     }
 }
 
+def obtainTestBuildType() {
+    def result = "debug";
+
+    if (project.hasProperty("testBuildType")) {
+        result = project.getProperties().get("testBuildType")
+    }
+
+    result
+}
+
 //endregion
 
 //region Tasks

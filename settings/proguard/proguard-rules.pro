@@ -15,6 +15,16 @@
   @com.google.gson.annotations.SerializedName <fields>;
 }
 
+# AndroidX
+-keep class com.google.android.material.** { *; }
+-keep class kotlin.collections.** { *; }
+-keep class kotlin.ranges.** { *; }
+-dontwarn com.google.android.material.**
+-dontnote com.google.android.material.**
+-dontwarn androidx.**
+-keep class androidx.** { *; }
+-keep interface androidx.** { *; }
+
 # Joda Time
 -dontwarn org.joda.convert.FromString
 -dontwarn org.joda.convert.ToString

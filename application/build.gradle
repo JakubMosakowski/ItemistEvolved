@@ -27,6 +27,8 @@ android {
 
   //region Build Configuration
 
+  testBuildType obtainTestBuildType()
+
   signingConfigs {
     debug {
       keyAlias = "androiddebugkey"
@@ -50,8 +52,11 @@ android {
     }
     release {
       minifyEnabled = true
+      shrinkResources true
       signingConfig = signingConfigs.release
       proguardFiles getDefaultProguardFile("proguard-android.txt"),
+          rootProject.file("settings/proguard/proguard-rules.pro")
+      testProguardFiles getDefaultProguardFile("proguard-android.txt"),
           rootProject.file("settings/proguard/proguard-rules.pro")
     }
   }
