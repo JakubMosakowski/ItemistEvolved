@@ -29,6 +29,11 @@ allprojects {
     repositories {
         addRepos(repositories)
     }
+
+    // Objensis is a dependency that many libraries use but it works only for SDK over 26.
+    configurations.all {
+        resolutionStrategy.force 'org.objenesis:objenesis:2.6'
+    }
 }
 
 //endregion
@@ -182,7 +187,7 @@ static def downloadReleaseNotes(token) {
     def jsonSlurper = new JsonSlurper()
 
     // Get release notes download url.
-    def fetchArtifactsResult = "curl -v https://api.github.com/repos/JakubMosakowski/ItemistEvolved/actions/artifacts".execute().text
+    def fetchArtifactsResult = "curl https://api.github.com/repos/JakubMosakowski/ItemistEvolved/actions/artifacts".execute().text
     def resultObject = jsonSlurper.parseText(fetchArtifactsResult)
     def artifactObject = resultObject.artifacts.find  { it.name == "release-notes.txt"}
 
