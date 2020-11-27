@@ -8,29 +8,5 @@ jobs:
   build:
     runs-on: windows-latest
     steps:
-      - name: Checkout the code
-        uses: actions/checkout@v2
-      - name: Create gradle properties
-        run: echo $GRADLE_PROPERTIES > utility/gradle.properties
-      - name: Add release key
-        run: echo "${{ secrets.RELEASE_KEYSTORE }}" > settings/keystore/release.jks.asc &&
-             gpg --batch --passphrase "${{ secrets.RELEASE_KEYSTORE_PASSPHRASE }}" -d -o settings/keystore/release.jks settings/keystore/release.jks.asc
-      - name: Add firebase service credentials file
-        run: echo "${{ secrets.RELEASE_FIREBASE_CREDENTIALS_FILE }}" > settings/distribute/firebase-app-distribution-prod.json.asc &&
-             gpg --batch --passphrase "${{ secrets.RELEASE_FIREBASE_CREDENTIALS_PASSPHRASE }}" -d -o settings/distribute/firebase-app-distribution-prod.json settings/distribute/firebase-app-distribution-prod.json.asc
-      - name: Add google service file
-        run: echo "${{ secrets.RELEASE_GOOGLE_SERVICE_FILE }}" > application/src/prod/google-services.json.asc &&
-             gpg --batch --passphrase "${{ secrets.RELEASE_GOOGLE_SERVICE_PASSPHRASE }}" -d -o application/src/prod/google-services.json application/src/prod/google-services.json.asc
-      - name: Build the app
-        run: ./gradlew clean :application:assembleProdRelease
-      - name: Start unit tests
-        run: ./gradlew testProdReleaseUnitTest
-      - name: Start UI tests on firebase lab
-        run:  echo TODO
-      - name: Start monkey test on firebase lab
-        run:  echo TODO
-      - name: Create github release
-        run:  echo TODO
-      - name: Push to android store
-        run:  echo TODO
+
 

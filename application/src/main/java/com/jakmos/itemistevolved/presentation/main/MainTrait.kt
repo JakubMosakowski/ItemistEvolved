@@ -7,16 +7,6 @@ import co.windly.limbo.mvvm.trait.ContextTrait
 //region Main
 
 interface MainTrait :
-  ContextTrait,
-  MainNavigationTrait
-
-//endregion
-
-//region Main -  Navigation
-
-interface MainNavigationTrait : ActivityNavigationTrait {
-
-
-}
+  ContextTrait
 
 //endregion

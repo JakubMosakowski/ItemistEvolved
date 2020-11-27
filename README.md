@@ -42,6 +42,14 @@ This flavor uses production configuration files. These files introduces crucial 
   - enables/disables development tools such as Stetho, etc.,
   - configures network requests log level.
 
+## Github Actions
+
+How to store files in secrets:
+
+  - Encrypt: gpg -c --armor file
+  - Decrypt: use this github action - https://github.com/marketplace/actions/secret-into-file-action
+  - Manual decrypt: gpg -d --passphrase [Password] --batch file.asc > resultfile
+
 ## Gradle properties
 
 There are available options that can be configured in `utility\gradle.properties` file.

@@ -46,4 +46,6 @@ com_crashlytics_export_strings.xml
 
 # Keystore
 /settings/keystore/debug.jks
-/settings/distribute/firebase-app-distribution-dev.json
+/settings/keystore/release.jks
+/settings/keystore/keystore.properties
+/settings/distribute/firebase-app-distribution.json

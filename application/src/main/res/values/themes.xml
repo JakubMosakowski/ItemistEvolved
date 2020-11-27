@@ -20,12 +20,6 @@
 
   <!-- region Theme Overlay -->
 
-  <style name="ItemistEvolved.ThemeOverlay" />
-
-  <style name="ItemistEvolved.ThemeOverlay.TextInputEditText" parent="ThemeOverlay.MaterialComponents.TextInputEditText.FilledBox">
-    <item name="editTextStyle">@style/ItemistEvolved.Widget.TextInputEditText</item>
-  </style>
-
   <style name="ItemistEvolved.ThemeOverlay.Toolbar" parent="ThemeOverlay.MaterialComponents.Toolbar.Primary">
     <item name="colorOnPrimary">@color/colorPrimaryDark</item>
   </style>
