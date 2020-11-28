@@ -9,8 +9,11 @@ jobs:
   build:
     runs-on: windows-latest
     steps:
-      - name: Checkout code
+
+      - name: Checkout the code
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
 
       - name: Read Release Notes
         id: release_notes
@@ -42,6 +45,13 @@ jobs:
           passphrase: ${{ secrets.RELEASE_KEYSTORE_PASSPHRASE }}
           filename: "settings/keystore/release.jks"
 
+      - name: Add keystore properties file
+        uses: JakubMosakowski/secret-into-file-action@v1.0.0
+        with:
+          secret: ${{ secrets.KEYSTORE_PROPERTIES_FILE }}
+          passphrase: ${{ secrets.KEYSTORE_PROPERTIES_PASSPHRASE }}
+          filename: "settings/keystore/keystore.properties"
+
       - name: Add firebase service credentials file
         uses: JakubMosakowski/secret-into-file-action@v1.0.0
         with:
@@ -66,5 +76,5 @@ jobs:
           packageName: com.jakmos.itemistevolved
           releaseFiles: application/build/outputs/apk/prod/release/application-prod-release.apk
           track: internal
-          whatsNewDirectory: settings/distribution/whatsnew
+          whatsNewDirectory: settings/distribute/whatsnew
           mappingFile: application/build/outputs/mapping/prodRelease/mapping.txt
