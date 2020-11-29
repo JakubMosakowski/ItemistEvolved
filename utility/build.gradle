@@ -106,12 +106,12 @@ dependencies {
 
   //region Dependency Injection
 
-  api deps.dagger.android
-  api deps.dagger.android_support
   api deps.dagger.runtime
   compileOnly deps.dagger.annotation
-  kapt deps.dagger.android_processor
   kapt deps.dagger.compiler
+
+  api deps.dagger.hilt_android
+  kapt deps.dagger.hilt_compiler
 
   //endregion
 
@@ -137,7 +137,6 @@ dependencies {
   //region Limbo
 
   api deps.limbo.mvvm
-  api deps.limbo.mvvm_dagger
   api deps.limbo.recycler_view
 
   //endregion

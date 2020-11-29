@@ -86,7 +86,6 @@ dependencies {
 
     //region Annotation Processors
 
-    kapt deps.dagger.android_processor
     kapt deps.dagger.compiler
     kapt deps.misc.mapstruct_processor
 
@@ -109,6 +108,9 @@ dependencies {
     //region Dependency Injection
 
     compileOnly deps.dagger.annotation
+
+    api deps.dagger.hilt_android
+    kapt deps.dagger.hilt_compiler
 
     //endregion
 

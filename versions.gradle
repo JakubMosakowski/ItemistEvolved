@@ -24,6 +24,8 @@ versions.firebase_appdistribution = "2.0.1"
 versions.firebase_bom = "26.1.0"
 versions.firebase_crashlytics_plugin = "2.4.1"
 versions.google_services_plugin = "4.3.4"
+versions.hilt = "2.30.1-alpha"
+versions.hilt_viewmodel = "1.0.0-alpha02"
 versions.javax = "1"
 versions.joda_time = "2.10.8"
 versions.junit = "4.13.1"
@@ -31,7 +33,6 @@ versions.junit_ktx = "1.1.2"
 versions.kotlin = "1.4.20"
 versions.lifecycle = "2.2.0"
 versions.limbo_mvvm = "3.1.1"
-versions.limbo_mvvm_dagger = "3.0.3"
 versions.limbo_recyclerview = "3.0.8"
 versions.lottie = "3.5.0"
 versions.mapstruct = "1.4.1.Final"
@@ -52,6 +53,7 @@ build.firebase_appdistribution =
 build.firebase_crashlytics =
     "com.google.firebase:firebase-crashlytics-gradle:$versions.firebase_crashlytics_plugin"
 build.google_services_plugin = "com.google.gms:google-services:$versions.google_services_plugin"
+build.hilt_gradle_plugin = "com.google.dagger:hilt-android-gradle-plugin:$versions.hilt"
 build.kotlin_gradle_plugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
 build.navigation_safe_args =
     "androidx.navigation:navigation-safe-args-gradle-plugin:$versions.androidx_navigation"
@@ -68,11 +70,11 @@ deps.build_versions = build_versions
 //region Dagger
 
 def dagger = [:]
-dagger.android = "com.google.dagger:dagger-android:$versions.dagger"
-dagger.android_processor = "com.google.dagger:dagger-android-processor:$versions.dagger"
-dagger.android_support = "com.google.dagger:dagger-android-support:$versions.dagger"
 dagger.annotation = "javax.inject:javax.inject:$versions.javax"
 dagger.compiler = "com.google.dagger:dagger-compiler:$versions.dagger"
+dagger.hilt_android = "com.google.dagger:hilt-android:$versions.hilt"
+dagger.hilt_compiler = "com.google.dagger:hilt-android-compiler:$versions.hilt"
+dagger.hilt_viewmodel = "androidx.hilt:hilt-lifecycle-viewmodel:$versions.hilt_viewmodel"
 dagger.runtime = "com.google.dagger:dagger:$versions.dagger"
 deps.dagger = dagger
 
@@ -138,7 +140,6 @@ deps.lifecycle = lifecycle
 
 def limbo = [:]
 limbo.mvvm = "co.windly:limbo-mvvm:$versions.limbo_mvvm"
-limbo.mvvm_dagger = "co.windly:limbo-mvvm-dagger:$versions.limbo_mvvm_dagger"
 limbo.recycler_view = "co.windly:limbo-recyclerview:$versions.limbo_recyclerview"
 deps.limbo = limbo
 

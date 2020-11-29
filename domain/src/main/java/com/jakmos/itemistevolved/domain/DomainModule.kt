@@ -1,15 +1,23 @@
 package com.jakmos.itemistevolved.domain
 
-import com.jakmos.itemistevolved.domain.mapper.MapperModule
-import com.jakmos.itemistevolved.network.NetworkModule
-import com.jakmos.itemistevolved.persistence.PersistenceModule
-import com.jakmos.itemistevolved.utility.UtilityModule
+import com.jakmos.itemistevolved.domain.manager.ChecklistDomainManager
+import com.jakmos.itemistevolved.domain.manager.RemoteConfigDomainManager
 import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 
-@Module(includes = [
-  MapperModule::class,
-  NetworkModule::class,
-  PersistenceModule::class,
-  UtilityModule::class
-])
-class DomainModule
+@InstallIn(SingletonComponent::class)
+@Module
+class DomainModule {
+
+  //region Share Managers
+
+  @Provides
+  fun checklistManager(manager: ChecklistDomainManager) = manager
+
+  @Provides
+  fun remoteConfigManager(manager: RemoteConfigDomainManager) = manager
+
+  //endregion
+}

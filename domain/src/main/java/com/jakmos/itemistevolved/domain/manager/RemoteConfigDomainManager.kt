@@ -7,22 +7,23 @@ import javax.inject.Singleton
 
 @Singleton
 class RemoteConfigDomainManager @Inject constructor(
-  private val network: RemoteConfigNetworkManager
+//  private val network: RemoteConfigNetworkManager
 ) {
+  //TODO bring it back
 
   //region Init
 
   suspend fun init(): Boolean =
-    network.init()
-
+//    network.init()
+true
   //endregion
 
   //region Splash Animation Config - Get
 
   fun getSplashAnimationConfig(): AnimationConfig =
-    AnimationConfig(
-      network.getSplashAnimationUrl(),
-      network.getSplashAnimationRepeatCount().toInt()
+    AnimationConfig("",1
+//      network.getSplashAnimationUrl(),
+//      network.getSplashAnimationRepeatCount().toInt()
     )
 
   //endregion

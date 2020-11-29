@@ -6,14 +6,14 @@ import androidx.annotation.IdRes
 import androidx.databinding.ViewDataBinding
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import co.windly.limbo.mvvm.activity.DaggerMvvmActivity
+import co.windly.limbo.mvvm.activity.MvvmActivity
 import co.windly.limbo.mvvm.trait.ActivityNavigationTrait
 import co.windly.limbo.mvvm.trait.ActivityTrait
 import com.jakmos.itemistevolved.R
 import com.jakmos.itemistevolved.presentation.base.lifecycle.BaseViewModel
 
 abstract class BaseActivity<Binding : ViewDataBinding, VM : BaseViewModel> :
-  DaggerMvvmActivity<Binding, VM>(), ActivityTrait, ActivityNavigationTrait {
+  MvvmActivity<Binding, VM>(), ActivityTrait, ActivityNavigationTrait {
 
   //region Traits
 

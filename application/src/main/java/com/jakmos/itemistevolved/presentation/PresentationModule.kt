@@ -1,18 +1,14 @@
 package com.jakmos.itemistevolved.presentation
 
 import androidx.lifecycle.ViewModelProvider
-import co.windly.limbo.dagger.lifecycle.ViewModelFactory
-import com.jakmos.itemistevolved.presentation.common.CommonModule
-import com.jakmos.itemistevolved.presentation.main.MainModule
-import com.jakmos.itemistevolved.presentation.splash.SplashModule
+import com.jakmos.itemistevolved.presentation.base.lifecycle.ViewModelFactory
 import dagger.Binds
 import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 
-@Module(includes = [
-  CommonModule::class,
-  MainModule::class,
-  SplashModule::class
-])
+@Module
+@InstallIn(SingletonComponent::class)
 abstract class PresentationModule {
 
   //region View Model Factory

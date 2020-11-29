@@ -13,7 +13,9 @@ import com.jakmos.itemistevolved.utility.context.getOneTimeRepeatListener
 import com.jakmos.itemistevolved.utility.context.getSmoothFailureListener
 import com.jakmos.itemistevolved.utility.context.setPlaceholder
 import com.jakmos.itemistevolved.utility.network.remoteconfig.AnimationConfig
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SplashActivity : BaseActivity<ActivitySplashBinding, SplashViewModel>(), SplashTrait {
 
   //region Ui

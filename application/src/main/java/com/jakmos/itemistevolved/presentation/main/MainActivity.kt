@@ -5,7 +5,11 @@ import androidx.activity.viewModels
 import com.jakmos.itemistevolved.R
 import com.jakmos.itemistevolved.databinding.ActivityMainBinding
 import com.jakmos.itemistevolved.presentation.base.activity.BaseActivity
+import dagger.hilt.InstallIn
+import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.components.ActivityRetainedComponent
 
+@AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), MainTrait {
 
   //region View Model

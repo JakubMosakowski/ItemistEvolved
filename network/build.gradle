@@ -99,8 +99,10 @@ dependencies {
     //region Dependency Injection
 
     compileOnly deps.dagger.annotation
-    kapt deps.dagger.android_processor
     kapt deps.dagger.compiler
+
+    api deps.dagger.hilt_android
+    kapt deps.dagger.hilt_compiler
 
     //endregion
 

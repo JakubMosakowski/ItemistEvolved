@@ -2,6 +2,7 @@ package com.jakmos.itemistevolved.presentation.main.home
 
 import android.os.Bundle
 import android.view.View
+import androidx.activity.viewModels
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.viewModels
 import co.windly.limbo.recyclerview.addSpaceDecoration
@@ -16,7 +17,9 @@ import com.jakmos.itemistevolved.presentation.main.home.item.ClickChecklistEditE
 import com.jakmos.itemistevolved.presentation.main.home.item.ClickChecklistEventHook
 import com.jakmos.itemistevolved.utility.context.hideSoftInput
 import com.mikepenz.fastadapter.adapters.GenericFastItemAdapter
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
   HomeTrait {
 

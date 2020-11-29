@@ -4,6 +4,7 @@ apply plugin: "com.android.application"
 apply plugin: "com.google.firebase.appdistribution"
 apply plugin: "com.google.firebase.crashlytics"
 apply plugin: "com.google.gms.google-services"
+apply plugin: 'dagger.hilt.android.plugin'
 apply plugin: "kotlin-android"
 apply plugin: "kotlin-kapt"
 apply plugin: "androidx.navigation.safeargs.kotlin"
@@ -184,8 +185,11 @@ dependencies {
   //region Dependency Injection
 
   compileOnly deps.dagger.annotation
-  kapt deps.dagger.android_processor
   kapt deps.dagger.compiler
+
+  api deps.dagger.hilt_android
+  kapt deps.dagger.hilt_compiler
+  api deps.dagger.hilt_viewmodel
 
   //endregion
 

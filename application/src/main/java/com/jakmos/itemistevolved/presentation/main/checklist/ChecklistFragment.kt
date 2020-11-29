@@ -2,6 +2,7 @@ package com.jakmos.itemistevolved.presentation.main.checklist
 
 import android.os.Bundle
 import android.view.View
+import androidx.activity.viewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import co.windly.limbo.recyclerview.addDividerDecorationWithHorizontalInsets
@@ -15,8 +16,10 @@ import com.jakmos.itemistevolved.presentation.main.checklist.item.CheckboxItem
 import com.jakmos.itemistevolved.presentation.main.checklist.item.ClickCheckboxEventHook
 import com.jakmos.itemistevolved.utility.log.ILogger
 import com.mikepenz.fastadapter.adapters.GenericFastItemAdapter
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
+@AndroidEntryPoint
 class ChecklistFragment : BackFragment<FragmentChecklistBinding, ChecklistViewModel>(),
   AddTrait {
 
