@@ -67,14 +67,14 @@ jobs:
           filename: "application/src/prod/google-services.json"
 
       - name: Build the app
-        run: ./gradlew clean :application:assembleProdRelease
+        run: ./gradlew clean :application:bundleProdRelease
 
       - name: Upload to play store
         uses: r0adkll/upload-google-play@v1
         with:
           serviceAccountJson: settings/distribute/firebase-app-distribution.json
           packageName: com.jakmos.itemistevolved
-          releaseFiles: application/build/outputs/apk/prod/release/application-prod-release.apk
+          releaseFiles: application/build/outputs/bundle/prodRelease/application-prod-release.aab
           track: internal
           whatsNewDirectory: settings/distribute/whatsnew
           mappingFile: application/build/outputs/mapping/prodRelease/mapping.txt
