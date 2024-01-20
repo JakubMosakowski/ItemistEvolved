@@ -10,13 +10,15 @@ apply plugin: "kotlin-kapt"
 
 android {
 
+  namespace "com.jakmos.itemistevolved.persistence"
+
   //region Compile
 
   compileSdkVersion deps.build_versions.compile_sdk
 
   compileOptions {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
   }
 
   //endregion
@@ -30,12 +32,6 @@ android {
     versionCode = getAutoVersionCode()
     versionName = getAutoVersionName()
   }
-
-  //endregion
-
-  //region Flavor Dimensions
-
-  flavorDimensions "type"
 
   //endregion
 
@@ -59,20 +55,7 @@ android {
   //region Kotlin Options
 
   kotlinOptions {
-    jvmTarget = JavaVersion.VERSION_1_8
-  }
-
-  //endregion
-
-  //region Product Flavors
-
-  productFlavors {
-    dev {
-      dimension "type"
-    }
-    prod {
-      dimension "type"
-    }
+    jvmTarget = JavaVersion.VERSION_11
   }
 
   //endregion
