@@ -69,7 +69,7 @@ dependencies {
 
   //region Androidx
 
-  api deps.androidx.material
+  api libs.androidx.material
 
   //endregion
 
@@ -81,7 +81,7 @@ dependencies {
 
   //region Debugging
 
-  implementation deps.misc.timber
+  implementation libs.timber
 
   //endregion
 
@@ -104,27 +104,27 @@ dependencies {
 
   //region Kotlin
 
-  api deps.kotlin.stdlib_jdk8
+  api libs.kotlin.stdlib.jdk8
 
   //endregion
 
   //region Lifecycle
 
-  api deps.lifecycle.livedata
+  api libs.lifecycle.livedata
 
   //endregion
 
   //region Limbo
 
-  api deps.limbo.mvvm
-  api deps.limbo.mvvm_dagger
-  api deps.limbo.recycler_view
+  api libs.limbo.mvvm
+  api libs.limbo.mvvm.dagger
+  api libs.limbo.recyclerview
 
   //endregion
 
   //region Miscellaneous
 
-  api deps.misc.joda_time
+  api libs.jodatime
 
   //endregion
 

@@ -175,11 +175,11 @@ dependencies {
 
   //region AndroidX
 
-  implementation deps.androidx.constraint
-  implementation deps.androidx.navigation_fragment
-  implementation deps.androidx.navigation_ui
-  implementation deps.androidx.recyclerview
-  implementation deps.androidx.swiperefreshlayout
+  implementation libs.androidx.constraint
+  implementation libs.androidx.navigation.fragment
+  implementation libs.androidx.navigation.ui
+  implementation libs.androidx.recyclerview
+  implementation libs.androidx.swiperefreshlayout
 
   //endregion
 
@@ -213,36 +213,36 @@ dependencies {
 
   //region Ui
 
-  implementation deps.ui.lottie
-  implementation deps.ui.material_dialogs
+  implementation libs.lottie
+  implementation libs.material.dialogs
 
   //endregion
 
   //region Kotlin
 
-  implementation deps.kotlin.coroutines
+  implementation libs.kotlin.coroutines
 
   //endregion
 
   //region Unit, Instrumentation and Integration Test
 
-  androidTestImplementation deps.test.barista
-  androidTestImplementation deps.test.espresso
-  androidTestImplementation deps.test.junit_ktx
-  androidTestImplementation deps.test.mockito_core
-  androidTestImplementation deps.test.mockito_inline
-  androidTestImplementation deps.test.rules
-  androidTestImplementation deps.test.runner
-  androidTestImplementation deps.test.test_core
-  androidTestImplementation deps.test.truth
-  androidTestUtil deps.test.orchestrator
+  androidTestImplementation libs.test.barista
+  androidTestImplementation libs.test.espresso
+  androidTestImplementation libs.test.junit.ktx
+  androidTestImplementation libs.test.mockito.core
+  androidTestImplementation libs.test.mockito.inline
+  androidTestImplementation libs.test.rules
+  androidTestImplementation libs.test.runner
+  androidTestImplementation libs.test.test.core
+  androidTestImplementation libs.test.truth
+  androidTestUtil libs.test.orchestrator
 
-  testImplementation deps.test.core_testing
-  testImplementation deps.test.coroutines_test
-  testImplementation deps.test.junit
-  testImplementation deps.test.mockito_core
-  testImplementation deps.test.mockito_inline
-  testImplementation deps.test.truth
+  testImplementation libs.test.core.testing
+  testImplementation libs.test.coroutines.test
+  testImplementation libs.test.junit
+  testImplementation libs.test.mockito.core
+  testImplementation libs.test.mockito.inline
+  testImplementation libs.test.truth
 
   //endregion
 }

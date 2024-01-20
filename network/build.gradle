@@ -95,7 +95,7 @@ dependencies {
 
     //region Kotlin
 
-    implementation deps.kotlin.coroutines_play_services
+    implementation libs.kotlin.coroutines.play.services
 
     //endregion
 }

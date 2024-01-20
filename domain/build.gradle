@@ -71,7 +71,7 @@ dependencies {
 
     kapt libs.dagger.android.processor
     kapt libs.dagger.compiler
-    kapt deps.misc.mapstruct_processor
+    kapt libs.mapstruct.processor
 
     //endregion
 
@@ -97,7 +97,7 @@ dependencies {
 
     //region Mapping
 
-    api deps.misc.mapstruct
+    api libs.mapstruct
 
     //endregion
 }
