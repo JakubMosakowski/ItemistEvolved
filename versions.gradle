@@ -57,61 +57,6 @@ build.navigation_safe_args =
     "androidx.navigation:navigation-safe-args-gradle-plugin:$versions.androidx_navigation"
 deps.build = build
 
-def build_versions = [:]
-build_versions.compile_sdk = 31
-build_versions.min_sdk = 23
-build_versions.target_sdk = 31
-deps.build_versions = build_versions
-
-//endregion
-
-//region Dagger
-
-def dagger = [:]
-dagger.android = "com.google.dagger:dagger-android:$versions.dagger"
-dagger.android_processor = "com.google.dagger:dagger-android-processor:$versions.dagger"
-dagger.android_support = "com.google.dagger:dagger-android-support:$versions.dagger"
-dagger.annotation = "javax.inject:javax.inject:$versions.javax"
-dagger.compiler = "com.google.dagger:dagger-compiler:$versions.dagger"
-dagger.runtime = "com.google.dagger:dagger:$versions.dagger"
-deps.dagger = dagger
-
-//endregion
-
-//region Database
-
-def database = [:]
-database.compiler = "androidx.room:room-compiler:$versions.androidx_room"
-database.ktx = "androidx.room:room-ktx:$versions.androidx_room"
-database.runtime = "androidx.room:room-runtime:$versions.androidx_room"
-deps.database = database
-
-//endregion
-
-//region Fast Adapter
-
-def fast_adapter = [:]
-fast_adapter.binding = "com.mikepenz:fastadapter-extensions-binding:$versions.fast_adapter"
-fast_adapter.core = "com.mikepenz:fastadapter:$versions.fast_adapter"
-fast_adapter.diff = "com.mikepenz:fastadapter-extensions-diff:$versions.fast_adapter"
-fast_adapter.drag = "com.mikepenz:fastadapter-extensions-drag:$versions.fast_adapter"
-fast_adapter.expandable = "com.mikepenz:fastadapter-extensions-expandable:$versions.fast_adapter"
-fast_adapter.ui = "com.mikepenz:fastadapter-extensions-ui:$versions.fast_adapter"
-fast_adapter.utils = "com.mikepenz:fastadapter-extensions-utils:$versions.fast_adapter"
-deps.fast_adapter = fast_adapter
-
-//endregion
-
-//region Firebase
-
-def firebase = [:]
-firebase.analytics = "com.google.firebase:firebase-analytics-ktx"
-firebase.bom = "com.google.firebase:firebase-bom:$versions.firebase_bom"
-firebase.config = "com.google.firebase:firebase-config-ktx"
-firebase.crashlytics = "com.google.firebase:firebase-crashlytics-ktx"
-firebase.messaging = "com.google.firebase:firebase-messaging-ktx"
-deps.firebase = firebase
-
 //endregion
 
 //region Kotlin

@@ -14,7 +14,7 @@ android {
 
     //region Compile
 
-    compileSdkVersion deps.build_versions.compile_sdk
+    compileSdkVersion libs.versions.compile.sdk.get()
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
@@ -27,8 +27,8 @@ android {
 
     defaultConfig {
         dimension "type"
-        minSdkVersion deps.build_versions.min_sdk
-        targetSdkVersion deps.build_versions.target_sdk
+        minSdkVersion libs.versions.min.sdk.get()
+        targetSdkVersion libs.versions.target.sdk.get()
         versionCode = getAutoVersionCode()
         versionName = getAutoVersionName()
     }
@@ -81,15 +81,15 @@ dependencies {
 
     //region Dependency Injection
 
-    compileOnly deps.dagger.annotation
-    kapt deps.dagger.android_processor
-    kapt deps.dagger.compiler
+    compileOnly libs.dagger.annotation
+    kapt libs.dagger.android.processor
+    kapt libs.dagger.compiler
 
     //endregion
 
     //region Firebase
 
-    api deps.firebase.config
+    api libs.firebase.config
 
     //endregion
 

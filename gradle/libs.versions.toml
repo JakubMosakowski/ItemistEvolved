@@ -1,0 +1,137 @@
+[versions]
+androidGradlePlugin = "7.4.0"
+androidxConstraint = "2.0.4"
+androidxMaterial = "1.2.1"
+androidxNavigation = "2.5.0"
+androidxRecyclerview = "1.1.0"
+room = "2.4.0"
+androidxSwiperefreshlayout = "1.1.0"
+androidxTests = "1.3.1-alpha02"
+barista = "3.7.0"
+coreTesting = "2.1.0"
+coroutines = "1.4.2"
+coroutinesPlayServices = "1.4.1"
+coroutinesTest = "1.4.1"
+dagger = "2.48.1"
+espresso = "3.3.0"
+fastAdapter = "5.3.1"
+firebaseAppdistribution = "2.0.1"
+firebaseBom = "26.1.0"
+firebaseCrashlyticsPlugin = "2.4.1"
+googleServicesPlugin = "4.3.4"
+javax = "1"
+jodaTime = "2.10.8"
+junit = "4.13.1"
+junitKtx = "1.1.2"
+kotlin = "1.6.21"
+lifecycle = "2.4.0"
+limboMvvm = "3.1.1"
+limboMvvmDagger = "3.0.3"
+limboRecyclerview = "3.0.8"
+lottie = "3.5.0"
+mapstruct = "1.4.1.Final"
+materialDialogs = "3.3.0"
+mockito = "3.6.28"
+timber = "4.7.1"
+truth = "1.1"
+
+compile-sdk = "android-31"
+min-sdk = "23"
+target-sdk = "31"
+
+[libraries]
+dagger-android = { group = "com.google.dagger", name = "dagger-android", version.ref = "dagger" }
+dagger-android-processor = { group = "com.google.dagger", name = "dagger-android-processor", version.ref = "dagger" }
+dagger-android-support = { group = "com.google.dagger", name = "dagger-android-support", version.ref = "dagger" }
+dagger-annotation = { group = "javax.inject", name = "javax.inject", version.ref = "javax" }
+dagger-compiler = { group = "com.google.dagger", name = "dagger-compiler", version.ref = "dagger" }
+dagger-runtime = { group = "com.google.dagger", name = "dagger", version.ref = "dagger" }
+
+database-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
+database-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
+database-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
+
+fast-adapter-binding = { group = "com.mikepenz", name = "fastadapter-extensions-binding", version.ref = "fastAdapter" }
+fast-adapter-core = { group = "com.mikepenz", name = "fastadapter", version.ref = "fastAdapter" }
+fast-adapter-diff = { group = "com.mikepenz", name = "fastadapter-extensions-diff", version.ref = "fastAdapter" }
+fast-adapter-drag = { group = "com.mikepenz", name = "fastadapter-extensions-drag", version.ref = "fastAdapter" }
+fast-adapter-expandable = { group = "com.mikepenz", name = "fastadapter-extensions-expandable", version.ref = "fastAdapter" }
+fast-adapter-ui = { group = "com.mikepenz", name = "fastadapter-extensions-ui", version.ref = "fastAdapter" }
+fast-adapter-utils = { group = "com.mikepenz", name = "fastadapter-extensions-utils", version.ref = "fastAdapter" }
+
+firebase-bom = { group = "com.google.firebase", name = "firebase-bom" , version.ref = "firebaseBom" }
+firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics-ktx" }
+firebase-config = { group = "com.google.firebase", name = "firebase-config-ktx" }
+firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics-ktx" }
+firebase-messaging = { group = "com.google.firebase", name = "firebase-messaging-ktx" }
+#
+#kotlin.coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versions.coroutines"
+#kotlin.coroutines_play_services =
+#"org.jetbrains.kotlinx:kotlinx-coroutines-play-services:$versions.coroutines_play_services"
+#kotlin.stdlib_jdk8 = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$versions.kotlin"
+#
+#
+#
+#
+#lifecycle.ext = "androidx.lifecycle:lifecycle-extensions:$versions.lifecycle"
+#lifecycle.livedata = "androidx.lifecycle:lifecycle-livedata-ktx:$versions.lifecycle"
+#
+#
+#
+#
+#limbo.mvvm = "co.windly:limbo-mvvm:$versions.limbo_mvvm"
+#limbo.mvvm_dagger = "co.windly:limbo-mvvm-dagger:$versions.limbo_mvvm_dagger"
+#limbo.recycler_view = "co.windly:limbo-recyclerview:$versions.limbo_recyclerview"
+#
+#
+#
+#
+#misc.android_maps_utils = "com.google.maps.android:android-maps-utils:$versions.android_maps_utils"
+#misc.joda_time = "joda-time:joda-time:$versions.joda_time"
+#misc.mapstruct = "org.mapstruct:mapstruct:$versions.mapstruct"
+#misc.mapstruct_processor = "org.mapstruct:mapstruct-processor:$versions.mapstruct"
+#misc.timber = "com.jakewharton.timber:timber:$versions.timber"
+#
+#
+#
+#
+#
+#
+#
+#
+#androidx.constraint = "androidx.constraintlayout:constraintlayout:$versions.androidx_constraint"
+#androidx.material = "com.google.android.material:material:$versions.androidx_material"
+#androidx.navigation_fragment =
+#"androidx.navigation:navigation-fragment-ktx:$versions.androidx_navigation"
+#androidx.navigation_ui = "androidx.navigation:navigation-ui-ktx:$versions.androidx_navigation"
+#androidx.recyclerview = "androidx.recyclerview:recyclerview:$versions.androidx_recyclerview"
+#androidx.swiperefreshlayout =
+#"androidx.swiperefreshlayout:swiperefreshlayout:$versions.androidx_swiperefreshlayout"
+#
+#
+#
+#
+#test.barista = "com.schibsted.spain:barista:$versions.barista"
+#test.core_testing = "android.arch.core:core-testing:$versions.core_testing"
+#test.coroutines_test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:$versions.coroutines_test"
+#test.espresso = "androidx.test.espresso:espresso-core:$versions.espresso"
+#test.junit = "junit:junit:$versions.junit"
+#test.junit_ktx = "androidx.test.ext:junit-ktx:$versions.junit_ktx"
+#test.mockito_core = "org.mockito:mockito-core:$versions.mockito"
+#test.mockito_inline = "org.mockito:mockito-inline:$versions.mockito"
+#test.orchestrator = "androidx.test:orchestrator:$versions.androidx_tests"
+#test.rules = "androidx.test:rules:$versions.androidx_tests"
+#test.runner = "androidx.test:runner:$versions.androidx_tests"
+#test.test_core = "androidx.test:core-ktx:$versions.androidx_tests"
+#test.truth = "com.google.truth:truth:$versions.truth"
+#
+#ui.lottie = "com.airbnb.android:lottie:$versions.lottie"
+#ui.material_dialogs = "com.afollestad.material-dialogs:core:$versions.material_dialogs"
+
+[plugins]
+#android-gradle-plugin = "com.android.tools.build:gradle:$versions.android-gradle-plugin"
+#firebase-appdistribution = "com.google.firebase:firebase-appdistribution-gradle:$versions.firebase-appdistribution"
+#firebase-crashlytics = "com.google.firebase:firebase-crashlytics-gradle:$versions.firebase-crashlytics-plugin"
+#google-services-plugin = "com.google.gms:google-services:$versions.google-services-plugin"
+#kotlin-gradle-plugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
+#navigation-safe-args = "androidx.navigation:navigation-safe-args-gradle-plugin:$versions.androidx-navigation"

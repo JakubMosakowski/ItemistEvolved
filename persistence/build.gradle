@@ -14,7 +14,7 @@ android {
 
   //region Compile
 
-  compileSdkVersion deps.build_versions.compile_sdk
+  compileSdkVersion libs.versions.compile.sdk.get()
 
   compileOptions {
     sourceCompatibility = JavaVersion.VERSION_11
@@ -27,8 +27,8 @@ android {
 
   defaultConfig {
     dimension "type"
-    minSdkVersion deps.build_versions.min_sdk
-    targetSdkVersion deps.build_versions.target_sdk
+    minSdkVersion libs.versions.min.sdk.get()
+    targetSdkVersion libs.versions.target.sdk.get()
     versionCode = getAutoVersionCode()
     versionName = getAutoVersionName()
   }
@@ -81,17 +81,17 @@ dependencies {
 
   //region Database
 
-  api deps.database.runtime
-  implementation deps.database.ktx
-  kapt deps.database.compiler
+  api libs.database.runtime
+  implementation libs.database.ktx
+  kapt libs.database.compiler
 
   //endregion
 
   //region Dependency Injection
 
-  compileOnly deps.dagger.annotation
-  kapt deps.dagger.android_processor
-  kapt deps.dagger.compiler
+  compileOnly libs.dagger.annotation
+  kapt libs.dagger.android.processor
+  kapt libs.dagger.compiler
 
   //endregion
 }
