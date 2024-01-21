@@ -130,7 +130,7 @@ dependencies {
 
   //region Ui
 
-  implementation deps.ui.lottie
+  implementation libs.lottie
 
   //endregion
 }

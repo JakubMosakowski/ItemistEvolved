@@ -15,9 +15,9 @@ coroutinesTest = "1.4.1"
 dagger = "2.48.1"
 espresso = "3.3.0"
 fastAdapter = "5.3.1"
-firebaseAppdistribution = "2.0.1"
+firebaseAppdistribution = "2.2.0"
 firebaseBom = "26.1.0"
-firebaseCrashlyticsPlugin = "2.4.1"
+firebaseCrashlyticsPlugin = "2.8.1"
 googleServicesPlugin = "4.3.4"
 javax = "1"
 jodaTime = "2.10.8"
@@ -104,9 +104,9 @@ lottie = { group = "com.airbnb.android", name = "lottie", version.ref = "lottie"
 material-dialogs = { group = "com.afollestad.material-dialogs", name = "core", version.ref = "materialDialogs" }
 
 [plugins]
-#android-gradle-plugin = "com.android.tools.build:gradle:$versions.android-gradle-plugin"
-#firebase-appdistribution = "com.google.firebase:firebase-appdistribution-gradle:$versions.firebase-appdistribution"
-#firebase-crashlytics = "com.google.firebase:firebase-crashlytics-gradle:$versions.firebase-crashlytics-plugin"
-#google-services-plugin = "com.google.gms:google-services:$versions.google-services-plugin"
-#kotlin-gradle-plugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
-#navigation-safe-args = "androidx.navigation:navigation-safe-args-gradle-plugin:$versions.androidx-navigation"
+android-gradle-plugin = { id = "com.android.application", version.ref = "androidGradlePlugin" }
+firebase-appdistribution = { id = "com.google.firebase.appdistribution", version.ref = "firebaseAppdistribution" }
+firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebaseCrashlyticsPlugin" }
+google-services-plugin = { id = "com.google.gms.google-services", version.ref = "googleServicesPlugin" }
+kotlin-gradle-plugin = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+navigation-safe-args = { id = "androidx.navigation.safeargs", version.ref = "androidxNavigation" }
