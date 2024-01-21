@@ -87,7 +87,7 @@ androidx-recyclerview = { group = "androidx.recyclerview", name = "recyclerview"
 androidx-swiperefreshlayout = { group = "androidx.swiperefreshlayout", name = "swiperefreshlayout", version.ref = "androidxSwiperefreshlayout" }
 
 test-barista = { group = "com.schibsted.spain", name = "barista", version.ref = "barista" }
-test-core-testing = { group = "android.arch.core", name = "core-testing", version.ref = "coreTesting" }
+test-core-testing = { group = "androidx.arch.core", name = "core-testing", version.ref = "coreTesting" }
 test-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutinesTest" }
 test-espresso = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso" }
 test-junit = { group = "junit", name = "junit", version.ref = "junit" }
