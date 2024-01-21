@@ -10,13 +10,15 @@ apply plugin: "kotlin-kapt"
 
 android {
 
+  namespace "com.jakmos.itemistevolved.utility"
+
   //region Compile Options
 
-  compileSdkVersion deps.build_versions.compile_sdk
+  compileSdkVersion libs.versions.compile.sdk.get()
 
   compileOptions {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
   }
 
   //endregion
@@ -25,17 +27,11 @@ android {
 
   defaultConfig {
     dimension "type"
-    minSdkVersion deps.build_versions.min_sdk
-    targetSdkVersion deps.build_versions.target_sdk
+    minSdkVersion libs.versions.min.sdk.get()
+    targetSdkVersion libs.versions.target.sdk.get()
     versionCode = getAutoVersionCode()
     versionName = getAutoVersionName()
   }
-
-  //endregion
-
-  //region Flavor Dimensions
-
-  flavorDimensions "type"
 
   //endregion
 
@@ -59,22 +55,7 @@ android {
   //region Kotlin Options
 
   kotlinOptions {
-    jvmTarget = JavaVersion.VERSION_1_8
-  }
-
-  //endregion
-
-  //region Product Flavors
-
-  productFlavors {
-
-    dev {
-      dimension "type"
-    }
-
-    prod {
-      dimension "type"
-    }
+    jvmTarget = JavaVersion.VERSION_11
   }
 
   //endregion
@@ -88,7 +69,7 @@ dependencies {
 
   //region Androidx
 
-  api deps.androidx.material
+  api libs.androidx.material
 
   //endregion
 
@@ -100,57 +81,56 @@ dependencies {
 
   //region Debugging
 
-  implementation deps.misc.timber
+  implementation libs.timber
 
   //endregion
 
   //region Dependency Injection
 
-  api deps.dagger.android
-  api deps.dagger.android_support
-  api deps.dagger.runtime
-  compileOnly deps.dagger.annotation
-  kapt deps.dagger.android_processor
-  kapt deps.dagger.compiler
+  api libs.dagger.android
+  api libs.dagger.android.support
+  api libs.dagger.runtime
+  compileOnly libs.dagger.annotation
+  kapt libs.dagger.android.processor
+  kapt libs.dagger.compiler
 
   //endregion
 
   //region Firebase
 
-  api platform(deps.firebase.bom)
+  api platform(libs.firebase.bom)
 
   //endregion
 
   //region Kotlin
 
-  api deps.kotlin.stdlib_jdk8
+  api libs.kotlin.stdlib.jdk8
 
   //endregion
 
   //region Lifecycle
 
-  api deps.lifecycle.ext
-  api deps.lifecycle.livedata
+  api libs.lifecycle.livedata
 
   //endregion
 
   //region Limbo
 
-  api deps.limbo.mvvm
-  api deps.limbo.mvvm_dagger
-  api deps.limbo.recycler_view
+  api libs.limbo.mvvm
+  api libs.limbo.mvvm.dagger
+  api libs.limbo.recyclerview
 
   //endregion
 
   //region Miscellaneous
 
-  api deps.misc.joda_time
+  api libs.jodatime
 
   //endregion
 
   //region Ui
 
-  implementation deps.ui.lottie
+  implementation libs.lottie
 
   //endregion
 }

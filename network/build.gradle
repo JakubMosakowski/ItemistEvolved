@@ -10,13 +10,15 @@ apply plugin: "kotlin-kapt"
 
 android {
 
+    namespace "com.jakmos.itemistevolved.network"
+
     //region Compile
 
-    compileSdkVersion deps.build_versions.compile_sdk
+    compileSdkVersion libs.versions.compile.sdk.get()
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
 
     //endregion
@@ -25,17 +27,11 @@ android {
 
     defaultConfig {
         dimension "type"
-        minSdkVersion deps.build_versions.min_sdk
-        targetSdkVersion deps.build_versions.target_sdk
+        minSdkVersion libs.versions.min.sdk.get()
+        targetSdkVersion libs.versions.target.sdk.get()
         versionCode = getAutoVersionCode()
         versionName = getAutoVersionName()
     }
-
-    //endregion
-
-    //region Flavor Dimensions
-
-    flavorDimensions "type"
 
     //endregion
 
@@ -59,20 +55,7 @@ android {
     //region Kotlin Options
 
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_1_8
-    }
-
-    //endregion
-
-    //region Product Flavors
-
-    productFlavors {
-        dev {
-            dimension "type"
-        }
-        prod {
-            dimension "type"
-        }
+        jvmTarget = JavaVersion.VERSION_11
     }
 
     //endregion
@@ -98,21 +81,21 @@ dependencies {
 
     //region Dependency Injection
 
-    compileOnly deps.dagger.annotation
-    kapt deps.dagger.android_processor
-    kapt deps.dagger.compiler
+    compileOnly libs.dagger.annotation
+    kapt libs.dagger.android.processor
+    kapt libs.dagger.compiler
 
     //endregion
 
     //region Firebase
 
-    api deps.firebase.config
+    api libs.firebase.config
 
     //endregion
 
     //region Kotlin
 
-    implementation deps.kotlin.coroutines_play_services
+    implementation libs.kotlin.coroutines.play.services
 
     //endregion
 }

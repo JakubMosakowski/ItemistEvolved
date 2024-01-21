@@ -10,6 +10,8 @@ apply plugin: "kotlin-kapt"
 
 android {
 
+    namespace "com.jakmos.itemistevolved.domain"
+
     //region Build Configuration
 
     buildTypes {
@@ -29,11 +31,11 @@ android {
 
     //region Compile
 
-    compileSdkVersion deps.build_versions.compile_sdk
+    compileSdkVersion libs.versions.compile.sdk.get()
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
 
     //endregion
@@ -42,37 +44,18 @@ android {
 
     defaultConfig {
         dimension "type"
-        minSdkVersion deps.build_versions.min_sdk
-        targetSdkVersion deps.build_versions.target_sdk
+        minSdkVersion libs.versions.min.sdk.get()
+        targetSdkVersion libs.versions.target.sdk.get()
         versionCode = getAutoVersionCode()
         versionName = getAutoVersionName()
     }
 
     //endregion
 
-    //region Flavor Dimensions
-
-    flavorDimensions "type"
-
-    //endregion
-
     //region Kotlin Options
 
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_1_8
-    }
-
-    //endregion
-
-    //region Product Flavors
-
-    productFlavors {
-        dev {
-            dimension "type"
-        }
-        prod {
-            dimension "type"
-        }
+        jvmTarget = JavaVersion.VERSION_11
     }
 
     //endregion
@@ -86,9 +69,9 @@ dependencies {
 
     //region Annotation Processors
 
-    kapt deps.dagger.android_processor
-    kapt deps.dagger.compiler
-    kapt deps.misc.mapstruct_processor
+    kapt libs.dagger.android.processor
+    kapt libs.dagger.compiler
+    kapt libs.mapstruct.processor
 
     //endregion
 
@@ -108,13 +91,13 @@ dependencies {
 
     //region Dependency Injection
 
-    compileOnly deps.dagger.annotation
+    compileOnly libs.dagger.annotation
 
     //endregion
 
     //region Mapping
 
-    api deps.misc.mapstruct
+    api libs.mapstruct
 
     //endregion
 }

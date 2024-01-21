@@ -25,6 +25,8 @@ keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 
 android {
 
+  namespace "com.jakmos.itemistevolved"
+
   //region Build Configuration
 
   testBuildType obtainTestBuildType()
@@ -65,11 +67,11 @@ android {
 
   //region Compile Options
 
-  compileSdkVersion deps.build_versions.compile_sdk
+  compileSdkVersion libs.versions.compile.sdk.get()
 
   compileOptions {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
   }
 
   //endregion
@@ -86,8 +88,8 @@ android {
   //region Default Config
 
   defaultConfig {
-    minSdkVersion deps.build_versions.min_sdk
-    targetSdkVersion deps.build_versions.target_sdk
+    minSdkVersion libs.versions.min.sdk.get()
+    targetSdkVersion libs.versions.target.sdk.get()
     applicationId "com.jakmos.itemistevolved"
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     testInstrumentationRunnerArguments clearPackageData: 'true'
@@ -112,7 +114,7 @@ android {
   //region Kotlin Options
 
   kotlinOptions {
-    jvmTarget = JavaVersion.VERSION_1_8
+    jvmTarget = JavaVersion.VERSION_11
   }
 
   //endregion
@@ -173,74 +175,74 @@ dependencies {
 
   //region AndroidX
 
-  implementation deps.androidx.constraint
-  implementation deps.androidx.navigation_fragment
-  implementation deps.androidx.navigation_ui
-  implementation deps.androidx.recyclerview
-  implementation deps.androidx.swiperefreshlayout
+  implementation libs.androidx.constraint
+  implementation libs.androidx.navigation.fragment
+  implementation libs.androidx.navigation.ui
+  implementation libs.androidx.recyclerview
+  implementation libs.androidx.swiperefreshlayout
 
   //endregion
 
   //region Dependency Injection
 
-  compileOnly deps.dagger.annotation
-  kapt deps.dagger.android_processor
-  kapt deps.dagger.compiler
+  compileOnly libs.dagger.annotation
+  kapt libs.dagger.android.processor
+  kapt libs.dagger.compiler
 
   //endregion
 
   //region Fast Adapter
 
-  implementation deps.fast_adapter.binding
-  implementation deps.fast_adapter.core
-  implementation deps.fast_adapter.diff
-  implementation deps.fast_adapter.drag
-  implementation deps.fast_adapter.expandable
-  implementation deps.fast_adapter.ui
-  implementation deps.fast_adapter.utils
+  implementation libs.fast.adapter.binding
+  implementation libs.fast.adapter.core
+  implementation libs.fast.adapter.diff
+  implementation libs.fast.adapter.drag
+  implementation libs.fast.adapter.expandable
+  implementation libs.fast.adapter.ui
+  implementation libs.fast.adapter.utils
 
   //endregion
 
   //region Firebase
 
-  implementation deps.firebase.analytics
-  implementation deps.firebase.crashlytics
-  implementation deps.firebase.messaging
+  implementation libs.firebase.analytics
+  implementation libs.firebase.crashlytics
+  implementation libs.firebase.messaging
 
   //endregion
 
   //region Ui
 
-  implementation deps.ui.lottie
-  implementation deps.ui.material_dialogs
+  implementation libs.lottie
+  implementation libs.material.dialogs
 
   //endregion
 
   //region Kotlin
 
-  implementation deps.kotlin.coroutines
+  implementation libs.kotlin.coroutines
 
   //endregion
 
   //region Unit, Instrumentation and Integration Test
 
-  androidTestImplementation deps.test.barista
-  androidTestImplementation deps.test.espresso
-  androidTestImplementation deps.test.junit_ktx
-  androidTestImplementation deps.test.mockito_core
-  androidTestImplementation deps.test.mockito_inline
-  androidTestImplementation deps.test.rules
-  androidTestImplementation deps.test.runner
-  androidTestImplementation deps.test.test_core
-  androidTestImplementation deps.test.truth
-  androidTestUtil deps.test.orchestrator
+  androidTestImplementation libs.test.barista
+  androidTestImplementation libs.test.espresso
+  androidTestImplementation libs.test.junit.ktx
+  androidTestImplementation libs.test.mockito.core
+  androidTestImplementation libs.test.mockito.inline
+  androidTestImplementation libs.test.rules
+  androidTestImplementation libs.test.runner
+  androidTestImplementation libs.test.test.core
+  androidTestImplementation libs.test.truth
+  androidTestUtil libs.test.orchestrator
 
-  testImplementation deps.test.core_testing
-  testImplementation deps.test.coroutines_test
-  testImplementation deps.test.junit
-  testImplementation deps.test.mockito_core
-  testImplementation deps.test.mockito_inline
-  testImplementation deps.test.truth
+  testImplementation libs.test.core.testing
+  testImplementation libs.test.coroutines.test
+  testImplementation libs.test.junit
+  testImplementation libs.test.mockito.core
+  testImplementation libs.test.mockito.inline
+  testImplementation libs.test.truth
 
   //endregion
 }
