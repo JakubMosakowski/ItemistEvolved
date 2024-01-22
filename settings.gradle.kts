@@ -13,9 +13,9 @@ dependencyResolutionManagement {
     }
 }
 
-include ":application"
-include ":domain"
-include ":network"
-include ":persistence"
-include ":utility"
+include(":application")
+include(":domain")
+include(":network")
+include(":persistence")
+include(":utility")
 

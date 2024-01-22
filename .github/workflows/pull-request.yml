@@ -48,7 +48,7 @@ jobs:
           filename: "application/src/dev/google-services.json"
 
       - name: Build the app
-        run: ./gradlew clean :application:assembleDevDebug
+        run: ./gradlew :application:assembleDevDebug
 
       - name: Start tests
         run: ./gradlew testDevDebugUnitTest

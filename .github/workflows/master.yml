@@ -46,7 +46,7 @@ jobs:
           filename: "application/src/prod/google-services.json"
 
       - name: Build the app
-        run: ./gradlew clean :application:assembleProdRelease
+        run: ./gradlew :application:assembleProdRelease
 
       - name: Build the instrumentation tests apk
         run: ./gradlew :application:assembleProdReleaseAndroidTest -PtestBuildType=release
