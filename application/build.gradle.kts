@@ -328,11 +328,10 @@ fun getLastMasterGitTagVersion(): List<String> {
 
 fun getReleaseNotes(): String {
     val commit = getLatestSavedCommit()
-    val format = "\"%h %ad %an: %s\""
     val gitLog = if (commit.isEmpty())
-        "git log develop --no-merges --date=short --pretty=format:$format -10"
+        "git log develop --no-merges --date=short --pretty=format:\"%h %ad %an: %s\" -10"
     else
-        "git log develop --no-merges --date=short --pretty=format:$format $commit...HEAD"
+        "git log develop --no-merges --date=short --pretty=format:\"%h %ad %an: %s\" $commit...HEAD"
 
     var releaseNotes = executeCommand(gitLog)
 
