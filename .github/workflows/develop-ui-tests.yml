@@ -1,4 +1,4 @@
-name: Push Develop Workflow
+name: Develop Run Ui Tests
 
 on:
   push:
@@ -15,25 +15,12 @@ jobs:
           ref: ${{ github.head_ref }}
           fetch-depth: 0
 
-      - name: Get release-notes.txt
-        run: ./gradlew downloadReleaseNotesTask -Pgithub_token=${{ secrets.GET_ARTIFACT_TOKEN }}
-
-      - name: Create dev release notes
-        run: ./gradlew createReleaseNotesTask
-
       - name: Add debug key
         uses: JakubMosakowski/secret-into-file-action@v1.0.0
         with:
           secret: ${{ secrets.DEBUG_KEYSTORE }}
           passphrase: ${{ secrets.DEBUG_KEYSTORE_PASSPHRASE }}
           filename: "settings/keystore/debug.jks"
-
-      - name: Add firebase service credentials file
-        uses: JakubMosakowski/secret-into-file-action@v1.0.0
-        with:
-          secret: ${{ secrets.FIREBASE_CREDENTIALS_FILE }}
-          passphrase: ${{ secrets.FIREBASE_CREDENTIALS_PASSPHRASE }}
-          filename: "settings/distribute/firebase-app-distribution.json"
 
       - name: Add google service file
         uses: JakubMosakowski/secret-into-file-action@v1.0.0
@@ -45,11 +32,24 @@ jobs:
       - name: Build the app
         run: ./gradlew :application:assembleDevDebug
 
-      - name: Send to testers
-        run: ./gradlew :application:appDistributionUploadDevDebug
+      - name: Build the instrumentation tests apk
+        run: ./gradlew :application:assembleDevDebugAndroidTest
 
-      - name: Save release notes file
-        uses: actions/upload-artifact@v4
+      - name: Auth Cloud SDK
+        uses: google-github-actions/auth@v2
         with:
-          name: release-notes.txt
-          path: settings/distribute/release-notes.txt
+          credentials_json: ${{ secrets.GCLOUD_AUTH }}
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+        with:
+          project_id: ${{ secrets.GCLOUD_PROJECT_ID }}
+
+      - name: Start UI tests
+        run: gcloud firebase test android run
+              --type instrumentation
+              --use-orchestrator
+              --app application/build/outputs/apk/dev/debug/application-dev-debug.apk
+              --test application/build/outputs/apk/androidTest/dev/debug/application-dev-debug-androidTest.apk
+              --device model=Pixel2,version=29,orientation=portrait
+              --environment-variables clearPackageData=true

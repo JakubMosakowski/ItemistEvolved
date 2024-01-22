@@ -1,10 +1,10 @@
-name: Pull Request Workflow
+name: Develop Run Robo Tests
 
 on:
-  pull_request:
+  push:
     branches: [ develop ]
 
-jobs:
+jobs:  
   build:
     runs-on: ubuntu-latest
     steps:
@@ -22,13 +22,6 @@ jobs:
           passphrase: ${{ secrets.DEBUG_KEYSTORE_PASSPHRASE }}
           filename: "settings/keystore/debug.jks"
 
-      - name: Add firebase service credentials file
-        uses: JakubMosakowski/secret-into-file-action@v1.0.0
-        with:
-          secret: ${{ secrets.FIREBASE_CREDENTIALS_FILE }}
-          passphrase: ${{ secrets.FIREBASE_CREDENTIALS_PASSPHRASE }}
-          filename: "settings/distribute/firebase-app-distribution.json"
-
       - name: Add google service file
         uses: JakubMosakowski/secret-into-file-action@v1.0.0
         with:
@@ -39,5 +32,19 @@ jobs:
       - name: Build the app
         run: ./gradlew :application:assembleDevDebug
 
-      - name: Start tests
-        run: ./gradlew testDevDebugUnitTest
+      - name: Auth Cloud SDK
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCLOUD_AUTH }}
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+        with:
+          project_id: ${{ secrets.GCLOUD_PROJECT_ID }}
+
+      - name: Start Robo tests
+        run: gcloud firebase test android run
+              --type robo
+              --app application/build/outputs/apk/dev/debug/application-dev-debug.apk
+              --device model=Pixel2,version=29,orientation=portrait
+              --timeout 300s

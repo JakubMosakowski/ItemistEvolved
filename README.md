@@ -2,7 +2,7 @@
 
 ## Compatibility
 
-This application targets Android (6.0) Marshmallow and newer.
+This application targets Android (8.0) Oreo and newer.
 
 ## Project Modules
 
@@ -49,11 +49,3 @@ How to store files in secrets:
   - Encrypt: gpg -c --armor file
   - Decrypt: use this github action - https://github.com/marketplace/actions/secret-into-file-action
   - Manual decrypt: gpg -d --passphrase [Password] --batch file.asc > resultfile
-
-## Gradle properties
-
-There are available options that can be configured in `utility\gradle.properties` file.
-
-> Note that you can find `gradle.properties.sample` file in application modules. If you would like to use default values, just copy this file and paste as `gradle.properties`.
-
-After preparing `gradle.properties` file you have to synchronize your Gradle build. This allows to generate `BuildConfig` class with required constant variables.

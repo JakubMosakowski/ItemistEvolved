@@ -36,9 +36,6 @@ jobs:
           draft: false
           prerelease: false
 
-      - name: Create gradle properties
-        run: echo $GRADLE_PROPERTIES > utility/gradle.properties
-
       - name: Add release key
         uses: JakubMosakowski/secret-into-file-action@v1.0.0
         with:
