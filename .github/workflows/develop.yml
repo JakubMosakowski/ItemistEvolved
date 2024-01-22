@@ -81,7 +81,7 @@ jobs:
         run: ./gradlew :application:appDistributionUploadDevDebug
 
       - name: Save release notes file
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: release-notes.txt
           path: settings/distribute/release-notes.txt
