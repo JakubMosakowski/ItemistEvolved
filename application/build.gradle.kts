@@ -304,7 +304,7 @@ fun getProductionVersionCode(): Int {
 }
 
 fun getCurrentBranch(): String =
-    executeCommand("git rev-parse --abbrev-ref HEAD")
+    executeCommand("git", "rev-parse", "--abbrev-ref", "HEAD")
 
 fun getBuildDate(): String {
     val df = SimpleDateFormat("dd.MM.yyyy")
@@ -313,11 +313,11 @@ fun getBuildDate(): String {
 }
 
 fun getGitCommitsCount(): String {
-    return executeCommand("git rev-list ${getCurrentBranch()} --count")
+    return executeCommand("git", "rev-list", getCurrentBranch(), "--count")
 }
 
 fun getLastMasterGitTagVersion(): List<String> {
-    val name = executeCommand("git describe --tags ${getCurrentBranch()} --long")
+    val name = executeCommand("git", "describe", "--tags", getCurrentBranch(), "--long")
         .replace("v", "")
         .trim()
 
@@ -328,12 +328,13 @@ fun getLastMasterGitTagVersion(): List<String> {
 
 fun getReleaseNotes(): String {
     val commit = getLatestSavedCommit()
+    val format = "\\\"%h %ad %an: %s\\\""
     val gitLog = if (commit.isEmpty())
-        "git log develop --no-merges --date=short --pretty=format:\"%h %ad %an: %s\" -10"
+        listOf("git", "log", "develop", "--no-merges", "--date=short", "--pretty=format:$format", "-10")
     else
-        "git log develop --no-merges --date=short --pretty=format:\"%h %ad %an: %s\" $commit...HEAD"
+        listOf("git", "log", "develop", "--no-merges", "--date=short", "--pretty=format:$format", "$commit...HEAD")
 
-    var releaseNotes = executeCommand(gitLog)
+    var releaseNotes = executeCommand(*gitLog.toTypedArray())
 
     if (releaseNotes.isEmpty()) {
         releaseNotes = getReleaseNotesFile().readText().trim()
@@ -389,13 +390,11 @@ fun downloadReleaseNotes(token: String?) {
 
     println("Error (if happened) during fetching artifact: ${process.errorStream.bufferedReader().readText()}\n")
 
-    executeCommand("unzip -o -a settings/distribute/releaseNotes.zip -d settings/distribute")
+    executeCommand("unzip", "-o", "-a", "settings/distribute/releaseNotes.zip", "-d", "settings/distribute")
 }
 
-// Utility function to execute shell commands
-fun executeCommand(command: String): String {
-    val parts = command.split("\\s".toRegex())
-    val process = ProcessBuilder(*parts.toTypedArray())
+fun executeCommand(vararg command: String): String {
+    val process = ProcessBuilder(*command)
         .redirectErrorStream(true)
         .start()
     return process.inputStream.bufferedReader().readText().trim()
