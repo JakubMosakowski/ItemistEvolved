@@ -1,9 +1,9 @@
 //region Startup Plugins
 
 plugins {
-  id("com.android.library")
-  kotlin("android")
-  kotlin("kapt")
+    id("com.android.library")
+    kotlin("android")
+    kotlin("kapt")
 }
 
 //endregion
@@ -11,50 +11,56 @@ plugins {
 //region Android
 
 android {
-  namespace = "com.jakmos.itemistevolved.utility"
+    namespace = "com.jakmos.itemistevolved.utility"
 
-  //region Compile Options
+    //region Compile Options
 
-  compileSdkVersion(libs.versions.compile.sdk.get())
+    compileSdkVersion(libs.versions.compile.sdk.get())
 
-  compileOptions {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
-  }
-
-  //endregion
-
-  //region Default Config
-
-  defaultConfig {
-    minSdkVersion(libs.versions.min.sdk.get())
-    targetSdkVersion(libs.versions.target.sdk.get())
-  }
-
-  //endregion
-
-  //region Build Types
-
-  buildTypes {
-    getByName("debug") {
-      isMinifyEnabled = false
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
-    getByName("release") {
-      isMinifyEnabled = true
-      proguardFiles(getDefaultProguardFile("proguard-android.txt"), rootProject.file("settings/proguard/proguard-rules.pro"))
-      testProguardFiles(getDefaultProguardFile("proguard-android.txt"), rootProject.file("settings/proguard/proguard-rules.pro"))
+
+    //endregion
+
+    //region Default Config
+
+    defaultConfig {
+        minSdkVersion(libs.versions.min.sdk.get())
+        targetSdkVersion(libs.versions.target.sdk.get())
     }
-  }
 
-  //endregion
+    //endregion
 
-  //region Kotlin Options
+    //region Build Types
 
-  kotlinOptions {
-    jvmTarget = JavaVersion.VERSION_11.toString()
-  }
+    buildTypes {
+        getByName("debug") {
+            isMinifyEnabled = false
+        }
+        getByName("release") {
+            isMinifyEnabled = true
+            proguardFiles(
+                getDefaultProguardFile("proguard-android.txt"),
+                rootProject.file("settings/proguard/proguard-rules.pro")
+            )
+            testProguardFiles(
+                getDefaultProguardFile("proguard-android.txt"),
+                rootProject.file("settings/proguard/proguard-rules.pro")
+            )
+        }
+    }
 
-  //endregion
+    //endregion
+
+    //region Kotlin Options
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_11.toString()
+    }
+
+    //endregion
 }
 
 //endregion
@@ -62,66 +68,66 @@ android {
 //region Dependencies
 
 dependencies {
-  //region Androidx
+    //region Androidx
 
-  api(libs.androidx.material)
+    api(libs.androidx.material)
 
-  //endregion
+    //endregion
 
-  //region Debugging
+    //region Debugging
 
-  implementation(libs.timber)
+    implementation(libs.timber)
 
-  //endregion
+    //endregion
 
-  //region Dependency Injection
+    //region Dependency Injection
 
-  api(libs.dagger.android)
-  api(libs.dagger.android.support)
-  api(libs.dagger.runtime)
-  compileOnly(libs.dagger.annotation)
-  kapt(libs.dagger.android.processor)
-  kapt(libs.dagger.compiler)
+    api(libs.dagger.android)
+    api(libs.dagger.android.support)
+    api(libs.dagger.runtime)
+    compileOnly(libs.dagger.annotation)
+    kapt(libs.dagger.android.processor)
+    kapt(libs.dagger.compiler)
 
-  //endregion
+    //endregion
 
-  //region Firebase
+    //region Firebase
 
-  api(platform(libs.firebase.bom))
+    api(platform(libs.firebase.bom))
 
-  //endregion
+    //endregion
 
-  //region Kotlin
+    //region Kotlin
 
-  api(libs.kotlin.stdlib.jdk8)
+    api(libs.kotlin.stdlib.jdk8)
 
-  //endregion
+    //endregion
 
-  //region Lifecycle
+    //region Lifecycle
 
-  api(libs.lifecycle.livedata)
+    api(libs.lifecycle.livedata)
 
-  //endregion
+    //endregion
 
-  //region Limbo
+    //region Limbo
 
-  api(libs.limbo.mvvm)
-  api(libs.limbo.mvvm.dagger)
-  api(libs.limbo.recyclerview)
+    api(libs.limbo.mvvm)
+    api(libs.limbo.mvvm.dagger)
+    api(libs.limbo.recyclerview)
 
-  //endregion
+    //endregion
 
-  //region Miscellaneous
+    //region Miscellaneous
 
-  api(libs.jodatime)
+    api(libs.jodatime)
 
-  //endregion
+    //endregion
 
-  //region Ui
+    //region Ui
 
-  implementation(libs.lottie)
+    implementation(libs.lottie)
 
-  //endregion
+    //endregion
 }
 
 //endregion

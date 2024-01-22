@@ -41,8 +41,14 @@ android {
         }
         getByName("release") {
             isMinifyEnabled = true
-            proguardFiles(getDefaultProguardFile("proguard-android.txt"), rootProject.file("settings/proguard/proguard-rules.pro"))
-            testProguardFiles(getDefaultProguardFile("proguard-android.txt"), rootProject.file("settings/proguard/proguard-rules.pro"))
+            proguardFiles(
+                getDefaultProguardFile("proguard-android.txt"),
+                rootProject.file("settings/proguard/proguard-rules.pro")
+            )
+            testProguardFiles(
+                getDefaultProguardFile("proguard-android.txt"),
+                rootProject.file("settings/proguard/proguard-rules.pro")
+            )
         }
     }
 
