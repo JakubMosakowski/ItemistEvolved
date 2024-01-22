@@ -11,8 +11,9 @@ jobs:
     steps:
 
       - name: Checkout the code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
+          ref: ${{ github.head_ref }}
           fetch-depth: 0
 
       - name: Read Release Notes
@@ -67,7 +68,7 @@ jobs:
           filename: "application/src/prod/google-services.json"
 
       - name: Build the app
-        run: ./gradlew clean :application:bundleProdRelease
+        run: ./gradlew :application:bundleProdRelease
 
       - name: Upload to play store
         uses: r0adkll/upload-google-play@v1
