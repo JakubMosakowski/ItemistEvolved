@@ -320,7 +320,7 @@ fun getLastMasterGitTagVersion(): List<String> {
     val name = executeCommand("git describe --tags ${getCurrentBranch()} --long")
         .replace("v", "")
         .trim()
-    println("KUBA branch name: ${getCurrentBranch()}")
+
     val (tag, build, sha) = name.split('-')
     val (major, minor, patch) = tag.split('.')
     return listOf(major, minor, patch, build, sha)
