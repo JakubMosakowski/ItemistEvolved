@@ -362,7 +362,7 @@ fun downloadReleaseNotes(token: String?) {
     }
     val response = BufferedReader(InputStreamReader(connection.inputStream)).use { it.readText() }
     val resultObject = JSONObject(response)
-    val artifactObject = resultObject.getJSONArray("artifacts").toList().find {
+    val artifactObject = resultObject.getJSONArray("artifacts").find {
         val artifact = it as JSONObject
         artifact.getString("name") == "release-notes.txt"
     } as JSONObject?
@@ -370,6 +370,8 @@ fun downloadReleaseNotes(token: String?) {
     if (artifactObject == null) {
         println("No artifact found.")
         return
+    } else {
+        println("Release notes found. Downloading from: ${artifactObject.getString("archive_download_url")}")
     }
 
     val artifactUrl = artifactObject.getString("archive_download_url")
@@ -384,13 +386,12 @@ fun downloadReleaseNotes(token: String?) {
         "authorization: Bearer $token",
         "--header",
         "content-type: application/json"
-    )
-        .start()
+    ).start()
     process.waitFor()
 
-    println("Error (if happened) during fetching artifact: ${process.errorStream.bufferedReader().readText()}\n")
-
-    executeCommand("unzip", "-o", "-a", "settings/distribute/releaseNotes.zip", "-d", "settings/distribute")
+    val output =
+        executeCommand("unzip", "-o", "-a", "settings/distribute/releaseNotes.zip", "-d", "settings/distribute")
+    println("Unziped output: $output")
 }
 
 fun executeCommand(vararg command: String): String {

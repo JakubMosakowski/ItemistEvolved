@@ -6,4 +6,3 @@ plugins {
     alias(libs.plugins.kotlin.gradle.plugin) apply false
     alias(libs.plugins.navigation.safe.args) apply false
 }
-

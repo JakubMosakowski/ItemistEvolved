@@ -22,5 +22,12 @@ jobs:
           passphrase: ${{ secrets.DEBUG_KEYSTORE_PASSPHRASE }}
           filename: "settings/keystore/debug.jks"
 
+      - name: Add google service file
+        uses: JakubMosakowski/secret-into-file-action@v1.0.0
+        with:
+          secret: ${{ secrets.GOOGLE_SERVICE_FILE }}
+          passphrase: ${{ secrets.GOOGLE_SERVICE_PASSPHRASE }}
+          filename: "application/src/dev/google-services.json"
+
       - name: Start tests
         run: ./gradlew testDevDebugUnitTest
